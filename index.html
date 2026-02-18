@@ -157,17 +157,37 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 .set-num{font-size:11px;font-weight:700;color:var(--g400);font-family:'DM Mono',monospace;
   width:24px;text-align:center;flex-shrink:0}
 
-/* ── STEPPER ── */
-.stepper{flex:1;display:flex;align-items:center;background:var(--g100);border-radius:10px;overflow:hidden;border:1.5px solid transparent;transition:border-color .15s}
-.stepper.active-field{border-color:var(--accent);background:var(--ag)}
-.step-btn{background:none;border:none;cursor:pointer;padding:0 13px;height:44px;
-  display:flex;align-items:center;justify-content:center;color:var(--navy2);
-  font-size:20px;font-weight:400;transition:background .12s;flex-shrink:0;user-select:none;-webkit-user-select:none}
-.step-btn:active{background:rgba(0,0,0,.06)}
-.step-val{flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:17px;
-  font-weight:500;color:var(--navy);line-height:1;padding:0 2px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;pointer-events:none}
-.step-unit{font-size:10px;font-weight:600;color:var(--g400);letter-spacing:.04em}
+/* ── SET DROPDOWNS ── */
+.set-dd-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+  background:var(--g100);border-radius:10px;padding:5px 6px;border:1.5px solid transparent;
+  transition:border-color .15s,background .15s;min-width:0}
+.set-dd-wrap.active-field{border-color:var(--accent);background:var(--ag)}
+.set-dd{width:100%;background:transparent;border:none;outline:none;
+  font-family:'DM Mono',monospace;font-size:16px;font-weight:500;color:var(--navy);
+  text-align:center;cursor:pointer;padding:4px 0;appearance:none;-webkit-appearance:none}
+.set-dd option{background:var(--w);color:var(--navy);font-size:14px}
+.set-dd-unit{font-size:10px;font-weight:700;color:var(--g400);letter-spacing:.06em;text-transform:uppercase;pointer-events:none}
+
+/* ── REST TIMER ── */
+.rest-timer{position:fixed;bottom:calc(70px + var(--safe-b) + 10px);left:50%;
+  transform:translateX(-50%) scale(.88);background:var(--navy);color:#fff;
+  padding:10px 20px 10px 16px;border-radius:40px;font-size:14px;font-weight:600;
+  opacity:0;transition:opacity .25s,transform .25s;z-index:790;
+  white-space:nowrap;box-shadow:0 8px 32px rgba(27,39,53,.3);pointer-events:none;
+  display:flex;align-items:center;gap:10px}
+.rest-timer.show{opacity:1;transform:translateX(-50%) scale(1);animation:timerIn .3s cubic-bezier(.34,1.4,.64,1) forwards}
+.rest-timer-bar{width:80px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;overflow:hidden}
+.rest-timer-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .9s linear}
+
+/* ── WORKOUT STATS MINI CARD ── */
+.wk-stats{display:flex;gap:8px;margin-bottom:12px}
+.wk-stat{flex:1;background:var(--w);border-radius:var(--rcard);padding:12px 10px;
+  text-align:center;box-shadow:var(--sh)}
+.wk-stat-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--navy)}
+.wk-stat-lbl{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--g400);margin-top:2px}
+
+/* ── HOLD-TO-CHANGE indicator (kept for compat) ── */
+.step-btn.holding{background:rgba(74,144,217,.15)}
 
 .set-ck{width:40px;height:44px;border-radius:10px;border:2px solid var(--g200);
   background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;
@@ -273,26 +293,72 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 #confetti-cv{position:fixed;inset:0;pointer-events:none;z-index:900}
 
 /* ── ANIMATIONS ── */
-@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
-@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{
+  0%{transform:scale(.5) rotate(-8deg);opacity:0}
+  60%{transform:scale(1.12) rotate(2deg);opacity:1}
+  80%{transform:scale(.96) rotate(-1deg)}
+  100%{transform:scale(1) rotate(0deg);opacity:1}
+}
+@keyframes slideUp{
+  0%{opacity:0;transform:translateY(20px) scale(.97)}
+  60%{opacity:1;transform:translateY(-3px) scale(1.005)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes quoteIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-@keyframes quoteOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-6px)}}
-@keyframes checkPop{0%{transform:scale(1)}40%{transform:scale(1.3)}70%{transform:scale(.9)}100%{transform:scale(1)}}
-@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes ringPulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes quoteIn{
+  0%{opacity:0;transform:translateY(8px) scale(.97)}
+  70%{opacity:1;transform:translateY(-1px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+@keyframes quoteOut{
+  0%{opacity:1;transform:translateY(0)}
+  100%{opacity:0;transform:translateY(-10px) scale(.96)}
+}
+@keyframes checkPop{
+  0%{transform:scale(1)}
+  30%{transform:scale(1.35) rotate(-4deg)}
+  55%{transform:scale(.88) rotate(2deg)}
+  75%{transform:scale(1.08)}
+  100%{transform:scale(1) rotate(0deg)}
+}
+@keyframes cardIn{
+  0%{opacity:0;transform:translateY(22px) scale(.96)}
+  55%{opacity:1;transform:translateY(-4px) scale(1.005)}
+  80%{transform:translateY(1px) scale(.999)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes ringPulse{
+  0%,100%{opacity:1;filter:brightness(1)}
+  50%{opacity:.7;filter:brightness(1.3)}
+}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@keyframes screenSlideIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes screenSlideIn{
+  0%{opacity:0;transform:translateX(22px) scale(.98)}
+  65%{opacity:1;transform:translateX(-3px) scale(1.002)}
+  100%{opacity:1;transform:translateX(0) scale(1)}
+}
+@keyframes statPop{
+  0%{transform:scale(1)}
+  40%{transform:scale(1.18)}
+  70%{transform:scale(.94)}
+  100%{transform:scale(1)}
+}
+@keyframes timerIn{
+  0%{opacity:0;transform:translateX(-50%) translateY(12px) scale(.9)}
+  60%{opacity:1;transform:translateX(-50%) translateY(-2px) scale(1.02)}
+  100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+}
 
-.su{animation:slideUp .32s cubic-bezier(.22,.68,0,1.2) forwards}
-.su:nth-child(1){animation-delay:.04s}
-.su:nth-child(2){animation-delay:.08s}
-.su:nth-child(3){animation-delay:.12s}
-.su:nth-child(4){animation-delay:.16s}
-.su:nth-child(5){animation-delay:.2s}
-.su:nth-child(6){animation-delay:.24s}
-.card-in{animation:cardIn .35s cubic-bezier(.22,.68,0,1.1) forwards}
-.screen-in{animation:screenSlideIn .3s cubic-bezier(.22,.68,0,1.1) forwards}
+.su{animation:slideUp .28s cubic-bezier(.34,1.38,.64,1) both}
+.su:nth-child(1){animation-delay:.03s}
+.su:nth-child(2){animation-delay:.07s}
+.su:nth-child(3){animation-delay:.11s}
+.su:nth-child(4){animation-delay:.15s}
+.su:nth-child(5){animation-delay:.19s}
+.su:nth-child(6){animation-delay:.23s}
+.card-in{animation:cardIn .3s cubic-bezier(.34,1.3,.64,1) forwards}
+.screen-in{animation:screenSlideIn .28s cubic-bezier(.34,1.2,.64,1) forwards}
+.stat-pop{animation:statPop .3s cubic-bezier(.34,1.5,.64,1)}
 
 /* ── HOLD-TO-CHANGE indicator ── */
 .step-btn.holding{background:rgba(74,144,217,.15)}
@@ -429,6 +495,11 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
   </div>
 </div>
 
+<div class="rest-timer" id="rest-timer">
+  <span>⏱ Rust</span>
+  <span id="rest-timer-txt">1:30</span>
+  <div class="rest-timer-bar"><div class="rest-timer-fill" id="rest-timer-fill" style="width:100%"></div></div>
+</div>
 <div class="toast" id="toast"></div>
 <canvas id="confetti-cv"></canvas>
 </div><!-- #app -->
@@ -769,6 +840,9 @@ function renderWorkout() {
   const pct = totalSets ? doneSets / totalSets : 0;
   const C = 2 * Math.PI * 22;
 
+  const totalVol = sets.reduce((s, ex) => s + ex.sets.filter(st => st.done).reduce((a, st) => a + (parseFloat(st.weight)||0)*(parseInt(st.reps)||0), 0), 0);
+  const doneEx = sets.filter(ex => ex.sets.every(s => s.done) && ex.sets.length > 0).length;
+
   let html = `<div class="wk-hd su">
     <div class="wk-left">
       <div class="wk-day">${esc(prog.emoji)} ${esc(prog.name)}</div>
@@ -780,6 +854,20 @@ function renderWorkout() {
         <circle class="ring-f" cx="26" cy="26" r="22" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - pct)).toFixed(1)}"/>
       </svg>
       <div class="ring-txt">${doneSets}/${totalSets}</div>
+    </div>
+  </div>
+  <div class="wk-stats su">
+    <div class="wk-stat">
+      <div class="wk-stat-val" id="stat-vol">${totalVol > 0 ? (totalVol >= 1000 ? (totalVol/1000).toFixed(1)+'t' : totalVol+'kg') : '—'}</div>
+      <div class="wk-stat-lbl">Volume</div>
+    </div>
+    <div class="wk-stat">
+      <div class="wk-stat-val" id="stat-sets">${doneSets}</div>
+      <div class="wk-stat-lbl">Sets klaar</div>
+    </div>
+    <div class="wk-stat">
+      <div class="wk-stat-val" id="stat-ex">${doneEx}/${sets.length}</div>
+      <div class="wk-stat-lbl">Oefeningen</div>
     </div>
   </div>`;
 
@@ -816,12 +904,14 @@ function renderWorkout() {
   if (isOpen) {
     html += `<div class="add-ex-panel su">
       <div class="add-ex-title">➕ Oefening toevoegen</div>
-      <div class="add-ex-row">
-        <select class="msel" id="open-msel">${buildMachineOpts()}</select>
-        <select class="sets-sel" id="open-sets">
-          ${[1,2,3,4,5,6].map(n => `<option value="${n}"${n===3?' selected':''}>${n} sets</option>`).join('')}
-        </select>
-        <button class="btn-add" onclick="addOpenExercise()">Voeg toe</button>
+      <div class="add-ex-row" style="flex-direction:column;gap:8px">
+        <select class="msel" id="open-msel" style="width:100%">${buildMachineOpts()}</select>
+        <div style="display:flex;gap:8px;align-items:stretch">
+          <select class="sets-sel" id="open-sets" style="flex:1">
+            ${[1,2,3,4,5,6].map(n => `<option value="${n}"${n===3?' selected':''}>${n} sets</option>`).join('')}
+          </select>
+          <button class="btn-add" onclick="addOpenExercise()" style="flex:2">Voeg toe</button>
+        </div>
       </div>
     </div>`;
   }
@@ -842,18 +932,32 @@ function renderWorkout() {
   attachRipples();
 }
 
+function buildWeightOpts(cur) {
+  const vals = [];
+  for (let i = 0; i <= 300; i += 5) vals.push(i);
+  // also add 2.5kg increments near 0
+  const fine = [0,2.5,5,7.5,10,12.5,15,17.5,20,22.5,25,27.5,30,32.5,35,37.5,40,42.5,45,47.5,50,52.5,55,57.5,60,62.5,65,67.5,70,72.5,75,77.5,80,82.5,85,87.5,90,92.5,95,97.5,100,105,110,115,120,125,130,135,140,150,160,170,180,200,220,250,300];
+  const unique = [...new Set([...fine])].sort((a,b)=>a-b);
+  return unique.map(v => `<option value="${v}"${parseFloat(cur)===v?' selected':''}>${v % 1 === 0 ? v : v.toFixed(1)}</option>`).join('');
+}
+function buildRepsOpts(cur) {
+  return Array.from({length:51},(_,i)=>i).map(v=>`<option value="${v}"${parseInt(cur)===v?' selected':''}>${v}</option>`).join('');
+}
+
 function renderSetRow(ei, si, st) {
   return `<div class="set-row" id="row-${ei}-${si}">
     <div class="set-num">S${si + 1}</div>
-    <div class="stepper${st.done ? ' active-field' : ''}" id="sw-${ei}-${si}">
-      <button class="step-btn" id="wm-${ei}-${si}" data-ei="${ei}" data-si="${si}" data-field="weight" data-dir="-1">−</button>
-      <div class="step-val"><span id="wv-${ei}-${si}">${st.weight % 1 === 0 ? st.weight : st.weight.toFixed(1)}</span><span class="step-unit">kg</span></div>
-      <button class="step-btn" id="wp-${ei}-${si}" data-ei="${ei}" data-si="${si}" data-field="weight" data-dir="1">+</button>
+    <div class="set-dd-wrap${st.done ? ' active-field' : ''}" id="sw-${ei}-${si}">
+      <select class="set-dd" id="wv-${ei}-${si}" onchange="setWeight(${ei},${si},this.value)">
+        ${buildWeightOpts(st.weight)}
+      </select>
+      <span class="set-dd-unit">kg</span>
     </div>
-    <div class="stepper${st.done ? ' active-field' : ''}" id="sr-${ei}-${si}">
-      <button class="step-btn" id="rm-${ei}-${si}" data-ei="${ei}" data-si="${si}" data-field="reps" data-dir="-1">−</button>
-      <div class="step-val"><span id="rv-${ei}-${si}">${st.reps}</span><span class="step-unit">reps</span></div>
-      <button class="step-btn" id="rp-${ei}-${si}" data-ei="${ei}" data-si="${si}" data-field="reps" data-dir="1">+</button>
+    <div class="set-dd-wrap${st.done ? ' active-field' : ''}" id="sr-${ei}-${si}">
+      <select class="set-dd" id="rv-${ei}-${si}" onchange="setReps(${ei},${si},this.value)">
+        ${buildRepsOpts(st.reps)}
+      </select>
+      <span class="set-dd-unit">reps</span>
     </div>
     <button class="set-ck${st.done ? ' done' : ''}" id="ck-${ei}-${si}" onclick="toggleSet(${ei},${si})">
       <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -861,60 +965,26 @@ function renderSetRow(ei, si, st) {
   </div>`;
 }
 
+function setWeight(ei, si, val) {
+  if (!workout) return;
+  workout.sets[ei].sets[si].weight = parseFloat(val) || 0;
+  updatePRBadge(ei);
+}
+function setReps(ei, si, val) {
+  if (!workout) return;
+  workout.sets[ei].sets[si].reps = parseInt(val) || 0;
+  updatePRBadge(ei);
+}
+
 /* ══════════════════════════════════════
-   STEPPER LOGIC
+   STEPPER LOGIC (replaced by dropdowns — kept for compatibility)
 ══════════════════════════════════════ */
 function attachSteppers(ei, si) {
-  [['wm', 'weight', -1], ['wp', 'weight', 1], ['rm', 'reps', -1], ['rp', 'reps', 1]].forEach(([prefix, field, dir]) => {
-    const btnId = prefix + '-' + ei + '-' + si;
-    const btn = document.getElementById(btnId);
-    if (!btn) return;
-    setupStepBtn(btn, ei, si, field, dir);
-  });
+  // Dropdowns handle value changes via onchange; no steppers needed
 }
 
 function setupStepBtn(btn, ei, si, field, dir) {
-  let holdTimer = null;
-  let holdInterval = null;
-
-  function step() {
-    const st = workout.sets[ei].sets[si];
-    if (field === 'weight') {
-      let val = parseFloat(st.weight) || 0;
-      val = Math.max(0, Math.min(300, parseFloat((val + dir * 0.5).toFixed(1))));
-      st.weight = val;
-      const el = document.getElementById('wv-' + ei + '-' + si);
-      if (el) el.textContent = val % 1 === 0 ? val : val.toFixed(1);
-    } else {
-      let val = parseInt(st.reps) || 0;
-      val = Math.max(0, Math.min(100, val + dir));
-      st.reps = val;
-      const el = document.getElementById('rv-' + ei + '-' + si);
-      if (el) el.textContent = val;
-    }
-    updatePRBadge(ei);
-  }
-
-  function startHold() {
-    step();
-    btn.classList.add('holding');
-    holdTimer = setTimeout(() => {
-      holdInterval = setInterval(step, 80);
-    }, 400);
-  }
-
-  function endHold() {
-    btn.classList.remove('holding');
-    clearTimeout(holdTimer);
-    clearInterval(holdInterval);
-  }
-
-  btn.addEventListener('mousedown', startHold);
-  btn.addEventListener('touchstart', e => { e.preventDefault(); startHold(); }, { passive: false });
-  btn.addEventListener('mouseup', endHold);
-  btn.addEventListener('mouseleave', endHold);
-  btn.addEventListener('touchend', endHold);
-  btn.addEventListener('touchcancel', endHold);
+  // No-op: steppers replaced by dropdowns
 }
 
 function updatePRBadge(ei) {
@@ -972,6 +1042,58 @@ function toggleSet(ei, si) {
   if (ringEl) ringEl.classList.toggle('complete', pct >= 1);
 
   updatePRBadge(ei);
+
+  // Update mini stats
+  const totalVolNew = workout.sets.reduce((s, ex) => s + ex.sets.filter(st2 => st2.done).reduce((a, st3) => a + (parseFloat(st3.weight)||0)*(parseInt(st3.reps)||0), 0), 0);
+  const doneExNew = workout.sets.filter(ex => ex.sets.every(s2 => s2.done) && ex.sets.length > 0).length;
+  const sv = document.getElementById('stat-vol');
+  const ss = document.getElementById('stat-sets');
+  const se = document.getElementById('stat-ex');
+  if (sv) { sv.textContent = totalVolNew > 0 ? (totalVolNew >= 1000 ? (totalVolNew/1000).toFixed(1)+'t' : totalVolNew+'kg') : '—'; sv.classList.remove('stat-pop'); requestAnimationFrame(()=>sv.classList.add('stat-pop')); }
+  if (ss) { ss.textContent = doneSets; ss.classList.remove('stat-pop'); requestAnimationFrame(()=>ss.classList.add('stat-pop')); }
+  if (se) { se.textContent = doneExNew + '/' + workout.sets.length; }
+
+  // Start rest timer when set is marked done
+  if (st.done) startRestTimer(90);
+}
+
+/* ══════════════════════════════════════
+   REST TIMER
+══════════════════════════════════════ */
+let restInterval = null;
+let restTotal = 90;
+let restRemain = 0;
+
+function stopRestTimer() {
+  if (restInterval) clearInterval(restInterval);
+  restInterval = null;
+  const el = document.getElementById('rest-timer');
+  if (el) el.classList.remove('show');
+}
+
+function startRestTimer(secs) {
+  restTotal = secs;
+  restRemain = secs;
+  const el = document.getElementById('rest-timer');
+  const fill = document.getElementById('rest-timer-fill');
+  const txt = document.getElementById('rest-timer-txt');
+  if (!el) return;
+  if (restInterval) clearInterval(restInterval);
+  el.classList.add('show');
+  function update() {
+    const m = Math.floor(restRemain / 60);
+    const s = restRemain % 60;
+    txt.textContent = m + ':' + String(s).padStart(2,'0');
+    fill.style.width = ((restRemain / restTotal) * 100) + '%';
+    if (restRemain <= 0) {
+      clearInterval(restInterval);
+      el.classList.remove('show');
+      toast('✅ Rust voorbij — next set!');
+    }
+    restRemain--;
+  }
+  update();
+  restInterval = setInterval(update, 1000);
 }
 
 /* ══════════════════════════════════════
@@ -1005,6 +1127,7 @@ function finishWorkout() {
   setPRs(prs);
   pushHist({ date: Date.now(), programName: workout.prog.name, exercises: exArr });
   workout = null;
+  stopRestTimer();
   showScr('home');
   renderHome();
 
@@ -1018,6 +1141,7 @@ function finishWorkout() {
 function cancelWorkout() {
   if (!confirm('Training annuleren? Voortgang gaat verloren.')) return;
   workout = null;
+  stopRestTimer();
   showScr('home');
   renderHome();
 }
