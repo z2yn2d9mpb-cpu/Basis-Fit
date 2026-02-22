@@ -59,27 +59,71 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 .tab svg{width:19px;height:19px;fill:currentColor;flex-shrink:0}
 .tab.active{color:var(--navy);background:var(--g100)}
 
-/* ── ONBOARDING ── */
-#scr-onboard{background:var(--navy);align-items:center;justify-content:center;padding:52px 28px;gap:0}
+/* ── AUTH / ONBOARDING ── */
+#scr-onboard{background:var(--navy);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.auth-wrap{min-height:100dvh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:calc(52px + var(--safe-t)) 28px calc(40px + var(--safe-b));gap:0}
 .ob-icon{width:76px;height:76px;background:var(--accent);border-radius:20px;
-  display:flex;align-items:center;justify-content:center;margin-bottom:28px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px;
   box-shadow:0 0 56px rgba(74,144,217,.5)}
 .ob-icon svg{width:40px;height:40px;fill:#fff}
 .ob-title{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:6px}
-.ob-sub{color:var(--g400);font-size:14px;margin-bottom:48px;text-align:center}
-.ob-form{width:100%;display:flex;flex-direction:column;gap:12px}
+.ob-sub{color:var(--g400);font-size:14px;margin-bottom:32px;text-align:center}
+/* Google button */
+.btn-google{width:100%;background:#fff;color:#1a1a2e;border:none;
+  border-radius:var(--rsm);padding:15px 20px;font-family:'DM Sans',sans-serif;
+  font-size:15px;font-weight:600;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  box-shadow:0 4px 18px rgba(0,0,0,.25);transition:transform .12s,opacity .12s;margin-bottom:16px}
+.btn-google:active{transform:scale(.97);opacity:.9}
+.btn-google img{width:20px;height:20px}
+/* Auth tabs */
+.auth-tabs{display:flex;background:rgba(255,255,255,.07);border-radius:10px;padding:3px;
+  margin-bottom:16px;width:100%}
+.auth-tab{flex:1;padding:9px;border:none;background:transparent;border-radius:8px;
+  color:rgba(255,255,255,.5);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all .2s}
+.auth-tab.active{background:rgba(255,255,255,.12);color:#fff}
+.auth-form-panel{display:none;width:100%;flex-direction:column;gap:10px}
+.auth-form-panel.active{display:flex}
+.auth-divider{display:flex;align-items:center;gap:12px;margin:4px 0}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.1)}
+.auth-divider span{color:rgba(255,255,255,.3);font-size:12px;font-weight:600}
+.auth-switch{color:rgba(255,255,255,.4);font-size:13px;text-align:center;margin-top:8px}
+.auth-switch button{background:none;border:none;color:var(--accent);font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;padding:0}
+.auth-err{background:rgba(232,69,60,.15);border:1px solid rgba(232,69,60,.3);border-radius:8px;
+  padding:10px 14px;color:#ff7b75;font-size:13px;font-weight:500;display:none;text-align:center}
+.auth-err.show{display:block}
 .flbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:6px;display:block}
 .inp-dark{width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);
-  border-radius:var(--rsm);padding:15px 16px;color:#fff;
+  border-radius:var(--rsm);padding:14px 16px;color:#fff;
   font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;outline:none;
   transition:border-color .2s,background .2s}
 .inp-dark:focus{border-color:var(--accent);background:rgba(74,144,217,.08)}
 .inp-dark::placeholder{color:rgba(255,255,255,.2)}
 .btn-primary{width:100%;background:var(--accent);color:#fff;border:none;
-  border-radius:var(--rsm);padding:17px;font-family:'DM Sans',sans-serif;
+  border-radius:var(--rsm);padding:16px;font-family:'DM Sans',sans-serif;
   font-size:16px;font-weight:600;cursor:pointer;
   box-shadow:0 4px 18px rgba(74,144,217,.4);transition:transform .12s,opacity .12s}
 .btn-primary:active{transform:scale(.97);opacity:.9}
+.btn-primary:disabled{opacity:.5;pointer-events:none}
+/* Loading screen */
+#scr-loading{background:var(--navy);align-items:center;justify-content:center;gap:16px}
+.loading-logo{width:64px;height:64px;background:var(--accent);border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  animation:loadPulse 1.5s ease infinite;box-shadow:0 0 40px rgba(74,144,217,.4)}
+.loading-logo svg{width:34px;height:34px;fill:#fff}
+@keyframes loadPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.93);opacity:.7}}
+.loading-txt{color:rgba(255,255,255,.4);font-size:13px;font-weight:600}
+/* Sync indicator */
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--g200);
+  position:fixed;bottom:calc(var(--safe-b) + 80px);right:16px;z-index:600;
+  transition:background .3s,transform .3s}
+.sync-dot.syncing{background:var(--gold);animation:syncSpin .8s linear infinite}
+.sync-dot.synced{background:var(--green);animation:syncPop .4s ease}
+@keyframes syncSpin{to{transform:rotate(360deg)}}
+@keyframes syncPop{0%{transform:scale(1.6)}100%{transform:scale(1)}}
 
 /* ── SECTION LABEL ── */
 .slbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:10px;display:block}
@@ -562,14 +606,50 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 <body>
 <div id="app">
 
-<!-- ONBOARDING -->
+<!-- LOADING -->
+<div id="scr-loading" class="screen active">
+  <div class="loading-logo"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg></div>
+  <div class="loading-txt">Basis Fit laden…</div>
+</div>
+
+<!-- AUTH / ONBOARDING -->
 <div id="scr-onboard" class="screen">
-  <div class="ob-icon"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg></div>
-  <div class="ob-title">Basis Fit</div>
-  <div class="ob-sub">Jouw persoonlijke workout tracker</div>
-  <div class="ob-form">
-    <div><span class="flbl">Hoe heet je?</span><input id="inp-name" class="inp-dark" type="text" placeholder="Jouw voornaam…" autocomplete="given-name"/></div>
-    <button class="btn-primary" onclick="saveUser()">Aan de slag →</button>
+  <div class="auth-wrap">
+    <div class="ob-icon"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg></div>
+    <div class="ob-title">Basis Fit</div>
+    <div class="ob-sub">Jouw persoonlijke workout tracker</div>
+
+    <!-- Google button -->
+    <button class="btn-google" onclick="signInGoogle()">
+      <!-- Google G logo SVG -->
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+      Doorgaan met Google
+    </button>
+
+    <div class="auth-divider"><span>of met e-mail</span></div>
+
+    <!-- Auth tabs: login / register -->
+    <div class="auth-tabs" style="margin-top:4px">
+      <button class="auth-tab active" id="tab-login" onclick="authSwitchTab('login')">Inloggen</button>
+      <button class="auth-tab" id="tab-register" onclick="authSwitchTab('register')">Registreren</button>
+    </div>
+
+    <!-- Login form -->
+    <div class="auth-form-panel active" id="panel-login">
+      <input id="inp-email-login" class="inp-dark" type="email" placeholder="E-mailadres" autocomplete="email" inputmode="email"/>
+      <input id="inp-pw-login" class="inp-dark" type="password" placeholder="Wachtwoord" autocomplete="current-password"/>
+      <div class="auth-err" id="err-login"></div>
+      <button class="btn-primary" id="btn-login" onclick="signInEmail()">Inloggen →</button>
+    </div>
+
+    <!-- Register form -->
+    <div class="auth-form-panel" id="panel-register">
+      <input id="inp-name-reg" class="inp-dark" type="text" placeholder="Jouw naam" autocomplete="given-name"/>
+      <input id="inp-email-reg" class="inp-dark" type="email" placeholder="E-mailadres" autocomplete="email" inputmode="email"/>
+      <input id="inp-pw-reg" class="inp-dark" type="password" placeholder="Wachtwoord (min. 6 tekens)" autocomplete="new-password"/>
+      <div class="auth-err" id="err-register"></div>
+      <button class="btn-primary" id="btn-register" onclick="registerEmail()">Account aanmaken →</button>
+    </div>
   </div>
 </div>
 
@@ -687,6 +767,7 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
   <span id="rest-timer-txt">1:30</span>
   <div class="rest-timer-bar"><div class="rest-timer-fill" id="rest-timer-fill" style="width:100%"></div></div>
 </div>
+<div class="sync-dot" id="sync-dot" title="Data sync"></div>
 <div class="toast" id="toast"></div>
 <canvas id="confetti-cv"></canvas>
 </div><!-- #app -->
@@ -1149,6 +1230,23 @@ function renderSettingsBody() {
         </div>`:''}
       </div>
     </div>
+
+    <!-- Account / uitloggen -->
+    <div class="sett-section">
+      <span class="sett-section-lbl">Account</span>
+      <div class="sett-card">
+        <div class="sett-row">
+          <div class="sett-row-icon" style="background:var(--redbg)">
+            <svg viewBox="0 0 24 24" style="fill:var(--red)"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+          </div>
+          <div class="sett-row-info">
+            <div class="sett-row-label">Uitloggen</div>
+            <div class="sett-row-sub">Data wordt gesynchroniseerd op alle apparaten</div>
+          </div>
+          <button onclick="signOutUser()" style="background:var(--redbg);border:1px solid rgba(232,69,60,.2);color:var(--red);border-radius:10px;padding:8px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;white-space:nowrap">Uitloggen</button>
+        </div>
+      </div>
+    </div>
     <div style="height:8px"></div>
   `;
 }
@@ -1285,21 +1383,44 @@ const LS = {
   set: (k, v) => localStorage.setItem(k, JSON.stringify(v)),
 };
 const getUser = () => localStorage.getItem('bf_user');
-const setUser = n => localStorage.setItem('bf_user', n);
+const setUser = n => {
+  localStorage.setItem('bf_user', n);
+  syncToFirestore({ name: n });
+};
 const getPRs = () => LS.get('bf_prs', {});
-const setPRs = v => LS.set('bf_prs', v);
+const setPRs = v => { LS.set('bf_prs', v); syncToFirestore({ prs: v }); };
 const getHist = () => LS.get('bf_hist', []);
-const pushHist = s => { const h = getHist(); h.unshift(s); LS.set('bf_hist', h.slice(0, 20)); };
+const pushHist = s => {
+  const h = getHist(); h.unshift(s);
+  const trimmed = h.slice(0, 20);
+  LS.set('bf_hist', trimmed);
+  syncToFirestore({ history: trimmed });
+};
 const getProgs = () => LS.get('bf_progs', DEFAULT_PROGS);
-const setProgs = v => LS.set('bf_progs', v);
+const setProgs = v => { LS.set('bf_progs', v); syncToFirestore({ programs: v }); };
 const getCustomM = () => LS.get('bf_cm', []);
-const setCustomM = v => LS.set('bf_cm', v);
+const setCustomM = v => { LS.set('bf_cm', v); syncToFirestore({ customMachines: v }); };
 
 // ── SETTINGS ──
 const SETTINGS_DEFAULT = { restDuration: 90, notificationsOn: false, avatarEmoji: '💪' };
 function getSettings() { return LS.get('bf_settings', SETTINGS_DEFAULT); }
-function saveSettings(s) { LS.set('bf_settings', s); }
+function saveSettings(s) { LS.set('bf_settings', s); syncToFirestore({ settings: s }); }
 function getSetting(key) { return getSettings()[key] ?? SETTINGS_DEFAULT[key]; }
+
+/* ── Debounced Firestore sync ── */
+let _syncTimer = null;
+let _pendingSync = {};
+function syncToFirestore(partial) {
+  if (!window._fbUid || !window._fbSaveUserData) return;
+  _pendingSync = { ..._pendingSync, ...partial };
+  if (_syncTimer) clearTimeout(_syncTimer);
+  _syncTimer = setTimeout(async () => {
+    const data = { ..._pendingSync };
+    _pendingSync = {};
+    _syncTimer = null;
+    await window._fbSaveUserData(window._fbUid, data);
+  }, 1500); // batch writes, max 1.5s delay
+}
 
 /* ══════════════════════════════════════
    STATE
@@ -1309,19 +1430,22 @@ let workout = null;   // {prog, isOpen, sets:[{id,name,repsGoal,sets:[{weight,re
 let ed = { name: '', emoji: '💪', exercises: [] };
 
 /* ══════════════════════════════════════
-   INIT
+   INIT — called by Firebase onAuthStateChanged
 ══════════════════════════════════════ */
-function init() {
-  if (!getUser()) { showScr('onboard'); }
-  else { showScr('home'); renderHome(); }
-}
-
-function saveUser() {
-  const n = document.getElementById('inp-name').value.trim();
-  if (!n) { toast('Vul je naam in'); return; }
-  setUser(n);
+function appInit() {
   showScr('home');
   renderHome();
+}
+
+// Legacy saveUser (not used with Firebase auth, kept for safety)
+function saveUser() {}
+
+// Auth tab switcher
+function authSwitchTab(tab) {
+  ['login','register'].forEach(t => {
+    document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+    document.getElementById('panel-' + t).classList.toggle('active', t === tab);
+  });
 }
 
 /* ══════════════════════════════════════
@@ -1329,7 +1453,8 @@ function saveUser() {
 ══════════════════════════════════════ */
 function showScr(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('scr-' + id).classList.add('active');
+  const el = document.getElementById('scr-' + id);
+  if (el) el.classList.add('active');
 }
 
 function goTab(tab) {
@@ -2205,13 +2330,202 @@ function esc(s) {
 }
 
 /* ══════════════════════════════════════
-   BOOT
+   BOOT — auth-state driven (Firebase calls appInit)
 ══════════════════════════════════════ */
-document.getElementById('inp-name').addEventListener('keydown', e => { if (e.key === 'Enter') saveUser(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNameModal(); });
 document.getElementById('name-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeNameModal(); });
 document.getElementById('inp-name-edit').addEventListener('keydown', e => { if (e.key === 'Enter') saveName(); });
-init();
+// Auth form enter-key support
+document.getElementById('inp-pw-login').addEventListener('keydown', e => { if (e.key === 'Enter') signInEmail(); });
+document.getElementById('inp-pw-reg').addEventListener('keydown', e => { if (e.key === 'Enter') registerEmail(); });
+// appInit is called by Firebase onAuthStateChanged (module script below)
+</script>
+
+<!-- ══════════════════════════════════════
+     FIREBASE MODULE — moet LAST komen zodat
+     de app-functies al gedefinieerd zijn
+══════════════════════════════════════ -->
+<script type="module">
+import { initializeApp }             from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAnalytics }              from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js';
+import {
+  getAuth, onAuthStateChanged,
+  GoogleAuthProvider, signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile, signOut
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import {
+  getFirestore, doc, getDoc, setDoc, updateDoc, serverTimestamp
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+/* ── Config ── */
+const firebaseConfig = {
+  apiKey:            'AIzaSyBp5hSusZ4LMPnMYkyTntmoJEJbwrBBrmo',
+  authDomain:        'basis-fit.firebaseapp.com',
+  projectId:         'basis-fit',
+  storageBucket:     'basis-fit.firebasestorage.app',
+  messagingSenderId: '480699904434',
+  appId:             '1:480699904434:web:7329c713ecd8f00ad874ab',
+  measurementId:     'G-8VD7BSDHQY'
+};
+
+const fbApp  = initializeApp(firebaseConfig);
+const fbAuth = getAuth(fbApp);
+const fbDb   = getFirestore(fbApp);
+try { getAnalytics(fbApp); } catch(_) {}
+
+/* ── Expose to global scope (app uses these) ── */
+window._fbAuth = fbAuth;
+window._fbDb   = fbDb;
+
+/* ── Firestore helpers ── */
+const userDoc = uid => doc(fbDb, 'users', uid);
+
+window._fbLoadUserData = async (uid) => {
+  try {
+    const snap = await getDoc(userDoc(uid));
+    return snap.exists() ? snap.data() : null;
+  } catch(e) { console.warn('Firestore read failed:', e); return null; }
+};
+
+window._fbSaveUserData = async (uid, data) => {
+  try {
+    setSyncState('syncing');
+    await setDoc(userDoc(uid), { ...data, updatedAt: serverTimestamp() }, { merge: true });
+    setSyncState('synced');
+  } catch(e) {
+    setSyncState('idle');
+    console.warn('Firestore write failed:', e);
+  }
+};
+
+/* ── Auth actions (called by global onclick handlers) ── */
+window.signInGoogle = async () => {
+  setAuthLoading(true);
+  try {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(fbAuth, provider);
+    // onAuthStateChanged handles the rest
+  } catch(e) {
+    setAuthLoading(false);
+    showAuthErr('login', authErrMsg(e.code));
+  }
+};
+
+window.signInEmail = async () => {
+  const email = document.getElementById('inp-email-login')?.value.trim();
+  const pw    = document.getElementById('inp-pw-login')?.value;
+  hideAuthErr('login');
+  if (!email || !pw) { showAuthErr('login', 'Vul e-mail en wachtwoord in'); return; }
+  setAuthLoading(true, 'btn-login');
+  try {
+    await signInWithEmailAndPassword(fbAuth, email, pw);
+  } catch(e) {
+    setAuthLoading(false, 'btn-login');
+    showAuthErr('login', authErrMsg(e.code));
+  }
+};
+
+window.registerEmail = async () => {
+  const name  = document.getElementById('inp-name-reg')?.value.trim();
+  const email = document.getElementById('inp-email-reg')?.value.trim();
+  const pw    = document.getElementById('inp-pw-reg')?.value;
+  hideAuthErr('register');
+  if (!name)  { showAuthErr('register', 'Vul je naam in'); return; }
+  if (!email) { showAuthErr('register', 'Vul een e-mailadres in'); return; }
+  if (!pw || pw.length < 6) { showAuthErr('register', 'Wachtwoord minimaal 6 tekens'); return; }
+  setAuthLoading(true, 'btn-register');
+  try {
+    const cred = await createUserWithEmailAndPassword(fbAuth, email, pw);
+    await updateProfile(cred.user, { displayName: name });
+    // onAuthStateChanged will fire with updated user
+  } catch(e) {
+    setAuthLoading(false, 'btn-register');
+    showAuthErr('register', authErrMsg(e.code));
+  }
+};
+
+window.signOutUser = async () => {
+  if (!confirm('Uitloggen?')) return;
+  await signOut(fbAuth);
+  // onAuthStateChanged → null → show login
+};
+
+/* ── Auth helpers ── */
+function setAuthLoading(on, btnId) {
+  const btn = btnId ? document.getElementById(btnId) : null;
+  if (btn) { btn.disabled = on; btn.textContent = on ? 'Laden…' : (btn.id === 'btn-login' ? 'Inloggen →' : 'Account aanmaken →'); }
+}
+function showAuthErr(panel, msg) {
+  const el = document.getElementById('err-' + panel);
+  if (el) { el.textContent = msg; el.classList.add('show'); }
+}
+function hideAuthErr(panel) {
+  const el = document.getElementById('err-' + panel);
+  if (el) el.classList.remove('show');
+}
+function authErrMsg(code) {
+  const map = {
+    'auth/email-already-in-use':   'Dit e-mailadres is al in gebruik',
+    'auth/invalid-email':          'Ongeldig e-mailadres',
+    'auth/weak-password':          'Wachtwoord is te zwak (min. 6 tekens)',
+    'auth/user-not-found':         'Geen account gevonden met dit e-mailadres',
+    'auth/wrong-password':         'Onjuist wachtwoord',
+    'auth/invalid-credential':     'E-mail of wachtwoord klopt niet',
+    'auth/too-many-requests':      'Te veel pogingen. Probeer later opnieuw',
+    'auth/network-request-failed': 'Geen internetverbinding',
+    'auth/popup-closed-by-user':   'Inlogvenster gesloten',
+  };
+  return map[code] || 'Er ging iets mis. Probeer opnieuw.';
+}
+
+/* ── Sync state indicator ── */
+window.setSyncState = (state) => {
+  const dot = document.getElementById('sync-dot');
+  if (!dot) return;
+  dot.className = 'sync-dot';
+  if (state === 'syncing') dot.classList.add('syncing');
+  else if (state === 'synced') {
+    dot.classList.add('synced');
+    setTimeout(() => { if (dot) dot.classList.remove('synced'); }, 2000);
+  }
+};
+
+/* ── onAuthStateChanged — central app entry point ── */
+onAuthStateChanged(fbAuth, async (user) => {
+  if (user) {
+    // Show loading while we fetch Firestore data
+    showScr('loading');
+    // Load remote data and merge with localStorage cache
+    const remote = await window._fbLoadUserData(user.uid);
+    if (remote) {
+      // Merge remote into localStorage (remote wins)
+      if (remote.name)          { localStorage.setItem('bf_user', remote.name); }
+      if (remote.settings)      { localStorage.setItem('bf_settings', JSON.stringify(remote.settings)); }
+      if (remote.prs)           { localStorage.setItem('bf_prs', JSON.stringify(remote.prs)); }
+      if (remote.history)       { localStorage.setItem('bf_hist', JSON.stringify(remote.history)); }
+      if (remote.programs)      { localStorage.setItem('bf_progs', JSON.stringify(remote.programs)); }
+      if (remote.customMachines){ localStorage.setItem('bf_cm', JSON.stringify(remote.customMachines)); }
+    } else {
+      // First login: push displayName from Google/registration
+      const displayName = user.displayName;
+      if (displayName && !localStorage.getItem('bf_user')) {
+        localStorage.setItem('bf_user', displayName);
+      }
+    }
+    // Store UID for sync
+    window._fbUid = user.uid;
+    // Boot the app
+    appInit();
+  } else {
+    // Logged out
+    window._fbUid = null;
+    // Clear cached data
+    ['bf_user','bf_prs','bf_hist','bf_progs','bf_cm','bf_settings'].forEach(k => localStorage.removeItem(k));
+    showScr('onboard');
+  }
+});
 </script>
 </body>
 </html>
