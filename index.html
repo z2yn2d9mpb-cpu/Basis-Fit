@@ -30,18 +30,23 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 .screen.active{display:flex}
 .scroll-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .scroll-body::-webkit-scrollbar{width:0}
-.pad{padding:14px 14px 24px}
+/* Extra bottom padding so content never hides behind tabbar + safe area */
+.pad{padding:14px 14px calc(32px + env(safe-area-inset-bottom,0px))}
+/* Only clamp text nodes, not layout containers */
+.ex-name,.wk-day,.prog-name,.hist-name,.hist-iname,.greet-name{word-break:break-word}
 
 /* ── TOP BAR ── */
 .topbar{background:var(--w);padding:calc(12px + var(--safe-t)) 16px 12px;
   display:flex;align-items:center;justify-content:space-between;
   border-bottom:1px solid var(--g100);flex-shrink:0;
-  box-shadow:0 1px 8px rgba(27,39,53,.05)}
-.tb-left{display:flex;align-items:center;gap:10px}
+  box-shadow:0 1px 8px rgba(27,39,53,.05);gap:8px}
+.tb-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.tb-right{display:flex;align-items:center;gap:4px;flex-shrink:0}
 .tb-logo{width:32px;height:32px;background:var(--navy);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .tb-logo svg{width:17px;height:17px;fill:#fff}
-.topbar h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.2px}
-.topbar-right{font-size:13px;color:var(--g400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+.topbar h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-right{font-size:13px;color:var(--g400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
 
 /* ── TAB BAR ── */
 .tabbar{display:flex;background:var(--w);border-top:1px solid var(--g100);
@@ -152,10 +157,10 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 .pr-badge.show{display:flex;animation:pop .25s ease}
 
 /* ── SET ROWS ── */
-.set-rows{padding:0 14px 12px;display:flex;flex-direction:column;gap:8px}
-.set-row{display:flex;align-items:center;gap:8px}
+.set-rows{padding:0 14px 8px;display:flex;flex-direction:column;gap:6px}
+.set-row{display:flex;align-items:center;gap:6px}
 .set-num{font-size:11px;font-weight:700;color:var(--g400);font-family:'DM Mono',monospace;
-  width:24px;text-align:center;flex-shrink:0}
+  width:22px;text-align:center;flex-shrink:0}
 
 /* ── SET DROPDOWNS ── */
 .set-dd-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
@@ -171,10 +176,11 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 /* ── REST TIMER ── */
 .rest-timer{position:fixed;bottom:calc(70px + var(--safe-b) + 10px);left:50%;
   transform:translateX(-50%) scale(.88);background:var(--navy);color:#fff;
-  padding:10px 20px 10px 16px;border-radius:40px;font-size:14px;font-weight:600;
+  padding:10px 18px 10px 14px;border-radius:40px;font-size:14px;font-weight:600;
   opacity:0;transition:opacity .25s,transform .25s;z-index:790;
   white-space:nowrap;box-shadow:0 8px 32px rgba(27,39,53,.3);pointer-events:none;
-  display:flex;align-items:center;gap:10px}
+  display:flex;align-items:center;gap:10px;
+  max-width:calc(100vw - 32px)}
 .rest-timer.show{opacity:1;transform:translateX(-50%) scale(1);animation:timerIn .3s cubic-bezier(.34,1.4,.64,1) forwards}
 .rest-timer-bar{width:80px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;overflow:hidden}
 .rest-timer-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .9s linear}
@@ -286,7 +292,8 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
   transform:translateX(-50%) translateY(16px);background:var(--navy);color:#fff;
   padding:12px 20px;border-radius:40px;font-size:14px;font-weight:600;
   opacity:0;transition:opacity .25s,transform .25s;z-index:800;
-  white-space:nowrap;box-shadow:0 8px 32px rgba(27,39,53,.22);pointer-events:none}
+  white-space:nowrap;box-shadow:0 8px 32px rgba(27,39,53,.22);pointer-events:none;
+  max-width:calc(100vw - 40px);text-overflow:ellipsis;overflow:hidden}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ── CONFETTI ── */
@@ -416,6 +423,140 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 
 /* ── PROGRESS RING DONE PULSE ── */
 .ring.complete .ring-f{animation:ringPulse 1.5s ease infinite}
+
+/* ── ADD SET BUTTON ── */
+.btn-add-set{
+  width:100%;background:transparent;border:1.5px dashed var(--g200);
+  border-radius:10px;padding:9px;color:var(--g400);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:border-color .15s,color .15s,background .15s;margin:0 0 12px
+}
+.btn-add-set:hover{border-color:var(--accent);color:var(--accent);background:var(--ag)}
+.btn-add-set:active{transform:scale(.97)}
+.btn-add-set svg{width:14px;height:14px;fill:currentColor}
+.btn-rm-set{width:26px;height:40px;border:none;background:transparent;
+  color:var(--g200);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  border-radius:8px;flex-shrink:0;transition:color .15s,background .15s;padding:0}
+.btn-rm-set:active{color:var(--red)}
+.btn-rm-set svg{width:13px;height:13px;fill:currentColor}
+
+/* ── SETTINGS MODAL ── */
+.settings-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:750;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(4px)
+}
+.settings-overlay.open{opacity:1;pointer-events:all}
+.settings-sheet{
+  background:var(--off);border-radius:28px 28px 0 0;
+  width:100%;max-width:430px;
+  padding:0 0 calc(env(safe-area-inset-bottom,0px) + 16px);
+  transform:translateY(100%);transition:transform .34s cubic-bezier(.22,.68,0,1.1);
+  max-height:90dvh;display:flex;flex-direction:column
+}
+.settings-overlay.open .settings-sheet{transform:translateY(0)}
+.settings-handle{width:36px;height:4px;background:var(--g200);border-radius:2px;margin:12px auto 0}
+.settings-hd{padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.settings-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--navy)}
+.settings-body{overflow-y:auto;flex:1;padding:0 16px 16px}
+.sett-section{margin-bottom:20px}
+.sett-section-lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--g400);margin-bottom:8px;padding:0 4px;display:block}
+.sett-card{background:var(--w);border-radius:var(--rcard);box-shadow:var(--sh);overflow:hidden}
+.sett-row{display:flex;align-items:center;gap:12px;padding:14px 16px;
+  border-bottom:1px solid var(--g100)}
+.sett-row:last-child{border-bottom:none}
+.sett-row-icon{width:36px;height:36px;border-radius:10px;background:var(--g100);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.sett-row-icon svg{width:18px;height:18px;fill:var(--accent)}
+.sett-row-info{flex:1;min-width:0}
+.sett-row-label{font-size:14px;font-weight:600;color:var(--navy)}
+.sett-row-sub{font-size:12px;color:var(--g400);margin-top:2px}
+/* Toggle switch */
+.toggle-wrap{position:relative;width:46px;height:26px;flex-shrink:0}
+.toggle-inp{position:absolute;opacity:0;width:0;height:0}
+.toggle-track{display:block;width:46px;height:26px;border-radius:13px;
+  background:var(--g200);cursor:pointer;transition:background .2s;position:relative}
+.toggle-inp:checked + .toggle-track{background:var(--accent)}
+.toggle-track::after{content:'';position:absolute;top:3px;left:3px;
+  width:20px;height:20px;border-radius:50%;background:#fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .2s}
+.toggle-inp:checked + .toggle-track::after{transform:translateX(20px)}
+/* Timer pills */
+.timer-pills{display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px 14px}
+.timer-pill{flex:1;min-width:calc(33% - 4px);border:1.5px solid var(--g200);
+  background:transparent;border-radius:10px;padding:10px 6px;cursor:pointer;
+  font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--g600);
+  text-align:center;transition:all .15s}
+.timer-pill.sel{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:700}
+/* Custom timer input */
+.timer-custom-row{display:flex;gap:8px;align-items:center;padding:0 16px 14px}
+.timer-custom-inp{width:70px;background:var(--g100);border:1.5px solid transparent;border-radius:9px;
+  padding:10px 8px;color:var(--navy);font-family:'DM Mono',monospace;font-size:15px;font-weight:500;
+  text-align:center;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none}
+.timer-custom-inp:focus{border-color:var(--accent);background:var(--ag)}
+.timer-custom-lbl{font-size:13px;font-weight:600;color:var(--g600);flex-shrink:0}
+/* Profile avatar */
+.profile-avatar{width:64px;height:64px;border-radius:18px;background:var(--navy);
+  display:flex;align-items:center;justify-content:center;font-size:32px;
+  box-shadow:0 4px 14px rgba(27,39,53,.18);flex-shrink:0;cursor:pointer}
+.avatar-emoji-grid{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px 14px}
+.avatar-opt{width:44px;height:44px;border-radius:12px;border:2px solid var(--g200);
+  background:var(--g100);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:22px;transition:border-color .15s,background .15s}
+.avatar-opt.picked{border-color:var(--accent);background:var(--ag)}
+/* Gear button */
+.tb-gear{background:none;border:none;padding:7px;cursor:pointer;border-radius:8px;
+  color:var(--g400);display:flex;align-items:center;transition:color .15s,background .15s}
+.tb-gear:active{background:var(--g100);color:var(--navy)}
+.tb-gear svg{width:18px;height:18px;fill:currentColor}
+
+/* ── WAKE LOCK INDICATOR ── */
+.wakelock-badge{
+  display:none;align-items:center;gap:4px;
+  background:rgba(39,196,122,.15);color:var(--green);
+  border:1px solid rgba(39,196,122,.3);border-radius:20px;
+  padding:4px 8px;font-size:10px;font-weight:700;letter-spacing:.02em;
+  white-space:nowrap;flex-shrink:0
+}
+.wakelock-badge.active{display:flex}
+.wakelock-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+
+/* ── SHARE MODAL ── */
+.share-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:850;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(6px)
+}
+.share-overlay.open{opacity:1;pointer-events:all}
+.share-sheet{
+  background:var(--off);border-radius:24px 24px 0 0;
+  width:100%;max-width:430px;padding:20px 20px calc(20px + var(--safe-b));
+  transform:translateY(100%);transition:transform .32s cubic-bezier(.22,.68,0,1.1)
+}
+.share-overlay.open .share-sheet{transform:translateY(0)}
+.share-sheet-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.share-sheet-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--navy)}
+.share-canvas-wrap{
+  width:100%;background:var(--navy);border-radius:16px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+  box-shadow:0 12px 40px rgba(27,39,53,.35)
+}
+.share-canvas-wrap canvas{width:100%;height:auto;display:block;border-radius:16px}
+.share-btns{display:flex;gap:10px}
+.btn-share-action{
+  flex:1;border:none;border-radius:var(--rcard);padding:16px 10px;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:transform .12s,opacity .12s
+}
+.btn-share-action:active{transform:scale(.97);opacity:.9}
+.btn-share-action svg{width:18px;height:18px;fill:currentColor}
+.btn-share-dl{background:var(--navy);color:#fff;box-shadow:0 4px 14px rgba(27,39,53,.2)}
+.btn-share-native{background:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(74,144,217,.35)}
+.btn-share-native.hidden{display:none}
 </style>
 </head>
 <body>
@@ -451,10 +592,15 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 <!-- HOME -->
 <div id="scr-home" class="screen">
   <div class="topbar">
-    <div class="tb-left"><div class="tb-logo"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg></div><h2>Basis Fit</h2></div>
-    <div style="display:flex;align-items:center;gap:2px">
+    <div class="tb-left">
+      <div class="tb-logo"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg></div>
+      <h2>Basis Fit</h2>
+    </div>
+    <div class="tb-right">
       <div class="topbar-right" id="home-greet"></div>
-      <button class="tb-edit" onclick="openNameModal()" title="Naam wijzigen"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+      <button class="tb-gear" onclick="openSettings()" title="Instellingen" aria-label="Instellingen">
+        <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+      </button>
     </div>
   </div>
   <div class="scroll-body"><div class="pad" id="home-body"></div></div>
@@ -468,7 +614,13 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 <!-- WORKOUT -->
 <div id="scr-workout" class="screen">
   <div class="topbar">
-    <div class="tb-left"><div class="tb-logo"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg></div><h2 id="wk-title">Training</h2></div>
+    <div class="tb-left">
+      <div class="tb-logo"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg></div>
+      <h2 id="wk-title">Training</h2>
+    </div>
+    <div class="tb-right">
+      <div class="wakelock-badge" id="wakelock-badge"><span class="wakelock-dot"></span>Actief</div>
+    </div>
   </div>
   <div class="scroll-body"><div class="pad" id="wk-body"></div></div>
 </div>
@@ -492,6 +644,41 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
     <button class="tab" data-tab="home" onclick="goTab('home')"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</button>
     <button class="tab" data-tab="history" onclick="goTab('history')"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Sessies</button>
     <button class="tab active" data-tab="editor" onclick="goTab('editor')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Schema's</button>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="settings-overlay" id="settings-overlay" onclick="settingsOverlayClick(event)">
+  <div class="settings-sheet" id="settings-sheet">
+    <div class="settings-handle"></div>
+    <div class="settings-hd">
+      <div class="settings-title">⚙️ Instellingen</div>
+      <button class="modal-close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="settings-body" id="settings-body">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="share-overlay" id="share-overlay">
+  <div class="share-sheet">
+    <div class="share-sheet-hd">
+      <div class="share-sheet-title">📤 Workout delen</div>
+      <button class="modal-close" onclick="closeShare()">✕</button>
+    </div>
+    <div class="share-canvas-wrap"><canvas id="share-canvas" width="540" height="960"></canvas></div>
+    <div class="share-btns">
+      <button class="btn-share-action btn-share-dl" onclick="downloadShare()">
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Opslaan
+      </button>
+      <button class="btn-share-action btn-share-native" id="btn-share-native" onclick="nativeShare()">
+        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+        Delen
+      </button>
+    </div>
   </div>
 </div>
 
@@ -554,8 +741,308 @@ function startQuoteCycle() {
 }
 
 /* ══════════════════════════════════════
-   NAME MODAL
+   WAKE LOCK — scherm actief houden
 ══════════════════════════════════════ */
+let wakeLock = null;
+
+async function requestWakeLock() {
+  try {
+    if ('wakeLock' in navigator) {
+      wakeLock = await navigator.wakeLock.request('screen');
+      document.getElementById('wakelock-badge').classList.add('active');
+      wakeLock.addEventListener('release', () => {
+        document.getElementById('wakelock-badge').classList.remove('active');
+      });
+    }
+  } catch (e) { console.warn('WakeLock niet beschikbaar:', e.message); }
+}
+
+function releaseWakeLock() {
+  if (wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; }
+  const badge = document.getElementById('wakelock-badge');
+  if (badge) badge.classList.remove('active');
+}
+
+// Heractiveer wake lock + herstel timer wanneer app weer zichtbaar wordt
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState === 'visible') {
+    if (workout) await requestWakeLock();
+    // Herstel rest timer op basis van opgeslagen eindtijd
+    const savedEnd = LS.get('bf_restEnd', 0);
+    const savedTotal = LS.get('bf_restTotal', 90);
+    if (savedEnd && savedEnd > Date.now()) {
+      const remaining = Math.ceil((savedEnd - Date.now()) / 1000);
+      // Herstart de tick zonder opnieuw te schedulen
+      restEndTime = savedEnd;
+      restDurationTotal = savedTotal;
+      const el = document.getElementById('rest-timer');
+      const fill = document.getElementById('rest-timer-fill');
+      const txt = document.getElementById('rest-timer-txt');
+      if (el && !restInterval) {
+        el.classList.add('show');
+        restInterval = setInterval(() => {
+          const rem = Math.max(0, Math.ceil((restEndTime - Date.now()) / 1000));
+          const m = Math.floor(rem / 60), s = rem % 60;
+          if (txt) txt.textContent = m + ':' + String(s).padStart(2, '0');
+          if (fill) fill.style.width = ((rem / restDurationTotal) * 100) + '%';
+          if (rem <= 0) {
+            clearInterval(restInterval); restInterval = null;
+            el.classList.remove('show');
+            LS.set('bf_restEnd', 0);
+            toast('✅ Rust voorbij — next set!');
+            showInAppNotification('⏱ Rust voorbij!', 'Tijd voor je volgende set 💪');
+          }
+        }, 500);
+      }
+    } else if (savedEnd && savedEnd <= Date.now()) {
+      // Timer is verlopen terwijl app op achtergrond was
+      LS.set('bf_restEnd', 0);
+      if (workout) {
+        toast('⏱ Rust voorbij — next set!');
+        showInAppNotification('⏱ Rust voorbij!', 'Klaar voor de volgende set? 💪');
+      }
+    }
+  }
+});
+
+/* ══════════════════════════════════════
+   SHARE — workout kaart genereren
+══════════════════════════════════════ */
+let shareSession = null; // Opslaan welke sessie we delen
+
+function openShare(session) {
+  shareSession = session;
+  document.getElementById('share-overlay').classList.add('open');
+  // Verberg native share knop als niet beschikbaar
+  if (!navigator.share) {
+    document.getElementById('btn-share-native').classList.add('hidden');
+  }
+  setTimeout(() => generateShareCard(session), 80);
+}
+
+function closeShare() {
+  document.getElementById('share-overlay').classList.remove('open');
+}
+
+function generateShareCard(session) {
+  const cv = document.getElementById('share-canvas');
+  const cx = cv.getContext('2d');
+  const W = 540, H = 960;
+  cx.clearRect(0, 0, W, H);
+
+  // ── Achtergrond gradient ──
+  const bg = cx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#1B2735');
+  bg.addColorStop(0.55, '#23395B');
+  bg.addColorStop(1, '#0f1a27');
+  cx.fillStyle = bg;
+  cx.roundRect(0, 0, W, H, 0);
+  cx.fill();
+
+  // ── Decoratieve cirkel achtergrond ──
+  cx.save();
+  cx.globalAlpha = 0.07;
+  cx.fillStyle = '#4A90D9';
+  cx.beginPath(); cx.arc(W * 0.78, H * 0.28, 260, 0, Math.PI * 2); cx.fill();
+  cx.globalAlpha = 0.05;
+  cx.fillStyle = '#27C47A';
+  cx.beginPath(); cx.arc(W * 0.18, H * 0.72, 200, 0, Math.PI * 2); cx.fill();
+  cx.restore();
+
+  // ── BRANDING HEADER ──
+  // Logo vierkant
+  cx.fillStyle = '#4A90D9';
+  roundRect(cx, 40, 44, 48, 48, 13);
+  cx.fillStyle = '#fff';
+  cx.font = 'bold 26px Arial';
+  cx.textAlign = 'center';
+  cx.fillText('⚡', 64, 75);
+
+  cx.fillStyle = '#fff';
+  cx.font = 'bold 26px "Syne", Arial';
+  cx.textAlign = 'left';
+  cx.fillText('BASIS FIT', 103, 68);
+  cx.font = '500 17px "DM Sans", Arial';
+  cx.fillStyle = 'rgba(255,255,255,0.45)';
+  const dateStr = session ? new Date(session.date).toLocaleDateString('nl-NL', {weekday:'long', day:'numeric', month:'long'}) : new Date().toLocaleDateString('nl-NL', {weekday:'long', day:'numeric', month:'long'});
+  cx.fillText(capitalize(dateStr), 103, 89);
+
+  // ── Divider lijn ──
+  cx.fillStyle = 'rgba(255,255,255,0.08)';
+  cx.fillRect(40, 112, W - 80, 1);
+
+  // ── TRAINING NAAM ──
+  const progName = session ? session.programName : '—';
+  cx.fillStyle = 'rgba(255,255,255,0.5)';
+  cx.font = '700 13px "DM Sans", Arial';
+  cx.letterSpacing = '3px';
+  cx.fillText('TRAINING', 40, 152);
+  cx.letterSpacing = '0px';
+  cx.fillStyle = '#fff';
+  cx.font = 'bold 34px "Syne", Arial';
+  cx.fillText(progName, 40, 195);
+
+  // ── VOLUME MEGA DISPLAY ──
+  const totalVol = session ? calcTotalVolume(session.exercises) : 0;
+  const volStr = totalVol >= 1000 ? (totalVol / 1000).toFixed(1) + ' ton' : totalVol.toLocaleString('nl-NL') + ' kg';
+
+  // Volume achtergrond pill
+  cx.fillStyle = 'rgba(74,144,217,0.18)';
+  roundRect(cx, 40, 225, W - 80, 130, 22);
+
+  // Dumbbell icoon (eenvoudig SVG-achtig tekenen)
+  drawDumbbell(cx, 70, 290, 38, 'rgba(74,144,217,0.7)');
+
+  cx.fillStyle = '#4A90D9';
+  cx.font = '700 13px "DM Sans", Arial';
+  cx.textAlign = 'left';
+  cx.fillText('TOTAAL VOLUME', 125, 263);
+  cx.fillStyle = '#fff';
+  cx.font = 'bold 58px "Syne", Arial';
+  cx.fillText(volStr, 125, 327);
+
+  // ── STATISTIEKEN RIJEN ──
+  const exercises = session ? session.exercises : [];
+  const totalSetsCount = exercises.reduce((s, ex) => s + ex.sets, 0);
+  const maxWeight = exercises.reduce((m, ex) => Math.max(m, ex.bestWeight || 0), 0);
+
+  const stats = [
+    { icon: '🔁', label: 'Sets afgerond', value: String(totalSetsCount) },
+    { icon: '🏋️', label: 'Max gewicht', value: maxWeight + ' kg' },
+    { icon: '💪', label: 'Oefeningen', value: String(exercises.length) },
+  ];
+
+  const statY = 390;
+  const statW = (W - 80 - 20) / 3;
+  stats.forEach((s, i) => {
+    const sx = 40 + i * (statW + 10);
+    cx.fillStyle = 'rgba(255,255,255,0.07)';
+    roundRect(cx, sx, statY, statW, 86, 16);
+    cx.fillStyle = 'rgba(255,255,255,0.6)';
+    cx.font = '22px Arial';
+    cx.textAlign = 'center';
+    cx.fillText(s.icon, sx + statW / 2, statY + 30);
+    cx.fillStyle = '#fff';
+    cx.font = 'bold 22px "DM Mono", monospace, Arial';
+    cx.fillText(s.value, sx + statW / 2, statY + 57);
+    cx.fillStyle = 'rgba(255,255,255,0.4)';
+    cx.font = '500 11px "DM Sans", Arial';
+    cx.fillText(s.label, sx + statW / 2, statY + 73);
+  });
+
+  // ── OEFENINGEN LIJST ──
+  cx.fillStyle = 'rgba(255,255,255,0.08)';
+  cx.fillRect(40, 502, W - 80, 1);
+
+  cx.fillStyle = 'rgba(255,255,255,0.4)';
+  cx.font = '700 12px "DM Sans", Arial';
+  cx.textAlign = 'left';
+  cx.letterSpacing = '2px';
+  cx.fillText('GEDAAN VANDAAG', 40, 527);
+  cx.letterSpacing = '0px';
+
+  const exToShow = exercises.slice(0, 6);
+  exToShow.forEach((ex, i) => {
+    const ey = 552 + i * 50;
+    // Row bg
+    cx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.05)' : 'transparent';
+    roundRect(cx, 40, ey - 8, W - 80, 42, 10);
+    // Dot
+    cx.fillStyle = '#4A90D9';
+    cx.beginPath(); cx.arc(57, ey + 12, 4, 0, Math.PI * 2); cx.fill();
+    // Naam
+    cx.fillStyle = '#fff';
+    cx.font = '500 16px "DM Sans", Arial';
+    cx.textAlign = 'left';
+    const maxNameW = 280;
+    const nameText = ex.name.length > 28 ? ex.name.substring(0, 27) + '…' : ex.name;
+    cx.fillText(nameText, 72, ey + 16);
+    // Stats rechts
+    cx.fillStyle = 'rgba(255,255,255,0.5)';
+    cx.font = '500 14px "DM Mono", monospace, Arial';
+    cx.textAlign = 'right';
+    cx.fillText(`${ex.bestWeight}kg × ${ex.bestReps} · ${ex.sets}×`, W - 40, ey + 16);
+  });
+  if (exercises.length > 6) {
+    cx.fillStyle = 'rgba(255,255,255,0.3)';
+    cx.font = '500 13px "DM Sans", Arial';
+    cx.textAlign = 'center';
+    cx.fillText(`+ ${exercises.length - 6} meer oefeningen`, W / 2, 552 + 6 * 50 + 4);
+  }
+
+  // ── FOOTER ──
+  cx.fillStyle = 'rgba(255,255,255,0.12)';
+  cx.fillRect(40, H - 90, W - 80, 1);
+  cx.fillStyle = 'rgba(255,255,255,0.25)';
+  cx.font = '500 14px "DM Sans", Arial';
+  cx.textAlign = 'center';
+  cx.fillText('basis-fit.app  ·  Train slim, train hard 💪', W / 2, H - 58);
+  // Volume challenge tekst
+  cx.fillStyle = 'rgba(74,144,217,0.8)';
+  cx.font = 'bold 13px "DM Sans", Arial';
+  cx.fillText('Wat is jouw volume? 🏆', W / 2, H - 36);
+}
+
+function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function calcTotalVolume(exercises) {
+  return exercises.reduce((total, ex) => {
+    // bestWeight × bestReps × sets als schatting
+    return total + (parseFloat(ex.bestWeight) || 0) * (parseInt(ex.bestReps) || 0) * (parseInt(ex.sets) || 1);
+  }, 0);
+}
+
+function roundRect(cx, x, y, w, h, r) {
+  cx.beginPath();
+  cx.moveTo(x + r, y);
+  cx.lineTo(x + w - r, y);
+  cx.quadraticCurveTo(x + w, y, x + w, y + r);
+  cx.lineTo(x + w, y + h - r);
+  cx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  cx.lineTo(x + r, y + h);
+  cx.quadraticCurveTo(x, y + h, x, y + h - r);
+  cx.lineTo(x, y + r);
+  cx.quadraticCurveTo(x, y, x + r, y);
+  cx.closePath();
+  cx.fill();
+}
+
+function drawDumbbell(cx, x, y, size, color) {
+  cx.fillStyle = color;
+  const s = size;
+  // Linker gewicht
+  roundRect(cx, x - s * 0.1, y - s * 0.42, s * 0.22, s * 0.84, 4);
+  // Stang
+  cx.fillRect(x + s * 0.12, y - s * 0.1, s * 0.76, s * 0.2);
+  // Rechter gewicht
+  roundRect(cx, x + s * 0.88, y - s * 0.42, s * 0.22, s * 0.84, 4);
+}
+
+function downloadShare() {
+  const cv = document.getElementById('share-canvas');
+  const link = document.createElement('a');
+  link.download = 'basis-fit-workout.png';
+  link.href = cv.toDataURL('image/png');
+  link.click();
+}
+
+async function nativeShare() {
+  const cv = document.getElementById('share-canvas');
+  cv.toBlob(async (blob) => {
+    const file = new File([blob], 'basis-fit-workout.png', { type: 'image/png' });
+    try {
+      await navigator.share({
+        files: [file],
+        title: 'Mijn Basis Fit workout 💪',
+        text: `Check mijn workout! 🔥 #BasisFit #Training`,
+      });
+    } catch (e) {
+      if (e.name !== 'AbortError') toast('Delen mislukt, sla op als alternatief');
+    }
+  }, 'image/png');
+}
+
+
 function openNameModal() {
   document.getElementById('inp-name-edit').value = getUser() || '';
   document.getElementById('name-modal').classList.add('open');
@@ -572,6 +1059,163 @@ function saveName() {
   renderHome();
   toast('✅ Naam opgeslagen!');
 }
+
+/* ══════════════════════════════════════
+   SETTINGS
+══════════════════════════════════════ */
+const AVATAR_EMOJIS = ['💪','🔥','🦵','⚡','🏋️','🎯','💥','🚀','🧠','🫁','🏃','🥊','🦁','🐺','👊','🌟','🏆','⚔️','🦅','🤸'];
+const TIMER_OPTS = [
+  {label:'30s',val:30},{label:'45s',val:45},{label:'1 min',val:60},
+  {label:'1:30',val:90},{label:'2 min',val:120},{label:'3 min',val:180},
+  {label:'4 min',val:240},{label:'5 min',val:300},
+];
+
+function openSettings() {
+  renderSettingsBody();
+  document.getElementById('settings-overlay').classList.add('open');
+}
+function closeSettings() {
+  document.getElementById('settings-overlay').classList.remove('open');
+}
+function settingsOverlayClick(e) {
+  if (e.target === document.getElementById('settings-overlay')) closeSettings();
+}
+
+function renderSettingsBody() {
+  const s = getSettings();
+  const user = getUser() || '';
+  const notifSupported = 'Notification' in window;
+  const notifPerm = notifSupported ? Notification.permission : 'denied';
+
+  document.getElementById('settings-body').innerHTML = `
+    <div class="sett-section">
+      <span class="sett-section-lbl">Profiel</span>
+      <div class="sett-card">
+        <div class="sett-row" style="gap:14px;padding:16px;align-items:flex-start">
+          <div class="profile-avatar" style="font-size:32px;width:64px;height:64px;border-radius:18px;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0" id="sett-avatar-preview">${s.avatarEmoji}</div>
+          <div style="flex:1;min-width:0">
+            <div class="sett-row-label" style="margin-bottom:8px">Naam wijzigen</div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="sett-name-inp" class="inp-light" type="text" placeholder="Naam…" maxlength="30" value="${esc(user)}" style="flex:1;padding:10px 12px;font-size:14px"/>
+              <button class="btn-add" onclick="settSaveName()" style="padding:10px 14px;border-radius:9px;flex-shrink:0">✓</button>
+            </div>
+          </div>
+        </div>
+        <div style="padding:0 16px 6px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);margin-bottom:8px">Avatar kiezen</div>
+        </div>
+        <div class="avatar-emoji-grid">
+          ${AVATAR_EMOJIS.map(em => `<div class="avatar-opt${em===s.avatarEmoji?' picked':''}" onclick="settPickAvatar('${em}',this)">${em}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="sett-section">
+      <span class="sett-section-lbl">Rust timer duur</span>
+      <div class="sett-card">
+        <div class="timer-pills">
+          ${TIMER_OPTS.map(o=>`<button class="timer-pill${o.val===s.restDuration&&!s.customTimer?' sel':''}" onclick="settPickTimer(${o.val},this)">${o.label}</button>`).join('')}
+        </div>
+        <div class="timer-custom-row">
+          <span class="timer-custom-lbl">⌛ Eigen tijd:</span>
+          <input class="timer-custom-inp" id="custom-timer-inp" type="number" min="10" max="600"
+            placeholder="${s.customTimer||''}"
+            value="${s.customTimer||''}"
+            inputmode="numeric"/>
+          <span class="timer-custom-lbl">sec</span>
+          <button class="btn-add" onclick="settPickCustomTimer()" style="padding:10px 14px;border-radius:9px;flex-shrink:0;margin-left:auto">Sla op</button>
+        </div>
+        ${s.customTimer ? `<div style="padding:0 16px 12px;font-size:12px;color:var(--accent);font-weight:600">✓ Eigen timer actief: ${s.customTimer}s (${Math.floor(s.customTimer/60)}:${String(s.customTimer%60).padStart(2,'0')})</div>` : ''}
+      </div>
+    </div>
+
+    <div class="sett-section">
+      <span class="sett-section-lbl">Meldingen</span>
+      <div class="sett-card">
+        <div class="sett-row">
+          <div class="sett-row-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></div>
+          <div class="sett-row-info">
+            <div class="sett-row-label">Timer melding</div>
+            <div class="sett-row-sub">${!notifSupported?'Niet ondersteund':notifPerm==='denied'?'Geblokkeerd in browserinst.':notifPerm==='granted'?'Melding als rust voorbij is':'Toestemming vereist'}</div>
+          </div>
+          <label class="toggle-wrap" ${!notifSupported||notifPerm==='denied'?'style="opacity:.4;pointer-events:none"':''}>
+            <input type="checkbox" class="toggle-inp" id="notif-toggle" ${s.notificationsOn?'checked':''} onchange="settToggleNotif(this)"/>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        ${notifSupported&&notifPerm==='default'?`
+        <div style="padding:4px 16px 14px">
+          <button class="btn-add" style="width:100%;padding:12px;border-radius:10px;font-size:14px" onclick="settRequestNotif()">📲 Toestemming vragen</button>
+        </div>`:''}
+      </div>
+    </div>
+    <div style="height:8px"></div>
+  `;
+}
+
+function settSaveName() {
+  const n = document.getElementById('sett-name-inp').value.trim();
+  if (!n) { toast('Vul een naam in'); return; }
+  setUser(n);
+  renderHome();
+  toast('✅ Naam opgeslagen!');
+}
+function settPickAvatar(emoji, el) {
+  const s = getSettings(); s.avatarEmoji = emoji; saveSettings(s);
+  document.querySelectorAll('#settings-body .avatar-opt').forEach(o=>o.classList.remove('picked'));
+  el.classList.add('picked');
+  const prev = document.getElementById('sett-avatar-preview');
+  if (prev) prev.textContent = emoji;
+  renderHome();
+}
+function settPickTimer(val, el) {
+  const s = getSettings();
+  s.restDuration = val;
+  s.customTimer = null; // preset gekozen, custom wissen
+  saveSettings(s);
+  document.querySelectorAll('.timer-pill').forEach(p=>p.classList.remove('sel'));
+  el.classList.add('sel');
+  // Clear custom input
+  const ci = document.getElementById('custom-timer-inp');
+  if (ci) ci.value = '';
+  const hint = document.querySelector('.timer-custom-hint');
+  if (hint) hint.remove();
+  renderSettingsBody(); // herrender om de "actief" tekst te verbergen
+  toast('⏱ Rusttimer: ' + TIMER_OPTS.find(o=>o.val===val)?.label);
+}
+function settPickCustomTimer() {
+  const inp = document.getElementById('custom-timer-inp');
+  const val = parseInt(inp?.value);
+  if (!val || val < 10 || val > 600) { toast('Vul een tijd in (10–600 sec)'); return; }
+  const s = getSettings();
+  s.restDuration = val;
+  s.customTimer = val;
+  saveSettings(s);
+  // Deselecteer alle presets
+  document.querySelectorAll('.timer-pill').forEach(p=>p.classList.remove('sel'));
+  const mins = Math.floor(val/60), secs = val%60;
+  const label = mins > 0 ? mins+'m'+( secs ? ' '+secs+'s' : '') : val+'s';
+  toast('⏱ Eigen timer: ' + label);
+  renderSettingsBody();
+}
+async function settToggleNotif(checkbox) {
+  const s = getSettings();
+  if (checkbox.checked && Notification.permission !== 'granted') {
+    const granted = await requestNotificationPermission();
+    if (!granted) { checkbox.checked = false; toast('Meldingen niet toegestaan'); renderSettingsBody(); return; }
+  }
+  s.notificationsOn = checkbox.checked; saveSettings(s);
+  toast(checkbox.checked ? '🔔 Meldingen aan' : '🔕 Meldingen uit');
+}
+async function settRequestNotif() {
+  const granted = await requestNotificationPermission();
+  if (granted) {
+    const s = getSettings(); s.notificationsOn = true; saveSettings(s);
+    toast('🔔 Meldingen ingeschakeld!'); renderSettingsBody();
+  } else { toast('Sta meldingen toe in browserinstellingen'); }
+}
+
+
 
 /* ══════════════════════════════════════
    RIPPLE
@@ -651,6 +1295,12 @@ const setProgs = v => LS.set('bf_progs', v);
 const getCustomM = () => LS.get('bf_cm', []);
 const setCustomM = v => LS.set('bf_cm', v);
 
+// ── SETTINGS ──
+const SETTINGS_DEFAULT = { restDuration: 90, notificationsOn: false, avatarEmoji: '💪' };
+function getSettings() { return LS.get('bf_settings', SETTINGS_DEFAULT); }
+function saveSettings(s) { LS.set('bf_settings', s); }
+function getSetting(key) { return getSettings()[key] ?? SETTINGS_DEFAULT[key]; }
+
 /* ══════════════════════════════════════
    STATE
 ══════════════════════════════════════ */
@@ -707,8 +1357,13 @@ function renderHome() {
   const body = document.getElementById('home-body');
   body.innerHTML = `
     <div class="greet-card su">
-      <div class="greet-name">Hey, ${esc(user)}!</div>
-      <div class="greet-sub" id="greet-sub">${QUOTES[quoteIdx]}</div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="width:52px;height:52px;border-radius:15px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0">${getSetting('avatarEmoji')}</div>
+        <div>
+          <div class="greet-name">Hey, ${esc(user)}!</div>
+          <div class="greet-sub" id="greet-sub">${QUOTES[quoteIdx]}</div>
+        </div>
+      </div>
     </div>
     <span class="slbl">Kies je training</span>
     <div class="prog-list" id="prog-list"></div>
@@ -787,6 +1442,7 @@ function startWorkout() {
   };
   renderWorkout();
   showScr('workout');
+  requestWakeLock();
 }
 
 /* ══════════════════════════════════════
@@ -800,6 +1456,7 @@ function startOpen() {
   };
   renderWorkout();
   showScr('workout');
+  requestWakeLock();
 }
 
 function addOpenExercise() {
@@ -892,10 +1549,16 @@ function renderWorkout() {
       <div class="set-rows" id="sets-${ei}">`;
 
     ex.sets.forEach((st, si) => {
-      html += renderSetRow(ei, si, st);
+      html += renderSetRow(ei, si, st, ex.sets.length);
     });
 
-    html += `</div>`;
+    html += `</div>
+    <div style="padding:0 14px 0">
+      <button class="btn-add-set" onclick="addSet(${ei})">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        Set toevoegen
+      </button>
+    </div>`;
     if (pr.weight > 0) html += `<div class="prev-rec">📊 Vorige PR: <b>${pr.weight} kg × ${pr.reps}</b></div>`;
     html += `</div>`;
   });
@@ -921,6 +1584,10 @@ function renderWorkout() {
       <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
       Training afronden
     </button>
+    <button class="btn-outline" onclick="openShareFromWorkout()" style="margin-top:0;width:100%">
+      <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+      Workout delen
+    </button>
     <button class="btn-danger" onclick="cancelWorkout()">Training annuleren</button>
   </div>`;
 
@@ -944,7 +1611,8 @@ function buildRepsOpts(cur) {
   return Array.from({length:51},(_,i)=>i).map(v=>`<option value="${v}"${parseInt(cur)===v?' selected':''}>${v}</option>`).join('');
 }
 
-function renderSetRow(ei, si, st) {
+function renderSetRow(ei, si, st, totalSets) {
+  const canRemove = totalSets === undefined ? true : totalSets > 1;
   return `<div class="set-row" id="row-${ei}-${si}">
     <div class="set-num">S${si + 1}</div>
     <div class="set-dd-wrap${st.done ? ' active-field' : ''}" id="sw-${ei}-${si}">
@@ -962,8 +1630,91 @@ function renderSetRow(ei, si, st) {
     <button class="set-ck${st.done ? ' done' : ''}" id="ck-${ei}-${si}" onclick="toggleSet(${ei},${si})">
       <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
     </button>
+    ${canRemove ? `<button class="btn-rm-set" onclick="removeSet(${ei},${si})" title="Set verwijderen"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>` : '<div style="width:30px"></div>'}
   </div>`;
 }
+
+/* ══════════════════════════════════════
+   ADD / REMOVE SET
+══════════════════════════════════════ */
+function addSet(ei) {
+  if (!workout) return;
+  const ex = workout.sets[ei];
+  const last = ex.sets[ex.sets.length - 1] || { weight: 0, reps: 0 };
+  ex.sets.push({ weight: last.weight, reps: last.reps, done: false });
+  const si = ex.sets.length - 1;
+  const st = ex.sets[si];
+  const container = document.getElementById('sets-' + ei);
+  if (container) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = renderSetRow(ei, si, st, ex.sets.length);
+    container.appendChild(tmp.firstElementChild);
+    // Update set numbers and remove-button visibility
+    refreshSetRows(ei);
+    // Update subtitle
+    const sub = document.querySelector('#exc-' + ei + ' .ex-sub');
+    if (sub) sub.textContent = ex.sets.length + ' sets' + (ex.repsGoal ? ' · doel: ' + ex.repsGoal + ' reps' : '');
+    updateTotals();
+    // Scroll to new row
+    container.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    toast('Set ' + (si + 1) + ' toegevoegd 💪');
+  }
+}
+
+function removeSet(ei, si) {
+  if (!workout) return;
+  const ex = workout.sets[ei];
+  if (ex.sets.length <= 1) { toast('Minimaal 1 set vereist'); return; }
+  ex.sets.splice(si, 1);
+  // Full re-render of the set rows only
+  const container = document.getElementById('sets-' + ei);
+  if (container) {
+    container.innerHTML = ex.sets.map((st, i) => renderSetRow(ei, i, st, ex.sets.length)).join('');
+    const sub = document.querySelector('#exc-' + ei + ' .ex-sub');
+    if (sub) sub.textContent = ex.sets.length + ' sets' + (ex.repsGoal ? ' · doel: ' + ex.repsGoal + ' reps' : '');
+    updateTotals();
+  }
+}
+
+function refreshSetRows(ei) {
+  if (!workout) return;
+  const ex = workout.sets[ei];
+  const container = document.getElementById('sets-' + ei);
+  if (!container) return;
+  // Update set number labels and remove button visibility
+  container.querySelectorAll('.set-row').forEach((row, si) => {
+    const numEl = row.querySelector('.set-num');
+    if (numEl) numEl.textContent = 'S' + (si + 1);
+    // Show/hide remove buttons based on count
+    const rmBtn = row.querySelector('.btn-rm-set');
+    if (rmBtn) rmBtn.style.display = ex.sets.length > 1 ? 'flex' : 'none';
+    if (!rmBtn && ex.sets.length > 1) {
+      // If no rm button exists but should, re-render
+      container.innerHTML = ex.sets.map((st, i) => renderSetRow(ei, i, st, ex.sets.length)).join('');
+    }
+  });
+}
+
+function updateTotals() {
+  if (!workout) return;
+  const totalSets = workout.sets.reduce((s, ex) => s + ex.sets.length, 0);
+  const doneSets = workout.sets.reduce((s, ex) => s + ex.sets.filter(s2 => s2.done).length, 0);
+  const C = 2 * Math.PI * 22;
+  const pct = totalSets ? doneSets / totalSets : 0;
+  const rf = document.querySelector('.ring-f');
+  if (rf) rf.setAttribute('stroke-dashoffset', (C * (1 - pct)).toFixed(1));
+  const rt = document.querySelector('.ring-txt');
+  if (rt) rt.textContent = doneSets + '/' + totalSets;
+  const totalVol = workout.sets.reduce((s, ex) => s + ex.sets.filter(st => st.done).reduce((a, st) => a + (parseFloat(st.weight)||0)*(parseInt(st.reps)||0), 0), 0);
+  const sv = document.getElementById('stat-vol');
+  if (sv) sv.textContent = totalVol > 0 ? (totalVol >= 1000 ? (totalVol/1000).toFixed(1)+'t' : totalVol+'kg') : '—';
+  const ss = document.getElementById('stat-sets');
+  if (ss) ss.textContent = doneSets;
+  const doneEx = workout.sets.filter(ex => ex.sets.every(s => s.done) && ex.sets.length > 0).length;
+  const se = document.getElementById('stat-ex');
+  if (se) se.textContent = doneEx + '/' + workout.sets.length;
+}
+
 
 function setWeight(ei, si, val) {
   if (!workout) return;
@@ -1053,48 +1804,138 @@ function toggleSet(ei, si) {
   if (ss) { ss.textContent = doneSets; ss.classList.remove('stat-pop'); requestAnimationFrame(()=>ss.classList.add('stat-pop')); }
   if (se) { se.textContent = doneExNew + '/' + workout.sets.length; }
 
-  // Start rest timer when set is marked done
-  if (st.done) startRestTimer(90);
+  // Start rest timer wanneer set afgerond wordt
+  if (st.done) startRestTimer(getSetting('restDuration'));
 }
 
+function openShareFromWorkout() {
+  if (!workout) return;
+  // Maak een tijdelijke sessie van de huidige workout voor de share card
+  const prs = getPRs();
+  const exArr = [];
+  workout.sets.forEach(ex => {
+    const done = ex.sets.filter(s => s.done && (s.weight || s.reps));
+    if (!done.length) return;
+    let best = { weight: 0, reps: 0 };
+    done.forEach(s => {
+      const w = parseFloat(s.weight) || 0, r = parseInt(s.reps) || 0;
+      if (w > best.weight || (w === best.weight && r > best.reps)) best = { weight: w, reps: r };
+    });
+    exArr.push({ name: ex.name, sets: done.length, bestWeight: best.weight, bestReps: best.reps });
+  });
+  const tempSession = { date: Date.now(), programName: workout.prog.name, exercises: exArr };
+  openShare(tempSession);
+}
+
+
+
 /* ══════════════════════════════════════
-   REST TIMER
+   REST TIMER — timestamp-gebaseerd
+   Werkt door de eindtijd op te slaan (Date.now + duur),
+   zodat na terugkeren vanuit andere app de resterende
+   tijd correct berekend wordt vanuit de klok.
 ══════════════════════════════════════ */
 let restInterval = null;
-let restTotal = 90;
-let restRemain = 0;
+let restEndTime = 0;
+let restDurationTotal = 90;
 
 function stopRestTimer() {
-  if (restInterval) clearInterval(restInterval);
-  restInterval = null;
+  if (restInterval) { clearInterval(restInterval); restInterval = null; }
+  restEndTime = 0;
+  LS.set('bf_restEnd', 0);
+  if (notifTimeout) { clearTimeout(notifTimeout); notifTimeout = null; }
   const el = document.getElementById('rest-timer');
   if (el) el.classList.remove('show');
 }
 
 function startRestTimer(secs) {
-  restTotal = secs;
-  restRemain = secs;
+  restDurationTotal = secs;
+  restEndTime = Date.now() + secs * 1000;
+  LS.set('bf_restEnd', restEndTime);
+  LS.set('bf_restTotal', secs);
+
   const el = document.getElementById('rest-timer');
   const fill = document.getElementById('rest-timer-fill');
   const txt = document.getElementById('rest-timer-txt');
   if (!el) return;
   if (restInterval) clearInterval(restInterval);
   el.classList.add('show');
-  function update() {
-    const m = Math.floor(restRemain / 60);
-    const s = restRemain % 60;
-    txt.textContent = m + ':' + String(s).padStart(2,'0');
-    fill.style.width = ((restRemain / restTotal) * 100) + '%';
-    if (restRemain <= 0) {
-      clearInterval(restInterval);
-      el.classList.remove('show');
+
+  scheduleRestNotification(secs);
+
+  function tick() {
+    const remain = Math.max(0, Math.ceil((restEndTime - Date.now()) / 1000));
+    const m = Math.floor(remain / 60);
+    const s = remain % 60;
+    if (txt) txt.textContent = m + ':' + String(s).padStart(2, '0');
+    if (fill) fill.style.width = ((remain / restDurationTotal) * 100) + '%';
+    if (remain <= 0) {
+      clearInterval(restInterval); restInterval = null;
+      if (el) el.classList.remove('show');
+      LS.set('bf_restEnd', 0);
       toast('✅ Rust voorbij — next set!');
+      showInAppNotification('⏱ Rust voorbij!', 'Tijd voor je volgende set 💪');
     }
-    restRemain--;
   }
-  update();
-  restInterval = setInterval(update, 1000);
+  tick();
+  restInterval = setInterval(tick, 500);
 }
+
+/* ══════════════════════════════════════
+   PUSH NOTIFICATIONS
+══════════════════════════════════════ */
+let notifTimeout = null;
+
+async function requestNotificationPermission() {
+  if (!('Notification' in window)) return false;
+  if (Notification.permission === 'granted') return true;
+  if (Notification.permission === 'denied') return false;
+  const result = await Notification.requestPermission();
+  return result === 'granted';
+}
+
+function scheduleRestNotification(secs) {
+  if (notifTimeout) { clearTimeout(notifTimeout); notifTimeout = null; }
+  if (!getSetting('notificationsOn')) return;
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  notifTimeout = setTimeout(() => {
+    try {
+      new Notification('Basis Fit ⚡', {
+        body: 'Rust voorbij! Tijd voor je volgende set 💪',
+        tag: 'bf-rest-done',
+        renotify: true,
+      });
+    } catch(e) { /* niet beschikbaar */ }
+    notifTimeout = null;
+  }, secs * 1000);
+}
+
+let inAppNotifTimeout = null;
+function showInAppNotification(title, body) {
+  let banner = document.getElementById('in-app-notif');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'in-app-notif';
+    banner.style.cssText = [
+      'position:fixed','top:calc(env(safe-area-inset-top,0px) + 68px)',
+      'left:50%','transform:translateX(-50%) translateY(-160%)',
+      'background:var(--navy)','color:#fff','border-radius:16px',
+      'padding:12px 20px','box-shadow:0 8px 32px rgba(27,39,53,.45)',
+      'z-index:810','display:flex','flex-direction:column','gap:3px',
+      'max-width:calc(100vw - 32px)','transition:transform .4s cubic-bezier(.34,1.4,.64,1)',
+      'pointer-events:none','text-align:center','min-width:180px'
+    ].join(';');
+    document.body.appendChild(banner);
+  }
+  banner.innerHTML = `<div style="font-weight:700;font-size:15px">${title}</div><div style="font-size:13px;opacity:.65">${body}</div>`;
+  banner.style.transform = 'translateX(-50%) translateY(0)';
+  if (inAppNotifTimeout) clearTimeout(inAppNotifTimeout);
+  inAppNotifTimeout = setTimeout(() => {
+    banner.style.transform = 'translateX(-50%) translateY(-160%)';
+  }, 3500);
+}
+
+
 
 /* ══════════════════════════════════════
    FINISH / CANCEL
@@ -1125,16 +1966,30 @@ function finishWorkout() {
 
   if (!exArr.length) { toast('Geen sets afgerond'); return; }
   setPRs(prs);
-  pushHist({ date: Date.now(), programName: workout.prog.name, exercises: exArr });
+  const histEntry = { date: Date.now(), programName: workout.prog.name, exercises: exArr };
+  pushHist(histEntry);
+  const savedSession = histEntry;
   workout = null;
   stopRestTimer();
+  releaseWakeLock();
   showScr('home');
   renderHome();
 
   if (newPRs > 0) {
-    setTimeout(() => { toast(`🏆 ${newPRs} nieuwe PR${newPRs > 1 ? "'s" : ''}!`); launchConfetti(); }, 300);
+    setTimeout(() => {
+      toast(`🏆 ${newPRs} nieuwe PR${newPRs > 1 ? "'s" : ''}!`);
+      launchConfetti();
+      setTimeout(() => {
+        if (confirm('Wil je je workout delen op social media?')) openShare(savedSession);
+      }, 2500);
+    }, 300);
   } else {
-    setTimeout(() => toast('✅ Sessie opgeslagen!'), 300);
+    setTimeout(() => {
+      toast('✅ Sessie opgeslagen!');
+      setTimeout(() => {
+        if (confirm('Wil je je workout delen?')) openShare(savedSession);
+      }, 1500);
+    }, 300);
   }
 }
 
@@ -1142,6 +1997,7 @@ function cancelWorkout() {
   if (!confirm('Training annuleren? Voortgang gaat verloren.')) return;
   workout = null;
   stopRestTimer();
+  releaseWakeLock();
   showScr('home');
   renderHome();
 }
@@ -1159,8 +2015,14 @@ function renderHistory() {
   body.innerHTML = hist.map((s, i) => `
     <div class="hist-card su" style="animation-delay:${(i*0.07).toFixed(2)}s">
       <div class="hist-hd">
-        <div class="hist-name">${esc(s.programName)}</div>
-        <div class="hist-date">${new Date(s.date).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+        <div>
+          <div class="hist-name">${esc(s.programName)}</div>
+          <div class="hist-date">${new Date(s.date).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+        </div>
+        <button onclick='openShare(${JSON.stringify(s)})' style="background:var(--ag);border:1px solid rgba(74,144,217,.25);border-radius:10px;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:5px;color:var(--accent);font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+          Delen
+        </button>
       </div>
       <div class="hist-items">
         ${s.exercises.map(ex => `
