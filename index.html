@@ -570,37 +570,76 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 
 /* ── SHARE MODAL ── */
 .share-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:850;
+  position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:850;
   display:flex;align-items:flex-end;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(6px)
+  opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px)
 }
 .share-overlay.open{opacity:1;pointer-events:all}
 .share-sheet{
-  background:var(--off);border-radius:24px 24px 0 0;
-  width:100%;max-width:430px;padding:20px 20px calc(20px + var(--safe-b));
-  transform:translateY(100%);transition:transform .32s cubic-bezier(.22,.68,0,1.1)
+  background:var(--off);border-radius:28px 28px 0 0;
+  width:100%;max-width:430px;padding:0 0 calc(16px + var(--safe-b));
+  transform:translateY(100%);transition:transform .35s cubic-bezier(.22,.68,0,1.1);
+  max-height:92dvh;overflow-y:auto;overflow-x:hidden;
 }
 .share-overlay.open .share-sheet{transform:translateY(0)}
-.share-sheet-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.share-sheet-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px 14px;position:sticky;top:0;background:var(--off);
+  border-bottom:1px solid var(--g100);z-index:2;
+}
 .share-sheet-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--navy)}
 .share-canvas-wrap{
-  width:100%;background:var(--navy);border-radius:16px;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;margin-bottom:16px;
-  box-shadow:0 12px 40px rgba(27,39,53,.35)
+  width:calc(100% - 32px);margin:16px auto;background:var(--navy);border-radius:20px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 16px 48px rgba(27,39,53,.4);position:relative;
 }
-.share-canvas-wrap canvas{width:100%;height:auto;display:block;border-radius:16px}
-.share-btns{display:flex;gap:10px}
+.share-canvas-wrap canvas{width:100%;height:auto;display:block}
+/* Background picker */
+.share-bg-section{padding:0 20px 14px}
+.share-bg-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:10px;display:block}
+.share-bg-pills{display:flex;gap:8px}
+.bg-pill{flex:1;border:1.5px solid var(--g200);border-radius:12px;padding:10px 6px;
+  background:var(--w);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:var(--g600);
+  transition:all .18s;box-shadow:0 1px 4px rgba(27,39,53,.06)}
+.bg-pill:active{transform:scale(.96)}
+.bg-pill.active{border-color:var(--accent);background:var(--ag);color:var(--accent)}
+.bg-pill svg{width:20px;height:20px;fill:currentColor}
+.bg-pill-icon{font-size:18px;line-height:1}
+.share-bg-preview{width:100%;height:52px;border-radius:10px;object-fit:cover;display:none;margin-top:10px;border:2px solid var(--accent)}
+/* Share buttons */
+.share-btns-section{padding:0 20px;display:flex;flex-direction:column;gap:10px}
+.share-btns-row{display:flex;gap:10px}
 .btn-share-action{
   flex:1;border:none;border-radius:var(--rcard);padding:16px 10px;
   font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;
   cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;
-  transition:transform .12s,opacity .12s
+  transition:transform .12s,opacity .12s;position:relative;overflow:hidden;
 }
 .btn-share-action:active{transform:scale(.97);opacity:.9}
-.btn-share-action svg{width:18px;height:18px;fill:currentColor}
+.btn-share-action svg{width:18px;height:18px;fill:currentColor;flex-shrink:0}
 .btn-share-dl{background:var(--navy);color:#fff;box-shadow:0 4px 14px rgba(27,39,53,.2)}
 .btn-share-native{background:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(74,144,217,.35)}
 .btn-share-native.hidden{display:none}
+/* Instagram button */
+.btn-share-ig{
+  width:100%;border:none;border-radius:var(--rcard);padding:16px;
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;
+  color:#fff;transition:transform .12s,opacity .12s;
+  background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  box-shadow:0 6px 20px rgba(220,39,67,.4);
+}
+.btn-share-ig:active{transform:scale(.97);opacity:.9}
+.btn-share-ig svg{width:20px;height:20px;fill:#fff;flex-shrink:0}
+.ig-tip{font-size:11px;color:var(--g400);text-align:center;padding:4px 20px 0;line-height:1.5}
+/* Loading overlay for canvas */
+.canvas-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(27,39,53,.6);border-radius:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+.canvas-loading.show{opacity:1;pointer-events:all}
+.canvas-spinner{width:32px;height:32px;border:3px solid rgba(255,255,255,.2);
+  border-top-color:#4A90D9;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -748,16 +787,56 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
       <div class="share-sheet-title">📤 Workout delen</div>
       <button class="modal-close" onclick="closeShare()">✕</button>
     </div>
-    <div class="share-canvas-wrap"><canvas id="share-canvas" width="540" height="960"></canvas></div>
-    <div class="share-btns">
-      <button class="btn-share-action btn-share-dl" onclick="downloadShare()">
-        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        Opslaan
+
+    <!-- Canvas preview -->
+    <div class="share-canvas-wrap" id="share-canvas-wrap">
+      <canvas id="share-canvas" width="1080" height="1920"></canvas>
+      <div class="canvas-loading" id="canvas-loading"><div class="canvas-spinner"></div></div>
+    </div>
+
+    <!-- Background picker -->
+    <div class="share-bg-section">
+      <span class="share-bg-label">Achtergrond</span>
+      <div class="share-bg-pills">
+        <button class="bg-pill active" id="bg-pill-default" onclick="setBgDefault()">
+          <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3zm0 16a7 7 0 1 1 0-14A7 7 0 0 1 12 19zm0-11a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm6 9.3c-.9-1.4-2.6-2.3-4.5-2.3H10.5c-1.9 0-3.6.9-4.5 2.3a7.02 7.02 0 0 0 12 0z"/></svg>
+          Standaard
+        </button>
+        <button class="bg-pill" id="bg-pill-photo" onclick="pickBgPhoto()">
+          <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+          Foto kiezen
+        </button>
+        <button class="bg-pill" id="bg-pill-camera" onclick="takeBgPhoto()">
+          <svg viewBox="0 0 24 24"><path d="M12 15.2A3.2 3.2 0 0 1 8.8 12 3.2 3.2 0 0 1 12 8.8 3.2 3.2 0 0 1 15.2 12 3.2 3.2 0 0 1 12 15.2M12 7a5 5 0 0 0-5 5 5 5 0 0 0 5 5 5 5 0 0 0 5-5 5 5 0 0 0-5-5m0-1a1 1 0 0 0-1-1h-2l-1.83-2H7C5.9 3 5 3.9 5 5v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-2.17L13 3h-2c-.55 0-1 .45-1 1z"/></svg>
+          Camera
+        </button>
+      </div>
+    </div>
+
+    <!-- Hidden file inputs -->
+    <input type="file" id="bg-file-gallery" accept="image/*" style="display:none" onchange="handleBgFile(this)">
+    <input type="file" id="bg-file-camera" accept="image/*" capture="environment" style="display:none" onchange="handleBgFile(this)">
+
+    <!-- Share buttons -->
+    <div class="share-btns-section">
+      <!-- Instagram Stories -->
+      <button class="btn-share-ig" onclick="shareToInstagram()">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Delen via Instagram Stories
       </button>
-      <button class="btn-share-action btn-share-native" id="btn-share-native" onclick="nativeShare()">
-        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
-        Delen
-      </button>
+      <p class="ig-tip" id="ig-tip">Afbeelding wordt opgeslagen — open Instagram en voeg toe aan je Story</p>
+
+      <!-- Save + Generic share -->
+      <div class="share-btns-row">
+        <button class="btn-share-action btn-share-dl" onclick="downloadShare()">
+          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Opslaan
+        </button>
+        <button class="btn-share-action btn-share-native" id="btn-share-native" onclick="nativeShare()">
+          <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+          Meer opties
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -889,12 +968,14 @@ document.addEventListener('visibilitychange', async () => {
 /* ══════════════════════════════════════
    SHARE — workout kaart genereren
 ══════════════════════════════════════ */
-let shareSession = null; // Opslaan welke sessie we delen
+let shareSession = null;
+let shareBgImage = null; // custom achtergrond afbeelding
 
 function openShare(session) {
   shareSession = session;
+  shareBgImage = null;
+  setBgPillActive('default');
   document.getElementById('share-overlay').classList.add('open');
-  // Verberg native share knop als niet beschikbaar
   if (!navigator.share) {
     document.getElementById('btn-share-native').classList.add('hidden');
   }
@@ -903,165 +984,265 @@ function openShare(session) {
 
 function closeShare() {
   document.getElementById('share-overlay').classList.remove('open');
+  // Reset file inputs so same file can be re-selected
+  document.getElementById('bg-file-gallery').value = '';
+  document.getElementById('bg-file-camera').value = '';
+}
+
+// ── Background picker helpers ──
+function setBgPillActive(type) {
+  ['default','photo','camera'].forEach(t => {
+    document.getElementById('bg-pill-' + t).classList.toggle('active', t === type);
+  });
+}
+
+function setBgDefault() {
+  shareBgImage = null;
+  setBgPillActive('default');
+  generateShareCard(shareSession);
+}
+
+function pickBgPhoto() {
+  document.getElementById('bg-file-gallery').click();
+}
+
+function takeBgPhoto() {
+  document.getElementById('bg-file-camera').click();
+}
+
+function handleBgFile(input) {
+  const file = input.files && input.files[0];
+  if (!file) return;
+  setBgPillActive(input.id === 'bg-file-camera' ? 'camera' : 'photo');
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      shareBgImage = img;
+      generateShareCard(shareSession);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── Instagram sharing ──
+async function shareToInstagram() {
+  showCanvasLoading(true);
+  const cv = document.getElementById('share-canvas');
+  cv.toBlob(async (blob) => {
+    showCanvasLoading(false);
+    const file = new File([blob], 'basis-fit-workout.png', { type: 'image/png' });
+    // Try Web Share API with files (works on iOS Safari / Android Chrome → can target Instagram)
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({
+          files: [file],
+          title: 'Mijn Basis Fit workout 💪',
+          text: '#BasisFit #Training #Workout',
+        });
+        return;
+      } catch (e) {
+        if (e.name === 'AbortError') return;
+      }
+    }
+    // Fallback: save to device and instruct user
+    const link = document.createElement('a');
+    link.download = 'basis-fit-workout.png';
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    URL.revokeObjectURL(link.href);
+    const tip = document.getElementById('ig-tip');
+    if (tip) {
+      tip.style.color = 'var(--accent)';
+      tip.style.fontWeight = '600';
+      tip.textContent = '✅ Opgeslagen! Open Instagram → + → Story → Foto → selecteer de afbeelding';
+      setTimeout(() => {
+        tip.style.color = ''; tip.style.fontWeight = '';
+        tip.textContent = 'Afbeelding wordt opgeslagen — open Instagram en voeg toe aan je Story';
+      }, 6000);
+    }
+  }, 'image/png');
+}
+
+function showCanvasLoading(on) {
+  const el = document.getElementById('canvas-loading');
+  if (el) el.classList.toggle('show', on);
 }
 
 function generateShareCard(session) {
   const cv = document.getElementById('share-canvas');
   const cx = cv.getContext('2d');
-  const W = 540, H = 960;
+  const W = 1080, H = 1920;
   cx.clearRect(0, 0, W, H);
 
-  // ── Achtergrond gradient ──
-  const bg = cx.createLinearGradient(0, 0, W, H);
-  bg.addColorStop(0, '#1B2735');
-  bg.addColorStop(0.55, '#23395B');
-  bg.addColorStop(1, '#0f1a27');
-  cx.fillStyle = bg;
-  cx.roundRect(0, 0, W, H, 0);
-  cx.fill();
+  // ── Achtergrond ──
+  if (shareBgImage) {
+    // Draw custom photo as background (cover)
+    const imgAR = shareBgImage.width / shareBgImage.height;
+    const cvAR  = W / H;
+    let sx = 0, sy = 0, sw = shareBgImage.width, sh = shareBgImage.height;
+    if (imgAR > cvAR) {
+      sw = shareBgImage.height * cvAR;
+      sx = (shareBgImage.width - sw) / 2;
+    } else {
+      sh = shareBgImage.width / cvAR;
+      sy = (shareBgImage.height - sh) / 2;
+    }
+    cx.drawImage(shareBgImage, sx, sy, sw, sh, 0, 0, W, H);
+    // Dark overlay for readability
+    const overlay = cx.createLinearGradient(0, 0, 0, H);
+    overlay.addColorStop(0, 'rgba(10,15,25,.72)');
+    overlay.addColorStop(0.5, 'rgba(10,15,25,.60)');
+    overlay.addColorStop(1, 'rgba(10,15,25,.85)');
+    cx.fillStyle = overlay;
+    cx.fillRect(0, 0, W, H);
+  } else {
+    // Default gradient background
+    const bg = cx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, '#1B2735');
+    bg.addColorStop(0.55, '#23395B');
+    bg.addColorStop(1, '#0f1a27');
+    cx.fillStyle = bg;
+    cx.fillRect(0, 0, W, H);
 
-  // ── Decoratieve cirkel achtergrond ──
-  cx.save();
-  cx.globalAlpha = 0.07;
-  cx.fillStyle = '#4A90D9';
-  cx.beginPath(); cx.arc(W * 0.78, H * 0.28, 260, 0, Math.PI * 2); cx.fill();
-  cx.globalAlpha = 0.05;
-  cx.fillStyle = '#27C47A';
-  cx.beginPath(); cx.arc(W * 0.18, H * 0.72, 200, 0, Math.PI * 2); cx.fill();
-  cx.restore();
+    // ── Decoratieve cirkels (alleen bij standaard bg) ──
+    cx.save();
+    cx.globalAlpha = 0.09;
+    cx.fillStyle = '#4A90D9';
+    cx.beginPath(); cx.arc(W * 0.78, H * 0.25, 520, 0, Math.PI * 2); cx.fill();
+    cx.globalAlpha = 0.06;
+    cx.fillStyle = '#27C47A';
+    cx.beginPath(); cx.arc(W * 0.18, H * 0.72, 400, 0, Math.PI * 2); cx.fill();
+    cx.restore();
+  }
+
+  const SCALE = 2; // Canvas is 2× for high DPI but we draw at 540×960 scale
 
   // ── BRANDING HEADER ──
-  // Logo vierkant
+  const hdrY = 88;
   cx.fillStyle = '#4A90D9';
-  roundRect(cx, 40, 44, 48, 48, 13);
+  roundRect(cx, 80, hdrY, 96, 96, 26);
   cx.fillStyle = '#fff';
-  cx.font = 'bold 26px Arial';
+  cx.font = 'bold 52px Arial';
   cx.textAlign = 'center';
-  cx.fillText('⚡', 64, 75);
+  cx.fillText('⚡', 128, hdrY + 68);
 
   cx.fillStyle = '#fff';
-  cx.font = 'bold 26px "Syne", Arial';
+  cx.font = 'bold 52px "Syne", Arial';
   cx.textAlign = 'left';
-  cx.fillText('BASIS FIT', 103, 68);
-  cx.font = '500 17px "DM Sans", Arial';
-  cx.fillStyle = 'rgba(255,255,255,0.45)';
+  cx.fillText('BASIS FIT', 206, hdrY + 42);
+  cx.font = '500 34px "DM Sans", Arial';
+  cx.fillStyle = 'rgba(255,255,255,0.5)';
   const dateStr = session ? new Date(session.date).toLocaleDateString('nl-NL', {weekday:'long', day:'numeric', month:'long'}) : new Date().toLocaleDateString('nl-NL', {weekday:'long', day:'numeric', month:'long'});
-  cx.fillText(capitalize(dateStr), 103, 89);
+  cx.fillText(capitalize(dateStr), 206, hdrY + 82);
 
-  // ── Divider lijn ──
-  cx.fillStyle = 'rgba(255,255,255,0.08)';
-  cx.fillRect(40, 112, W - 80, 1);
+  // ── Divider ──
+  cx.fillStyle = 'rgba(255,255,255,0.1)';
+  cx.fillRect(80, 224, W - 160, 1.5);
 
   // ── TRAINING NAAM ──
   const progName = session ? session.programName : '—';
   cx.fillStyle = 'rgba(255,255,255,0.5)';
-  cx.font = '700 13px "DM Sans", Arial';
-  cx.letterSpacing = '3px';
-  cx.fillText('TRAINING', 40, 152);
+  cx.font = '700 26px "DM Sans", Arial';
+  cx.letterSpacing = '6px';
+  cx.fillText('TRAINING', 80, 300);
   cx.letterSpacing = '0px';
   cx.fillStyle = '#fff';
-  cx.font = 'bold 34px "Syne", Arial';
-  cx.fillText(progName, 40, 195);
+  cx.font = 'bold 68px "Syne", Arial';
+  cx.fillText(progName, 80, 388);
 
   // ── VOLUME MEGA DISPLAY ──
   const totalVol = session ? calcTotalVolume(session.exercises) : 0;
   const volStr = totalVol >= 1000 ? (totalVol / 1000).toFixed(1) + ' ton' : totalVol.toLocaleString('nl-NL') + ' kg';
 
-  // Volume achtergrond pill
-  cx.fillStyle = 'rgba(74,144,217,0.18)';
-  roundRect(cx, 40, 225, W - 80, 130, 22);
+  cx.fillStyle = 'rgba(74,144,217,0.2)';
+  roundRect(cx, 80, 420, W - 160, 260, 44);
 
-  // Dumbbell icoon (eenvoudig SVG-achtig tekenen)
-  drawDumbbell(cx, 70, 290, 38, 'rgba(74,144,217,0.7)');
+  drawDumbbell(cx, 140, 558, 76, 'rgba(74,144,217,0.7)');
 
   cx.fillStyle = '#4A90D9';
-  cx.font = '700 13px "DM Sans", Arial';
+  cx.font = '700 26px "DM Sans", Arial';
   cx.textAlign = 'left';
-  cx.fillText('TOTAAL VOLUME', 125, 263);
+  cx.fillText('TOTAAL VOLUME', 250, 500);
   cx.fillStyle = '#fff';
-  cx.font = 'bold 58px "Syne", Arial';
-  cx.fillText(volStr, 125, 327);
+  cx.font = 'bold 116px "Syne", Arial';
+  cx.fillText(volStr, 250, 636);
 
-  // ── STATISTIEKEN RIJEN ──
+  // ── STATISTIEKEN ──
   const exercises = session ? session.exercises : [];
   const totalSetsCount = exercises.reduce((s, ex) => s + ex.sets, 0);
   const maxWeight = exercises.reduce((m, ex) => Math.max(m, ex.bestWeight || 0), 0);
 
   const stats = [
-    { icon: '🔁', label: 'Sets afgerond', value: String(totalSetsCount) },
-    { icon: '🏋️', label: 'Max gewicht', value: maxWeight + ' kg' },
+    { icon: '🔁', label: 'Sets', value: String(totalSetsCount) },
+    { icon: '🏋️', label: 'Max kg', value: maxWeight + ' kg' },
     { icon: '💪', label: 'Oefeningen', value: String(exercises.length) },
   ];
 
-  const statY = 390;
-  const statW = (W - 80 - 20) / 3;
+  const statY = 730;
+  const statW = (W - 160 - 40) / 3;
   stats.forEach((s, i) => {
-    const sx = 40 + i * (statW + 10);
-    cx.fillStyle = 'rgba(255,255,255,0.07)';
-    roundRect(cx, sx, statY, statW, 86, 16);
-    cx.fillStyle = 'rgba(255,255,255,0.6)';
-    cx.font = '22px Arial';
+    const sx = 80 + i * (statW + 20);
+    cx.fillStyle = 'rgba(255,255,255,0.09)';
+    roundRect(cx, sx, statY, statW, 172, 32);
+    cx.fillStyle = 'rgba(255,255,255,0.7)';
+    cx.font = '44px Arial';
     cx.textAlign = 'center';
-    cx.fillText(s.icon, sx + statW / 2, statY + 30);
+    cx.fillText(s.icon, sx + statW / 2, statY + 62);
     cx.fillStyle = '#fff';
-    cx.font = 'bold 22px "DM Mono", monospace, Arial';
-    cx.fillText(s.value, sx + statW / 2, statY + 57);
+    cx.font = 'bold 44px "DM Mono", monospace, Arial';
+    cx.fillText(s.value, sx + statW / 2, statY + 114);
     cx.fillStyle = 'rgba(255,255,255,0.4)';
-    cx.font = '500 11px "DM Sans", Arial';
-    cx.fillText(s.label, sx + statW / 2, statY + 73);
+    cx.font = '500 22px "DM Sans", Arial';
+    cx.fillText(s.label, sx + statW / 2, statY + 148);
   });
 
   // ── OEFENINGEN LIJST ──
-  cx.fillStyle = 'rgba(255,255,255,0.08)';
-  cx.fillRect(40, 502, W - 80, 1);
+  cx.fillStyle = 'rgba(255,255,255,0.1)';
+  cx.fillRect(80, 942, W - 160, 1.5);
 
-  cx.fillStyle = 'rgba(255,255,255,0.4)';
-  cx.font = '700 12px "DM Sans", Arial';
+  cx.fillStyle = 'rgba(255,255,255,0.45)';
+  cx.font = '700 24px "DM Sans", Arial';
   cx.textAlign = 'left';
-  cx.letterSpacing = '2px';
-  cx.fillText('GEDAAN VANDAAG', 40, 527);
+  cx.letterSpacing = '4px';
+  cx.fillText('GEDAAN VANDAAG', 80, 1000);
   cx.letterSpacing = '0px';
 
-  const exToShow = exercises.slice(0, 6);
+  const exToShow = exercises.slice(0, 7);
   exToShow.forEach((ex, i) => {
-    const ey = 552 + i * 50;
-    // Row bg
-    cx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.05)' : 'transparent';
-    roundRect(cx, 40, ey - 8, W - 80, 42, 10);
-    // Dot
+    const ey = 1038 + i * 100;
+    cx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.06)' : 'transparent';
+    roundRect(cx, 80, ey - 16, W - 160, 84, 20);
     cx.fillStyle = '#4A90D9';
-    cx.beginPath(); cx.arc(57, ey + 12, 4, 0, Math.PI * 2); cx.fill();
-    // Naam
+    cx.beginPath(); cx.arc(114, ey + 24, 8, 0, Math.PI * 2); cx.fill();
     cx.fillStyle = '#fff';
-    cx.font = '500 16px "DM Sans", Arial';
+    cx.font = '500 32px "DM Sans", Arial';
     cx.textAlign = 'left';
-    const maxNameW = 280;
-    const nameText = ex.name.length > 28 ? ex.name.substring(0, 27) + '…' : ex.name;
-    cx.fillText(nameText, 72, ey + 16);
-    // Stats rechts
+    const nameText = ex.name.length > 30 ? ex.name.substring(0, 29) + '…' : ex.name;
+    cx.fillText(nameText, 142, ey + 32);
     cx.fillStyle = 'rgba(255,255,255,0.5)';
-    cx.font = '500 14px "DM Mono", monospace, Arial';
+    cx.font = '500 28px "DM Mono", monospace, Arial';
     cx.textAlign = 'right';
-    cx.fillText(`${ex.bestWeight}kg × ${ex.bestReps} · ${ex.sets}×`, W - 40, ey + 16);
+    cx.fillText(`${ex.bestWeight}kg × ${ex.bestReps} · ${ex.sets}×`, W - 80, ey + 32);
   });
-  if (exercises.length > 6) {
-    cx.fillStyle = 'rgba(255,255,255,0.3)';
-    cx.font = '500 13px "DM Sans", Arial';
+  if (exercises.length > 7) {
+    cx.fillStyle = 'rgba(255,255,255,0.35)';
+    cx.font = '500 26px "DM Sans", Arial';
     cx.textAlign = 'center';
-    cx.fillText(`+ ${exercises.length - 6} meer oefeningen`, W / 2, 552 + 6 * 50 + 4);
+    cx.fillText(`+ ${exercises.length - 7} meer oefeningen`, W / 2, 1038 + 7 * 100 + 8);
   }
 
   // ── FOOTER ──
   cx.fillStyle = 'rgba(255,255,255,0.12)';
-  cx.fillRect(40, H - 90, W - 80, 1);
-  cx.fillStyle = 'rgba(255,255,255,0.25)';
-  cx.font = '500 14px "DM Sans", Arial';
+  cx.fillRect(80, H - 180, W - 160, 1.5);
+  cx.fillStyle = 'rgba(255,255,255,0.3)';
+  cx.font = '500 28px "DM Sans", Arial';
   cx.textAlign = 'center';
-  cx.fillText('basis-fit.app  ·  Train slim, train hard 💪', W / 2, H - 58);
-  // Volume challenge tekst
-  cx.fillStyle = 'rgba(74,144,217,0.8)';
-  cx.font = 'bold 13px "DM Sans", Arial';
-  cx.fillText('Wat is jouw volume? 🏆', W / 2, H - 36);
+  cx.fillText('basis-fit.app  ·  Train slim, train hard 💪', W / 2, H - 116);
+  cx.fillStyle = 'rgba(74,144,217,0.9)';
+  cx.font = 'bold 26px "DM Sans", Arial';
+  cx.fillText('Wat is jouw volume? 🏆', W / 2, H - 72);
 }
 
 function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
@@ -1092,24 +1273,31 @@ function drawDumbbell(cx, x, y, size, color) {
   cx.fillStyle = color;
   const s = size;
   // Linker gewicht
-  roundRect(cx, x - s * 0.1, y - s * 0.42, s * 0.22, s * 0.84, 4);
+  roundRect(cx, x - s * 0.1, y - s * 0.42, s * 0.22, s * 0.84, 8);
   // Stang
   cx.fillRect(x + s * 0.12, y - s * 0.1, s * 0.76, s * 0.2);
   // Rechter gewicht
-  roundRect(cx, x + s * 0.88, y - s * 0.42, s * 0.22, s * 0.84, 4);
+  roundRect(cx, x + s * 0.88, y - s * 0.42, s * 0.22, s * 0.84, 8);
 }
 
 function downloadShare() {
+  showCanvasLoading(true);
   const cv = document.getElementById('share-canvas');
-  const link = document.createElement('a');
-  link.download = 'basis-fit-workout.png';
-  link.href = cv.toDataURL('image/png');
-  link.click();
+  cv.toBlob((blob) => {
+    showCanvasLoading(false);
+    const link = document.createElement('a');
+    link.download = 'basis-fit-workout.png';
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }, 'image/png');
 }
 
 async function nativeShare() {
+  showCanvasLoading(true);
   const cv = document.getElementById('share-canvas');
   cv.toBlob(async (blob) => {
+    showCanvasLoading(false);
     const file = new File([blob], 'basis-fit-workout.png', { type: 'image/png' });
     try {
       await navigator.share({
