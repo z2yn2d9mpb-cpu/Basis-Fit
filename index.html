@@ -7,8 +7,29 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Basis Fit"/>
 <meta name="theme-color" content="#1B2735"/>
-<title>Basis Fit</title>
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="Basis-Fit Workout Tracker - Houd je trainingen, schema's en persoonlijke records bij. Sync tussen apparaten, deel je workouts en bereik je fitness doelen."/>
+<meta name="keywords" content="workout tracker, fitness app, training schema, PR tracking, basis-fit, gym tracker"/>
+<meta name="author" content="Basis-Fit Tracker"/>
+
+<!-- Open Graph / Social Media -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://basis-fit.vercel.app/"/>
+<meta property="og:title" content="Basis-Fit Workout Tracker"/>
+<meta property="og:description" content="Houd je trainingen, schema's en persoonlijke records bij. Sync tussen apparaten en bereik je fitness doelen."/>
+<meta property="og:site_name" content="Basis-Fit Tracker"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Basis-Fit Workout Tracker"/>
+<meta name="twitter:description" content="Jouw persoonlijke workout tracker voor het bijhouden van trainingen en PR's."/>
+
+<title>Basis Fit - Workout Tracker</title>
+
+<!-- Preconnect for faster font loading -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -568,6 +589,22 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 .wakelock-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
 
+/* ── LEGAL PAGES & INFO ── */
+.legal-link{
+  text-decoration:none;color:var(--accent);font-weight:600;
+  transition:color .15s;display:inline-flex;align-items:center;gap:4px
+}
+.legal-link:active{color:var(--navy)}
+.legal-link svg{width:12px;height:12px;fill:currentColor}
+.info-section{margin-bottom:16px}
+.info-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:8px;
+  display:flex;align-items:center;gap:6px}
+.info-text{font-size:13px;color:var(--g600);line-height:1.6;margin-bottom:8px}
+.info-list{padding-left:20px;margin:8px 0}
+.info-list li{font-size:13px;color:var(--g600);line-height:1.7;margin-bottom:6px}
+.version-badge{display:inline-block;background:var(--g100);color:var(--g600);
+  font-size:11px;font-weight:700;padding:4px 8px;border-radius:6px;font-family:'DM Mono',monospace}
+
 /* ── SHARE MODAL ── */
 .share-overlay{
   position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:850;
@@ -776,6 +813,361 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
     </div>
     <div class="settings-body" id="settings-body">
       <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT MODAL -->
+<div class="settings-overlay" id="about-overlay" onclick="aboutOverlayClick(event)">
+  <div class="settings-sheet">
+    <div class="settings-handle"></div>
+    <div class="settings-hd">
+      <button class="modal-close" onclick="closeAbout()" style="order:-1;margin-right:12px">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <div class="settings-title">ℹ️ Over deze app</div>
+      <div style="width:32px"></div>
+    </div>
+    <div class="settings-body">
+      <div class="sett-card" style="margin-bottom:16px">
+        <div style="padding:20px;text-align:center">
+          <div style="width:80px;height:80px;background:var(--navy);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 8px 24px rgba(27,39,53,.25)">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="#fff"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg>
+          </div>
+          <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--navy);margin-bottom:4px">Basis-Fit</div>
+          <div class="version-badge" style="margin-bottom:16px">Versie 1.0.0</div>
+          <div style="font-size:13px;color:var(--g600);line-height:1.6">
+            Jouw persoonlijke workout tracker voor het bijhouden van trainingen, schema's en persoonlijke records. Ontwikkeld met 💪 voor fitness enthousiastelingen in Nederland.
+          </div>
+        </div>
+      </div>
+
+      <div class="sett-section">
+        <span class="sett-section-lbl">Features</span>
+        <div class="sett-card">
+          <div style="padding:16px">
+            <div class="info-section">
+              <div class="info-title">🏋️ Workout Tracking</div>
+              <div class="info-text">Houd al je trainingen bij met vooraf ingestelde schema's of maak je eigen programma's. Real-time voortgang, volume tracking en automatische PR detectie.</div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">☁️ Cloud Sync</div>
+              <div class="info-text">Al je data wordt automatisch gesynchroniseerd via Firebase. Log in op elk apparaat en ga verder waar je was gebleven.</div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">📤 Delen</div>
+              <div class="info-text">Deel je workouts met vrienden via Instagram Stories of andere apps. Kies je eigen achtergrond en toon je prestaties!</div>
+            </div>
+            <div class="info-section" style="margin-bottom:0">
+              <div class="info-title">📱 Progressive Web App</div>
+              <div class="info-text">Installeer de app op je home screen voor een volledig app-ervaring. Werkt offline en houdt je scherm actief tijdens trainingen.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sett-section">
+        <span class="sett-section-lbl">Technologie</span>
+        <div class="sett-card">
+          <div style="padding:16px">
+            <div class="info-text" style="margin-bottom:8px"><strong>Frontend:</strong> Vanilla JavaScript, HTML5, CSS3</div>
+            <div class="info-text" style="margin-bottom:8px"><strong>Backend:</strong> Firebase (Authentication, Firestore, Analytics)</div>
+            <div class="info-text" style="margin-bottom:0"><strong>Hosting:</strong> Vercel</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sett-section">
+        <span class="sett-section-lbl">Links</span>
+        <div class="sett-card">
+          <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+            <a href="https://basis-fit.vercel.app" target="_blank" class="legal-link" style="font-size:14px">
+              🌐 Website bezoeken
+              <svg viewBox="0 0 24 24" width="14" height="14"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+            <a onclick="closeAbout();setTimeout(showPrivacy,350)" class="legal-link" style="font-size:14px;cursor:pointer">
+              🔒 Privacybeleid lezen
+            </a>
+            <a onclick="closeAbout();setTimeout(showTerms,350)" class="legal-link" style="font-size:14px;cursor:pointer">
+              📄 Gebruiksvoorwaarden lezen
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:20px;text-align:center">
+        <div style="font-size:12px;color:var(--g400);line-height:1.6">
+          © 2025 Basis-Fit Workout Tracker<br>
+          Gemaakt met 💪 in Nederland
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRIVACY POLICY MODAL -->
+<div class="settings-overlay" id="privacy-overlay" onclick="privacyOverlayClick(event)">
+  <div class="settings-sheet">
+    <div class="settings-handle"></div>
+    <div class="settings-hd">
+      <button class="modal-close" onclick="closePrivacy()" style="order:-1;margin-right:12px">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <div class="settings-title">🔒 Privacybeleid</div>
+      <div style="width:32px"></div>
+    </div>
+    <div class="settings-body">
+      <div class="sett-card" style="margin-bottom:16px">
+        <div style="padding:20px">
+          <div class="info-text" style="font-size:12px;color:var(--g400);margin-bottom:16px">
+            <strong>Laatst bijgewerkt:</strong> 24 februari 2025
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">📋 Wat we verzamelen</div>
+            <div class="info-text">De Basis-Fit Workout Tracker verzamelt de volgende gegevens om de app voor jou te laten werken:</div>
+            <ul class="info-list">
+              <li><strong>Accountgegevens:</strong> Je naam, e-mailadres (alleen bij registratie)</li>
+              <li><strong>Trainingsdata:</strong> Workout sessies, oefeningen, sets, gewichten en reps</li>
+              <li><strong>Persoonlijke records:</strong> Je beste prestaties per oefening</li>
+              <li><strong>Instellingen:</strong> App voorkeuren zoals rust timer duur en avatar</li>
+              <li><strong>Technische data:</strong> Firebase Analytics voor app gebruik (anoniem)</li>
+            </ul>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">🎯 Waarvoor we je data gebruiken</div>
+            <ul class="info-list">
+              <li>Om je workouts op te slaan en te synchroniseren tussen apparaten</li>
+              <li>Om je persoonlijke records bij te houden en weer te geven</li>
+              <li>Om je instellingen en voorkeuren te bewaren</li>
+              <li>Om de app te verbeteren door anonieme gebruiksstatistieken</li>
+              <li>Om je in te kunnen loggen op verschillende apparaten</li>
+            </ul>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">🔐 Hoe we je data beschermen</div>
+            <ul class="info-list">
+              <li><strong>Encryptie:</strong> Alle data wordt via HTTPS verstuurd</li>
+              <li><strong>Firebase Security:</strong> Strenge toegangsregels - alleen jij kan je eigen data zien</li>
+              <li><strong>Geen tracking:</strong> We gebruiken geen advertentie-cookies of tracking van derden</li>
+              <li><strong>Eigen data:</strong> Elke gebruiker heeft toegang tot alleen hun eigen informatie</li>
+            </ul>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">🌍 Data opslag & locatie</div>
+            <div class="info-text">
+              Je data wordt opgeslagen in Firebase Firestore (Google Cloud). Firebase heeft datacenters wereldwijd en voldoet aan de AVG (GDPR) wetgeving voor Europese gebruikers.
+            </div>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">🍪 Cookies</div>
+            <div class="info-text">
+              De app gebruikt alleen essentiële cookies voor:
+            </div>
+            <ul class="info-list">
+              <li><strong>Authenticatie:</strong> Om je ingelogd te houden</li>
+              <li><strong>Lokale opslag:</strong> Voor offline functionaliteit en snellere laadtijden</li>
+            </ul>
+            <div class="info-text">
+              We gebruiken <strong>geen</strong> advertentie-cookies of tracking cookies van derden.
+            </div>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">👤 Jouw rechten (AVG/GDPR)</div>
+            <div class="info-text">Onder de AVG heb je de volgende rechten:</div>
+            <ul class="info-list">
+              <li><strong>Inzage:</strong> Je kunt al je data in de app bekijken</li>
+              <li><strong>Correctie:</strong> Je kunt je gegevens zelf aanpassen in de app</li>
+              <li><strong>Verwijdering:</strong> Log uit en je lokale data wordt verwijderd. Voor volledige accountverwijdering, neem contact op</li>
+              <li><strong>Overdraagbaarheid:</strong> Je data is toegankelijk in een gestructureerd formaat</li>
+            </ul>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">📤 Delen van data</div>
+            <div class="info-text">
+              We delen <strong>nooit</strong> je persoonlijke data met derden voor marketing doeleinden. Alleen de services die nodig zijn om de app te laten werken hebben toegang:
+            </div>
+            <ul class="info-list">
+              <li><strong>Firebase/Google:</strong> Voor hosting en authenticatie</li>
+              <li><strong>Vercel:</strong> Voor hosting van de website</li>
+            </ul>
+            <div class="info-text">
+              Beide partijen zijn AVG-compliant.
+            </div>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">👶 Kinderen</div>
+            <div class="info-text">
+              Deze app is bedoeld voor gebruikers van 16 jaar en ouder. We verzamelen niet bewust gegevens van jongere gebruikers.
+            </div>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">🔄 Wijzigingen in dit beleid</div>
+            <div class="info-text">
+              We kunnen dit privacybeleid van tijd tot tijd bijwerken. Belangrijke wijzigingen worden in de app aangekondigd. De datum "Laatst bijgewerkt" bovenaan geeft aan wanneer dit beleid voor het laatst is aangepast.
+            </div>
+          </div>
+
+          <div class="info-section" style="margin-bottom:0">
+            <div class="info-title">📧 Contact</div>
+            <div class="info-text">
+              Heb je vragen over dit privacybeleid of wil je gebruik maken van je AVG-rechten? Open een issue op onze GitHub repository of gebruik de feedback functie in de app.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TERMS OF SERVICE MODAL -->
+<div class="settings-overlay" id="terms-overlay" onclick="termsOverlayClick(event)">
+  <div class="settings-sheet">
+    <div class="settings-handle"></div>
+    <div class="settings-hd">
+      <button class="modal-close" onclick="closeTerms()" style="order:-1;margin-right:12px">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <div class="settings-title">📄 Gebruiksvoorwaarden</div>
+      <div style="width:32px"></div>
+    </div>
+    <div class="settings-body">
+      <div class="sett-card" style="margin-bottom:16px">
+        <div style="padding:20px">
+          <div class="info-text" style="font-size:12px;color:var(--g400);margin-bottom:16px">
+            <strong>Laatst bijgewerkt:</strong> 24 februari 2025
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">👋 Welkom</div>
+            <div class="info-text">
+              Door de Basis-Fit Workout Tracker te gebruiken, ga je akkoord met deze gebruiksvoorwaarden. Lees ze zorgvuldig door. Als je niet akkoord gaat, gebruik de app dan niet.
+            </div>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">✅ Toegestaan gebruik</div>
+            <div class="info-text">Je mag deze app gebruiken voor:</div>
+            <ul class="info-list">
+              <li>Het bijhouden van je persoonlijke trainingen en workouts</li>
+              <li>Het maken en opslaan van trainingsschema's</li>
+              <li>Het delen van je workout resultaten op social media</li>
+              <li>Het synchroniseren van je data tussen meerdere apparaten</li>
+            </ul>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">🚫 Niet toegestaan</div>
+            <div class="info-text">Je mag de app <strong>niet</strong> gebruiken voor:</div>
+            <ul class="info-list">
+              <li>Illegale activiteiten of het schenden van rechten van anderen</li>
+              <li>Het verspreiden van malware, virussen of schadelijke code</li>
+              <li>Het proberen toegang te krijgen tot data van andere gebruikers</li>
+              <li>Het overbelasten van onze servers door geautomatiseerde requests</li>
+              <li>Het reverse-engineeren of kopiëren van de app voor commerciële doeleinden</li>
+            </ul>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">🔑 Account & Beveiliging</div>
+            <ul class="info-list">
+              <li>Je bent verantwoordelijk voor het geheimhouden van je wachtwoord</li>
+              <li>Je bent verantwoordelijk voor alle activiteiten onder jouw account</li>
+              <li>Meld verdachte activiteiten onmiddellijk</li>
+              <li>We kunnen accounts opschorten of verwijderen bij misbruik</li>
+            </ul>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">💾 Je data</div>
+            <ul class="info-list">
+              <li><strong>Eigendom:</strong> Al je trainingsdata blijft van jou</li>
+              <li><strong>Back-ups:</strong> We raden aan regelmatig je eigen back-ups te maken</li>
+              <li><strong>Verwijdering:</strong> Bij uitloggen wordt lokale data verwijderd. Voor volledige verwijdering, neem contact op</li>
+              <li><strong>Accuraatheid:</strong> We garanderen niet dat de app altijd foutloos werkt. Gebruik de app op eigen risico</li>
+            </ul>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">⚠️ Disclaimer</div>
+            <div class="info-text">
+              <strong>Medisch advies:</strong> Deze app is een hulpmiddel voor workout tracking en vervangt geen professioneel medisch of sportadvies. Raadpleeg altijd een arts voordat je start met een nieuw trainingsprogramma, vooral bij bestaande medische condities.
+            </div>
+            <div class="info-text">
+              <strong>Blessures:</strong> Wij zijn niet aansprakelijk voor blessures, ongevallen of schade ontstaan door het gebruik van deze app. Train altijd veilig en luister naar je lichaam.
+            </div>
+            <div class="info-text">
+              <strong>"As-is":</strong> De app wordt aangeboden zoals deze is, zonder garanties. We garanderen niet dat de app altijd beschikbaar of foutloos is.
+            </div>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">🔄 Beschikbaarheid & Updates</div>
+            <ul class="info-list">
+              <li>We doen ons best de app 24/7 beschikbaar te houden, maar garanderen dit niet</li>
+              <li>We kunnen de app tijdelijk offline halen voor onderhoud</li>
+              <li>We kunnen features toevoegen, wijzigen of verwijderen</li>
+              <li>Updates kunnen automatisch worden geïnstalleerd</li>
+            </ul>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">🏢 Intellectueel eigendom</div>
+            <div class="info-text">
+              Alle rechten op de app, inclusief design, code, logo's en content blijven eigendom van de maker. Je krijgt alleen een persoonlijk, niet-overdraagbaar gebruiksrecht.
+            </div>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">📤 Gedeelde content</div>
+            <div class="info-text">
+              Als je workouts deelt via de app (bijv. naar Instagram), blijf je eigenaar van die content. Wij claimen geen rechten op je gedeelde workout images.
+            </div>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">⚖️ Aansprakelijkheid</div>
+            <div class="info-text">
+              We zijn niet aansprakelijk voor:
+            </div>
+            <ul class="info-list">
+              <li>Verlies van data door technische problemen</li>
+              <li>Schade door verkeerd gebruik van de app</li>
+              <li>Blessures of gezondheidsschade</li>
+              <li>Indirecte schade of gederfde winst</li>
+            </ul>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">🔧 Wijzigingen in voorwaarden</div>
+            <div class="info-text">
+              We kunnen deze voorwaarden op elk moment wijzigen. Belangrijke wijzigingen worden in de app aangekondigd. Voortgezet gebruik na wijzigingen betekent dat je akkoord gaat met de nieuwe voorwaarden.
+            </div>
+          </div>
+
+          <div class="info-section">
+            <div class="info-title">⚖️ Nederlands recht</div>
+            <div class="info-text">
+              Deze voorwaarden vallen onder Nederlands recht. Eventuele geschillen worden voorgelegd aan de bevoegde rechter in Nederland.
+            </div>
+          </div>
+
+          <div class="info-section" style="margin-bottom:0">
+            <div class="info-title">📧 Contact</div>
+            <div class="info-text">
+              Vragen over deze voorwaarden? Open een issue op onze GitHub repository of gebruik de feedback functie in de app.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1350,6 +1742,48 @@ function settingsOverlayClick(e) {
   if (e.target === document.getElementById('settings-overlay')) closeSettings();
 }
 
+/* ══════════════════════════════════════
+   LEGAL PAGES & INFO
+══════════════════════════════════════ */
+function showAbout() {
+  closeSettings();
+  setTimeout(() => {
+    document.getElementById('about-overlay').classList.add('open');
+  }, 100);
+}
+function closeAbout() {
+  document.getElementById('about-overlay').classList.remove('open');
+}
+function aboutOverlayClick(e) {
+  if (e.target === document.getElementById('about-overlay')) closeAbout();
+}
+
+function showPrivacy() {
+  closeSettings();
+  setTimeout(() => {
+    document.getElementById('privacy-overlay').classList.add('open');
+  }, 100);
+}
+function closePrivacy() {
+  document.getElementById('privacy-overlay').classList.remove('open');
+}
+function privacyOverlayClick(e) {
+  if (e.target === document.getElementById('privacy-overlay')) closePrivacy();
+}
+
+function showTerms() {
+  closeSettings();
+  setTimeout(() => {
+    document.getElementById('terms-overlay').classList.add('open');
+  }, 100);
+}
+function closeTerms() {
+  document.getElementById('terms-overlay').classList.remove('open');
+}
+function termsOverlayClick(e) {
+  if (e.target === document.getElementById('terms-overlay')) closeTerms();
+}
+
 function renderSettingsBody() {
   const s = getSettings();
   const user = getUser() || '';
@@ -1419,6 +1853,43 @@ function renderSettingsBody() {
       </div>
     </div>
 
+    <!-- Info & Documentatie -->
+    <div class="sett-section">
+      <span class="sett-section-lbl">Info & Documentatie</span>
+      <div class="sett-card">
+        <div class="sett-row" onclick="showAbout()" style="cursor:pointer">
+          <div class="sett-row-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          </div>
+          <div class="sett-row-info">
+            <div class="sett-row-label">Over Basis-Fit App</div>
+            <div class="sett-row-sub">Versie, features & informatie</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--g400)"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </div>
+        <div class="sett-row" onclick="showPrivacy()" style="cursor:pointer">
+          <div class="sett-row-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+          </div>
+          <div class="sett-row-info">
+            <div class="sett-row-label">Privacybeleid</div>
+            <div class="sett-row-sub">Hoe we met je data omgaan</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--g400)"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </div>
+        <div class="sett-row" onclick="showTerms()" style="cursor:pointer;border-bottom:none">
+          <div class="sett-row-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+          </div>
+          <div class="sett-row-info">
+            <div class="sett-row-label">Gebruiksvoorwaarden</div>
+            <div class="sett-row-sub">Voorwaarden voor gebruik</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--g400)"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </div>
+      </div>
+    </div>
+
     <!-- Account / uitloggen -->
     <div class="sett-section">
       <span class="sett-section-lbl">Account</span>
@@ -1434,6 +1905,13 @@ function renderSettingsBody() {
           <button onclick="signOutUser()" style="background:var(--redbg);border:1px solid rgba(232,69,60,.2);color:var(--red);border-radius:10px;padding:8px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;white-space:nowrap">Uitloggen</button>
         </div>
       </div>
+    </div>
+
+    <!-- App Info Footer -->
+    <div style="padding:16px 4px;text-align:center">
+      <div style="font-size:12px;color:var(--g400);margin-bottom:6px">Basis-Fit Workout Tracker</div>
+      <div class="version-badge">v1.0.0</div>
+      <div style="font-size:11px;color:var(--g400);margin-top:10px">© 2025 · Gemaakt met 💪 in Nederland</div>
     </div>
     <div style="height:8px"></div>
   `;
