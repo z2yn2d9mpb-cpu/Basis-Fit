@@ -78,6 +78,41 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
   color:#e8ecf2;
 }
 
+/* Comprehensive dark mode text fixes - catch all */
+[data-theme="dark"] .prog-name,
+[data-theme="dark"] .wk-day,
+[data-theme="dark"] .ex-name,
+[data-theme="dark"] .hist-name,
+[data-theme="dark"] .hist-iname,
+[data-theme="dark"] .pr-ex,
+[data-theme="dark"] .set-name,
+[data-theme="dark"] .modal-title,
+[data-theme="dark"] .topbar h2,
+[data-theme="dark"] .aw-ex-name,
+[data-theme="dark"] .hist-d-name,
+[data-theme="dark"] .wk-stat-val,
+[data-theme="dark"] .minp,
+[data-theme="dark"] .aw-inp,
+[data-theme="dark"] .set-dd,
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4 {
+  color: #e8ecf2 !important;
+}
+
+/* Settings and other button text */
+[data-theme="dark"] .mbtn-cancel,
+[data-theme="dark"] .aw-btn-prev {
+  color: #e8ecf2 !important;
+}
+
+/* Ensure ex-num is visible */
+[data-theme="dark"] .ex-num {
+  color: #e8ecf2 !important;
+}
+
+
 #app{max-width:430px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;position:relative}
 .screen{display:none;flex-direction:column;flex:1;min-height:0}
 .screen.active{display:flex}
@@ -104,9 +139,13 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 .theme-panel{background:var(--w);border-radius:16px;padding:20px;
   width:calc(100% - 40px);max-width:320px;box-shadow:0 8px 32px rgba(0,0,0,0.2);
   animation:slideUp 0.3s ease;transition:background 0.3s}
-.theme-panel h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;
+.theme-panel h3{transition:color 0.3s}
+[data-theme="dark"] h3{color:#e8ecf2}
+h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;
   margin-bottom:16px;color:var(--navy);transition:color 0.3s}
-[data-theme="dark"] .theme-panel h3{color:#e8ecf2}
+[data-theme="dark"] .theme-panel h3{transition:color 0.3s}
+[data-theme="dark"] h3{color:#e8ecf2}
+h3{color:#e8ecf2}
 .theme-options{display:flex;flex-direction:column;gap:8px}
 .theme-option{background:transparent;border:2px solid var(--g100);
   border-radius:12px;padding:14px 16px;cursor:pointer;
@@ -143,9 +182,13 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 .tb-right{display:flex;align-items:center;gap:4px;flex-shrink:0}
 .tb-logo{width:32px;height:32px;background:var(--navy);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .tb-logo svg{width:17px;height:17px;fill:#fff}
-.topbar h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.2px;
+.topbar h2{transition:color 0.3s}
+[data-theme="dark"] h2{color:#e8ecf2}
+h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.2px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color 0.3s}
-[data-theme="dark"] .topbar h2{color:#e8ecf2}
+[data-theme="dark"] .topbar h2{transition:color 0.3s}
+[data-theme="dark"] h2{color:#e8ecf2}
+h2{color:#e8ecf2}
 .topbar-right{font-size:13px;color:var(--g400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;transition:color 0.3s}
 
 /* ── TAB BAR ── */
@@ -400,7 +443,9 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 
 /* ── EDITOR ── */
 .editor-block{background:var(--w);border-radius:var(--rcard);padding:16px;box-shadow:var(--sh);margin-bottom:12px}
-.editor-block h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px}
+.editor-block h3{transition:color 0.3s}
+[data-theme="dark"] h3{color:#e8ecf2}
+h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px}
 .inp-light{width:100%;background:var(--g100);border:1.5px solid transparent;border-radius:9px;
   padding:12px 14px;color:var(--navy);font-family:'DM Sans',sans-serif;
   font-size:15px;font-weight:500;outline:none;transition:border-color .15s,background .15s}
@@ -532,6 +577,232 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 .modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .modal-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--navy);transition:color 0.3s}
 [data-theme="dark"] .modal-title{color:#e8ecf2}
+
+/* === COMPREHENSIVE DARK MODE TEXT OVERRIDES === */
+[data-theme="dark"] .theme-panel h3 {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .theme-option {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .theme-close {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .tab.active {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .set-dd {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .set-dd option {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .wk-stat-val {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .prev-rec b {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .add-ex-title {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .add-ex-btn {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .ex-build-num {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .ex-build-name {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .btn-modal-sec {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .tb-edit:hover {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .settings-title {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .sett-row-label {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .timer-val {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .legal-link:active {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .info-title {
+  color: #e8ecf2 !important;
+}
+[data-theme="dark"] .share-sheet-title {
+  color: #e8ecf2 !important;
+}
+
+
+/* Additional readability improvements for dark mode */
+
+/* Ensure all input placeholders are visible */
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Ensure all labels are visible */
+[data-theme="dark"] label,
+[data-theme="dark"] .label {
+  color: #b4b9c8 !important;
+}
+
+/* Meta text should be lighter but still readable */
+[data-theme="dark"] .prog-meta,
+[data-theme="dark"] .ex-det,
+[data-theme="dark"] .ex-sub,
+[data-theme="dark"] .hist-date,
+[data-theme="dark"] .hist-ex,
+[data-theme="dark"] .pr-val,
+[data-theme="dark"] .pr-date,
+[data-theme="dark"] .set-desc,
+[data-theme="dark"] .aw-ex-det,
+[data-theme="dark"] .aw-set-lbl,
+[data-theme="dark"] .wk-stat-lbl,
+[data-theme="dark"] .set-dd-unit,
+[data-theme="dark"] .set-num,
+[data-theme="dark"] .topbar-right,
+[data-theme="dark"] .sett-row-desc,
+[data-theme="dark"] .ob-sub {
+  color: #8b92a8 !important;
+}
+
+/* Empty state text */
+[data-theme="dark"] .empty-txt,
+[data-theme="dark"] .empty-hint {
+  color: #8b92a8 !important;
+}
+
+/* Section labels */
+[data-theme="dark"] .slbl {
+  color: #8b92a8 !important;
+}
+
+/* Modal input labels */
+[data-theme="dark"] .minp-lbl {
+  color: #b4b9c8 !important;
+}
+
+/* Ensure chevrons are visible */
+[data-theme="dark"] .prog-chevron,
+[data-theme="dark"] .set-chevron {
+  fill: #8b92a8 !important;
+}
+/* Inline styled elements */
+[data-theme="dark"] [style*="color:var(--navy)"] {
+  color: #e8ecf2 !important;
+}
+
+/* Tab bar active state in dark mode */
+[data-theme="dark"] .tab.active {
+  color: #e8ecf2 !important;
+}
+
+/* All buttons with navy text */
+[data-theme="dark"] button {
+  color: inherit;
+}
+
+[data-theme="dark"] .btn-modal-sec {
+  color: #e8ecf2 !important;
+}
+
+/* Settings and legal text */
+[data-theme="dark"] .settings-title,
+[data-theme="dark"] .sett-row-label,
+[data-theme="dark"] .info-title,
+[data-theme="dark"] .legal-link,
+[data-theme="dark"] .share-sheet-title {
+  color: #e8ecf2 !important;
+}
+
+
+/* Additional readability improvements for dark mode */
+
+/* Ensure all input placeholders are visible */
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Ensure all labels are visible */
+[data-theme="dark"] label,
+[data-theme="dark"] .label {
+  color: #b4b9c8 !important;
+}
+
+/* Meta text should be lighter but still readable */
+[data-theme="dark"] .prog-meta,
+[data-theme="dark"] .ex-det,
+[data-theme="dark"] .ex-sub,
+[data-theme="dark"] .hist-date,
+[data-theme="dark"] .hist-ex,
+[data-theme="dark"] .pr-val,
+[data-theme="dark"] .pr-date,
+[data-theme="dark"] .set-desc,
+[data-theme="dark"] .aw-ex-det,
+[data-theme="dark"] .aw-set-lbl,
+[data-theme="dark"] .wk-stat-lbl,
+[data-theme="dark"] .set-dd-unit,
+[data-theme="dark"] .set-num,
+[data-theme="dark"] .topbar-right,
+[data-theme="dark"] .sett-row-desc,
+[data-theme="dark"] .ob-sub {
+  color: #8b92a8 !important;
+}
+
+/* Empty state text */
+[data-theme="dark"] .empty-txt,
+[data-theme="dark"] .empty-hint {
+  color: #8b92a8 !important;
+}
+
+/* Section labels */
+[data-theme="dark"] .slbl {
+  color: #8b92a8 !important;
+}
+
+/* Modal input labels */
+[data-theme="dark"] .minp-lbl {
+  color: #b4b9c8 !important;
+}
+
+/* Ensure chevrons are visible */
+[data-theme="dark"] .prog-chevron,
+[data-theme="dark"] .set-chevron {
+  fill: #8b92a8 !important;
+}
+/* Exercise builder elements */
+[data-theme="dark"] .add-ex-title,
+[data-theme="dark"] .add-ex-btn,
+[data-theme="dark"] .ex-build-num,
+[data-theme="dark"] .ex-build-name {
+  color: #e8ecf2 !important;
+}
+
+/* Previous record text */
+[data-theme="dark"] .prev-rec b {
+  color: #e8ecf2 !important;
+}
+
+/* Timer elements */
+[data-theme="dark"] .timer-val {
+  color: #e8ecf2 !important;
+}
+
+/* Make sure selected timer pills keep their styling */
+[data-theme="dark"] .timer-pill.sel {
+  background: var(--navy);
+  color: #fff !important;
+}
 .modal-close{background:var(--g100);border:none;width:32px;height:32px;border-radius:50%;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
   color:var(--g600);font-size:16px;transition:background .15s}
