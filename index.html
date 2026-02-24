@@ -1029,6 +1029,370 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
 .canvas-spinner{width:32px;height:32px;border:3px solid rgba(255,255,255,.2);
   border-top-color:#4A90D9;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   INSTAGRAM-STYLE SHARE EDITOR
+══════════════════════════════════════════════════════════════════════════════ */
+.share-editor-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 900;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.share-editor-overlay.open {
+  display: flex;
+  opacity: 1;
+}
+
+.share-editor-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+/* Top Bar */
+.share-editor-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(12px + var(--safe-t)) 16px 12px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+.share-editor-topbar button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.share-editor-topbar button:active {
+  opacity: 0.7;
+}
+.share-editor-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Canvas Area */
+.share-editor-canvas-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.share-canvas-container {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 9/16;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Background Image */
+.share-canvas-bg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+/* Draggable Elements */
+.draggable-element {
+  position: absolute;
+  cursor: move;
+  touch-action: none;
+  user-select: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 120px;
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+
+.draggable-element.dragging {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+
+.draggable-element.selected {
+  box-shadow: 0 0 0 3px var(--accent), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Background variants */
+.draggable-element.bg-none {
+  background: transparent;
+  box-shadow: none;
+}
+
+.draggable-element.bg-semi {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+.draggable-element.bg-dark {
+  background: rgba(27, 39, 53, 0.9);
+  color: #fff;
+}
+
+.draggable-element.bg-dark-semi {
+  background: rgba(27, 39, 53, 0.6);
+  backdrop-filter: blur(10px);
+  color: #fff;
+}
+
+.draggable-element.bg-dark .element-label,
+.draggable-element.bg-dark-semi .element-label {
+  opacity: 0.7;
+}
+
+/* Font Styles */
+.font-syne {
+  font-family: 'Syne', sans-serif !important;
+}
+
+.font-dm-sans {
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+.font-dm-mono {
+  font-family: 'DM Mono', monospace !important;
+}
+
+.font-impact {
+  font-family: Impact, 'Arial Black', sans-serif !important;
+  letter-spacing: 0.02em;
+}
+
+.font-cursive {
+  font-family: 'Brush Script MT', 'Comic Sans MS', cursive !important;
+}
+
+/* Element content */
+.element-label {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.element-value {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+}
+
+.element-emoji {
+  font-size: 20px;
+  margin-right: 6px;
+}
+
+/* Bottom Toolbar */
+.share-editor-toolbar {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  padding: 12px 16px calc(12px + var(--safe-b));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 45vh;
+  overflow-y: auto;
+}
+
+.toolbar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toolbar-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.toolbar-options {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.toolbar-options::-webkit-scrollbar {
+  display: none;
+}
+
+.toolbar-btn {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 8px 14px;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.toolbar-btn:active {
+  transform: scale(0.95);
+}
+
+.toolbar-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.toolbar-btn.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Font preview in buttons */
+.font-preview-syne {
+  font-family: 'Syne', sans-serif;
+}
+
+.font-preview-mono {
+  font-family: 'DM Mono', monospace;
+}
+
+.font-preview-impact {
+  font-family: Impact, sans-serif;
+}
+
+.font-preview-cursive {
+  font-family: cursive;
+}
+
+/* Action Buttons */
+.editor-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.editor-action-btn {
+  flex: 1;
+  background: var(--accent);
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.editor-action-btn:active {
+  transform: scale(0.97);
+}
+
+.editor-action-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.editor-action-btn.secondary {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Toggle buttons for elements */
+.elements-toggle {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.element-toggle-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 6px 12px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.element-toggle-btn.active {
+  background: rgba(39, 196, 122, 0.3);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.element-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* Loading state */
+.editor-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.editor-loading.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.editor-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
 </style>
 </head>
 <body>
@@ -1062,6 +1426,145 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
       </button>
     </div>
     <button class="theme-close" onclick="closeThemeModal()">Sluiten</button>
+  </div>
+</div>
+
+<!-- SHARE EDITOR -->
+<div class="share-editor-overlay" id="share-editor">
+  <div class="share-editor-container">
+    <!-- Top Bar -->
+    <div class="share-editor-topbar">
+      <button onclick="closeShareEditor()">Annuleren</button>
+      <div class="share-editor-title">Story Editor</div>
+      <button onclick="saveShareImage()">Opslaan</button>
+    </div>
+
+    <!-- Canvas Area -->
+    <div class="share-editor-canvas-area">
+      <div class="share-canvas-container" id="share-canvas">
+        <!-- Background Image -->
+        <img class="share-canvas-bg" id="share-bg-img" src="" alt="" style="display:none">
+        
+        <!-- Draggable Stats Elements -->
+        <div class="draggable-element" id="elem-workout" data-stat="workout" style="top: 60px; left: 20px;">
+          <div class="element-content">
+            <div class="element-label">Workout</div>
+            <div class="element-value">
+              <span class="element-emoji" style="display:none">💪</span>
+              <span class="element-text">Push Day</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="draggable-element" id="elem-duration" data-stat="duration" style="top: 180px; left: 20px;">
+          <div class="element-content">
+            <div class="element-label">Duur</div>
+            <div class="element-value">
+              <span class="element-emoji" style="display:none">⏱️</span>
+              <span class="element-text">52 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="draggable-element" id="elem-exercises" data-stat="exercises" style="top: 300px; left: 20px;">
+          <div class="element-content">
+            <div class="element-label">Oefeningen</div>
+            <div class="element-value">
+              <span class="element-emoji" style="display:none">🏋️</span>
+              <span class="element-text">8</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="draggable-element" id="elem-pr" data-stat="pr" style="top: 420px; left: 20px;">
+          <div class="element-content">
+            <div class="element-label">Nieuw PR!</div>
+            <div class="element-value">
+              <span class="element-emoji" style="display:none">🔥</span>
+              <span class="element-text">120kg</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading overlay -->
+        <div class="editor-loading" id="editor-loading">
+          <div class="editor-spinner"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="share-editor-toolbar">
+      <!-- Element Visibility Toggles -->
+      <div class="toolbar-section">
+        <div class="toolbar-label">Elementen</div>
+        <div class="elements-toggle">
+          <button class="element-toggle-btn active" data-element="workout" onclick="toggleElement('workout')">Workout</button>
+          <button class="element-toggle-btn active" data-element="duration" onclick="toggleElement('duration')">Duur</button>
+          <button class="element-toggle-btn active" data-element="exercises" onclick="toggleElement('exercises')">Oefeningen</button>
+          <button class="element-toggle-btn active" data-element="pr" onclick="toggleElement('pr')">PR</button>
+        </div>
+      </div>
+
+      <!-- Font Selection -->
+      <div class="toolbar-section" id="font-section" style="display:none">
+        <div class="toolbar-label">Lettertype</div>
+        <div class="toolbar-options">
+          <button class="toolbar-btn active font-preview-syne" onclick="setElementFont('syne')">Syne</button>
+          <button class="toolbar-btn" onclick="setElementFont('dm-sans')">DM Sans</button>
+          <button class="toolbar-btn font-preview-mono" onclick="setElementFont('dm-mono')">Mono</button>
+          <button class="toolbar-btn font-preview-impact" onclick="setElementFont('impact')">Impact</button>
+          <button class="toolbar-btn font-preview-cursive" onclick="setElementFont('cursive')">Cursive</button>
+        </div>
+      </div>
+
+      <!-- Background Style -->
+      <div class="toolbar-section" id="bg-section" style="display:none">
+        <div class="toolbar-label">Achtergrond Element</div>
+        <div class="toolbar-options">
+          <button class="toolbar-btn active" onclick="setElementBg('solid')">Vol</button>
+          <button class="toolbar-btn" onclick="setElementBg('semi')">Semi</button>
+          <button class="toolbar-btn" onclick="setElementBg('none')">Geen</button>
+          <button class="toolbar-btn" onclick="setElementBg('dark')">Donker</button>
+          <button class="toolbar-btn" onclick="setElementBg('dark-semi')">Donker Semi</button>
+        </div>
+      </div>
+
+      <!-- Emoji Toggle -->
+      <div class="toolbar-section" id="emoji-section" style="display:none">
+        <div class="toolbar-label">Emoji</div>
+        <div class="toolbar-options">
+          <button class="toolbar-btn" onclick="toggleEmoji()">
+            <span id="emoji-btn-text">Emoji toevoegen</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Background Image -->
+      <div class="toolbar-section">
+        <div class="toolbar-label">Achtergrond</div>
+        <div class="toolbar-options">
+          <button class="toolbar-btn active" onclick="setBgType('gradient')">Gradient</button>
+          <button class="toolbar-btn" onclick="openBgImagePicker()">
+            <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;margin-right:4px"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+            Afbeelding
+          </button>
+          <input type="file" id="bg-image-input" accept="image/*" style="display:none" onchange="handleBgImage(event)">
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="editor-actions">
+        <button class="editor-action-btn secondary" onclick="resetLayout()">
+          <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+          Reset
+        </button>
+        <button class="editor-action-btn" onclick="downloadShareImage()">
+          <svg viewBox="0 0 24 24"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z"/></svg>
+          Download
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -3693,6 +4196,436 @@ onAuthStateChanged(fbAuth, async (user) => {
     // Clear cached data
     ['bf_user','bf_prs','bf_hist','bf_progs','bf_cm','bf_settings'].forEach(k => localStorage.removeItem(k));
     showScr('onboard');
+  }
+});
+</script>
+
+<!-- HTML2Canvas Library for capturing the canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════════
+// SHARE EDITOR - Instagram Style
+// ══════════════════════════════════════════════════════════════════════════════
+
+let shareEditorState = {
+  selectedElement: null,
+  workoutData: {
+    workout: 'Push Day',
+    duration: '52 min',
+    exercises: '8',
+    pr: '120kg'
+  },
+  elementSettings: {
+    workout: { font: 'syne', bg: 'solid', emoji: false, visible: true },
+    duration: { font: 'syne', bg: 'solid', emoji: false, visible: true },
+    exercises: { font: 'syne', bg: 'solid', emoji: false, visible: true },
+    pr: { font: 'syne', bg: 'solid', emoji: false, visible: true }
+  },
+  bgImage: null
+};
+
+// Open Share Editor
+window.openShareEditor = function(workoutData) {
+  // Update workout data if provided
+  if (workoutData) {
+    shareEditorState.workoutData = { ...shareEditorState.workoutData, ...workoutData };
+    
+    // Update element text
+    if (workoutData.workout) document.querySelector('#elem-workout .element-text').textContent = workoutData.workout;
+    if (workoutData.duration) document.querySelector('#elem-duration .element-text').textContent = workoutData.duration;
+    if (workoutData.exercises) document.querySelector('#elem-exercises .element-text').textContent = workoutData.exercises;
+    if (workoutData.pr) document.querySelector('#elem-pr .element-text').textContent = workoutData.pr;
+  }
+  
+  // Show editor
+  const editor = document.getElementById('share-editor');
+  editor.classList.add('open');
+  
+  // Initialize drag for all elements
+  initializeDraggable();
+  
+  // Deselect all
+  deselectAllElements();
+};
+
+// Close Share Editor
+window.closeShareEditor = function() {
+  const editor = document.getElementById('share-editor');
+  editor.classList.remove('open');
+  deselectAllElements();
+};
+
+// Initialize Draggable Elements
+function initializeDraggable() {
+  const elements = document.querySelectorAll('.draggable-element');
+  
+  elements.forEach(elem => {
+    let isDragging = false;
+    let startX, startY, initialX, initialY;
+    
+    const onStart = (e) => {
+      // Select this element
+      selectElement(elem);
+      
+      isDragging = true;
+      elem.classList.add('dragging');
+      
+      const touch = e.type.includes('touch') ? e.touches[0] : e;
+      startX = touch.clientX;
+      startY = touch.clientY;
+      
+      const rect = elem.getBoundingClientRect();
+      const parent = elem.parentElement.getBoundingClientRect();
+      initialX = rect.left - parent.left;
+      initialY = rect.top - parent.top;
+    };
+    
+    const onMove = (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      
+      const touch = e.type.includes('touch') ? e.touches[0] : e;
+      const deltaX = touch.clientX - startX;
+      const deltaY = touch.clientY - startY;
+      
+      const newX = initialX + deltaX;
+      const newY = initialY + deltaY;
+      
+      // Constrain to canvas
+      const parent = elem.parentElement.getBoundingClientRect();
+      const elemRect = elem.getBoundingClientRect();
+      
+      const maxX = parent.width - elemRect.width;
+      const maxY = parent.height - elemRect.height;
+      
+      const clampedX = Math.max(0, Math.min(newX, maxX));
+      const clampedY = Math.max(0, Math.min(newY, maxY));
+      
+      elem.style.left = clampedX + 'px';
+      elem.style.top = clampedY + 'px';
+    };
+    
+    const onEnd = () => {
+      isDragging = false;
+      elem.classList.remove('dragging');
+    };
+    
+    // Mouse events
+    elem.addEventListener('mousedown', onStart);
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onEnd);
+    
+    // Touch events
+    elem.addEventListener('touchstart', onStart, { passive: false });
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('touchend', onEnd);
+  });
+}
+
+// Select Element
+function selectElement(elem) {
+  deselectAllElements();
+  
+  elem.classList.add('selected');
+  shareEditorState.selectedElement = elem.dataset.stat;
+  
+  // Show relevant toolbars
+  document.getElementById('font-section').style.display = 'flex';
+  document.getElementById('bg-section').style.display = 'flex';
+  document.getElementById('emoji-section').style.display = 'flex';
+  
+  // Update toolbar to reflect current settings
+  updateToolbarState();
+}
+
+// Deselect All Elements
+function deselectAllElements() {
+  document.querySelectorAll('.draggable-element').forEach(el => {
+    el.classList.remove('selected');
+  });
+  
+  shareEditorState.selectedElement = null;
+  
+  // Hide element-specific toolbars
+  document.getElementById('font-section').style.display = 'none';
+  document.getElementById('bg-section').style.display = 'none';
+  document.getElementById('emoji-section').style.display = 'none';
+}
+
+// Update Toolbar State
+function updateToolbarState() {
+  if (!shareEditorState.selectedElement) return;
+  
+  const settings = shareEditorState.elementSettings[shareEditorState.selectedElement];
+  
+  // Update font buttons
+  document.querySelectorAll('#font-section .toolbar-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  const fontBtns = {
+    'syne': 0, 'dm-sans': 1, 'dm-mono': 2, 'impact': 3, 'cursive': 4
+  };
+  const fontBtnIndex = fontBtns[settings.font];
+  if (fontBtnIndex !== undefined) {
+    document.querySelectorAll('#font-section .toolbar-btn')[fontBtnIndex]?.classList.add('active');
+  }
+  
+  // Update bg buttons
+  document.querySelectorAll('#bg-section .toolbar-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  const bgBtns = {
+    'solid': 0, 'semi': 1, 'none': 2, 'dark': 3, 'dark-semi': 4
+  };
+  const bgBtnIndex = bgBtns[settings.bg];
+  if (bgBtnIndex !== undefined) {
+    document.querySelectorAll('#bg-section .toolbar-btn')[bgBtnIndex]?.classList.add('active');
+  }
+  
+  // Update emoji button text
+  document.getElementById('emoji-btn-text').textContent = settings.emoji ? 'Emoji verbergen' : 'Emoji toevoegen';
+}
+
+// Toggle Element Visibility
+window.toggleElement = function(elemName) {
+  const elem = document.getElementById(`elem-${elemName}`);
+  const btn = document.querySelector(`.element-toggle-btn[data-element="${elemName}"]`);
+  
+  shareEditorState.elementSettings[elemName].visible = !shareEditorState.elementSettings[elemName].visible;
+  
+  if (shareEditorState.elementSettings[elemName].visible) {
+    elem.style.display = 'block';
+    btn.classList.add('active');
+  } else {
+    elem.style.display = 'none';
+    btn.classList.remove('active');
+    
+    // Deselect if this was selected
+    if (shareEditorState.selectedElement === elemName) {
+      deselectAllElements();
+    }
+  }
+};
+
+// Set Font for Selected Element
+window.setElementFont = function(font) {
+  if (!shareEditorState.selectedElement) return;
+  
+  const elem = document.getElementById(`elem-${shareEditorState.selectedElement}`);
+  
+  // Remove all font classes
+  elem.classList.remove('font-syne', 'font-dm-sans', 'font-dm-mono', 'font-impact', 'font-cursive');
+  
+  // Add new font class
+  elem.classList.add(`font-${font}`);
+  
+  // Update state
+  shareEditorState.elementSettings[shareEditorState.selectedElement].font = font;
+  
+  // Update toolbar
+  updateToolbarState();
+};
+
+// Set Background for Selected Element
+window.setElementBg = function(bgType) {
+  if (!shareEditorState.selectedElement) return;
+  
+  const elem = document.getElementById(`elem-${shareEditorState.selectedElement}`);
+  
+  // Remove all bg classes
+  elem.classList.remove('bg-none', 'bg-semi', 'bg-dark', 'bg-dark-semi');
+  
+  // Add new bg class (solid is default, no class needed)
+  if (bgType !== 'solid') {
+    elem.classList.add(`bg-${bgType}`);
+  }
+  
+  // Update state
+  shareEditorState.elementSettings[shareEditorState.selectedElement].bg = bgType;
+  
+  // Update toolbar
+  updateToolbarState();
+};
+
+// Toggle Emoji
+window.toggleEmoji = function() {
+  if (!shareEditorState.selectedElement) return;
+  
+  const elem = document.getElementById(`elem-${shareEditorState.selectedElement}`);
+  const emojiSpan = elem.querySelector('.element-emoji');
+  
+  shareEditorState.elementSettings[shareEditorState.selectedElement].emoji = 
+    !shareEditorState.elementSettings[shareEditorState.selectedElement].emoji;
+  
+  if (shareEditorState.elementSettings[shareEditorState.selectedElement].emoji) {
+    emojiSpan.style.display = 'inline';
+    
+    // Set default emojis if not set
+    const emojis = { workout: '💪', duration: '⏱️', exercises: '🏋️', pr: '🔥' };
+    if (!emojiSpan.textContent) {
+      emojiSpan.textContent = emojis[shareEditorState.selectedElement];
+    }
+  } else {
+    emojiSpan.style.display = 'none';
+  }
+  
+  // Update toolbar
+  updateToolbarState();
+};
+
+// Background Image
+window.openBgImagePicker = function() {
+  document.getElementById('bg-image-input').click();
+};
+
+window.handleBgImage = function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    const img = document.getElementById('share-bg-img');
+    img.src = event.target.result;
+    img.style.display = 'block';
+    shareEditorState.bgImage = event.target.result;
+    
+    // Update button state
+    document.querySelectorAll('.toolbar-section').forEach(section => {
+      if (section.querySelector('.toolbar-label')?.textContent === 'Achtergrond') {
+        section.querySelectorAll('.toolbar-btn').forEach(btn => {
+          btn.classList.remove('active');
+          if (btn.textContent.includes('Afbeelding')) {
+            btn.classList.add('active');
+          }
+        });
+      }
+    });
+  };
+  reader.readAsDataURL(file);
+};
+
+window.setBgType = function(type) {
+  const img = document.getElementById('share-bg-img');
+  
+  if (type === 'gradient') {
+    img.style.display = 'none';
+    shareEditorState.bgImage = null;
+  }
+  
+  // Update button states
+  document.querySelectorAll('.toolbar-section').forEach(section => {
+    if (section.querySelector('.toolbar-label')?.textContent === 'Achtergrond') {
+      section.querySelectorAll('.toolbar-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if ((type === 'gradient' && btn.textContent.includes('Gradient')) ||
+            (type !== 'gradient' && btn.textContent.includes('Afbeelding'))) {
+          btn.classList.add('active');
+        }
+      });
+    }
+  });
+};
+
+// Reset Layout
+window.resetLayout = function() {
+  // Reset positions
+  document.getElementById('elem-workout').style.top = '60px';
+  document.getElementById('elem-workout').style.left = '20px';
+  document.getElementById('elem-duration').style.top = '180px';
+  document.getElementById('elem-duration').style.left = '20px';
+  document.getElementById('elem-exercises').style.top = '300px';
+  document.getElementById('elem-exercises').style.left = '20px';
+  document.getElementById('elem-pr').style.top = '420px';
+  document.getElementById('elem-pr').style.left = '20px';
+  
+  // Reset all settings
+  Object.keys(shareEditorState.elementSettings).forEach(key => {
+    shareEditorState.elementSettings[key] = { font: 'syne', bg: 'solid', emoji: false, visible: true };
+    
+    const elem = document.getElementById(`elem-${key}`);
+    elem.classList.remove('font-dm-sans', 'font-dm-mono', 'font-impact', 'font-cursive', 
+                           'bg-none', 'bg-semi', 'bg-dark', 'bg-dark-semi');
+    elem.classList.add('font-syne');
+    elem.style.display = 'block';
+    elem.querySelector('.element-emoji').style.display = 'none';
+    
+    document.querySelector(`.element-toggle-btn[data-element="${key}"]`)?.classList.add('active');
+  });
+  
+  deselectAllElements();
+  showToast('Layout gereset!');
+};
+
+// Download Share Image
+window.downloadShareImage = async function() {
+  const loading = document.getElementById('editor-loading');
+  loading.classList.add('show');
+  
+  try {
+    const canvas = await html2canvas(document.getElementById('share-canvas'), {
+      backgroundColor: null,
+      scale: 2,
+      logging: false,
+      useCORS: true,
+      allowTaint: true
+    });
+    
+    // Convert to blob and download
+    canvas.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `basis-fit-workout-${Date.now()}.png`;
+      a.click();
+      URL.revokeObjectURL(url);
+      
+      loading.classList.remove('show');
+      showToast('✓ Afbeelding gedownload!');
+    }, 'image/png');
+  } catch(err) {
+    console.error('Download error:', err);
+    loading.classList.remove('show');
+    showToast('Download mislukt');
+  }
+};
+
+// Save and return to share sheet
+window.saveShareImage = async function() {
+  const loading = document.getElementById('editor-loading');
+  loading.classList.add('show');
+  
+  try {
+    const canvas = await html2canvas(document.getElementById('share-canvas'), {
+      backgroundColor: null,
+      scale: 2,
+      logging: false,
+      useCORS: true,
+      allowTaint: true
+    });
+    
+    // Store in state for sharing
+    window.shareImageData = canvas.toDataURL('image/png');
+    
+    loading.classList.remove('show');
+    closeShareEditor();
+    
+    // Open regular share sheet with the created image
+    showToast('✓ Story opgeslagen!');
+    
+  } catch(err) {
+    console.error('Save error:', err);
+    loading.classList.remove('show');
+    showToast('Opslaan mislukt');
+  }
+};
+
+// Click canvas area to deselect
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.share-canvas-container') && 
+      !e.target.closest('.draggable-element') &&
+      shareEditorState.selectedElement) {
+    deselectAllElements();
   }
 });
 </script>
