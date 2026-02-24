@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Basis Fit"/>
-<meta name="theme-color" content="#1B2735" id="theme-color-meta"/>
+<meta name="theme-color" content="#1B2735"/>
 
 <!-- SEO Meta Tags -->
 <meta name="description" content="Basis-Fit Workout Tracker - Houd je trainingen, schema's en persoonlijke records bij. Sync tussen apparaten, deel je workouts en bereik je fitness doelen."/>
@@ -43,75 +43,8 @@
   --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
   --sh:0 2px 12px rgba(27,39,53,.08);
 }
-
-/* Dark mode color overrides */
-[data-theme="dark"] {
-  --w:#1a1f2e;
-  --off:#0f1419;
-  --g100:#242b3d;
-  --g200:#2d3548;
-  --g400:#8b92a8;
-  --g600:#b4b9c8;
-  --sh:0 2px 12px rgba(0,0,0,.3);
-}
-
-/* Global dark mode text fixes */
-[data-theme="dark"] {
-  /* Ensure all main text elements are readable */
-}
-[data-theme="dark"] input::placeholder {
-  color:rgba(255,255,255,0.3);
-}
-[data-theme="dark"] select {
-  color:#e8ecf2;
-}
-[data-theme="dark"] textarea {
-  color:#e8ecf2;
-}
-
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none;transition:background-color 0.3s ease, color 0.3s ease}
-
-/* Dark mode text colors */
-[data-theme="dark"] {
-  color:#e8ecf2;
-}
-
-/* Comprehensive dark mode text fixes - catch all */
-[data-theme="dark"] .prog-name,
-[data-theme="dark"] .wk-day,
-[data-theme="dark"] .ex-name,
-[data-theme="dark"] .hist-name,
-[data-theme="dark"] .hist-iname,
-[data-theme="dark"] .pr-ex,
-[data-theme="dark"] .set-name,
-[data-theme="dark"] .modal-title,
-[data-theme="dark"] .topbar h2,
-[data-theme="dark"] .aw-ex-name,
-[data-theme="dark"] .hist-d-name,
-[data-theme="dark"] .wk-stat-val,
-[data-theme="dark"] .minp,
-[data-theme="dark"] .aw-inp,
-[data-theme="dark"] .set-dd,
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4 {
-  color: #e8ecf2 !important;
-}
-
-/* Settings and other button text */
-[data-theme="dark"] .mbtn-cancel,
-[data-theme="dark"] .aw-btn-prev {
-  color: #e8ecf2 !important;
-}
-
-/* Ensure ex-num is visible */
-[data-theme="dark"] .ex-num {
-  color: #e8ecf2 !important;
-}
-
+html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
 
 #app{max-width:430px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;position:relative}
 .screen{display:none;flex-direction:column;flex:1;min-height:0}
@@ -123,77 +56,22 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 /* Only clamp text nodes, not layout containers */
 .ex-name,.wk-day,.prog-name,.hist-name,.hist-iname,.greet-name{word-break:break-word}
 
-/* ── THEME TOGGLE ── */
-.theme-toggle{background:transparent;border:none;padding:8px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;border-radius:8px;
-  transition:background 0.2s;margin-right:4px}
-.theme-toggle:hover{background:var(--g100)}
-.theme-toggle svg{width:20px;height:20px;fill:var(--g600);transition:fill 0.2s}
-[data-theme="dark"] .theme-toggle svg{fill:var(--g400)}
-
-/* Theme selector modal */
-.theme-modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);
-  display:none;align-items:center;justify-content:center;z-index:9999;
-  animation:fadeIn 0.2s ease}
-.theme-modal.show{display:flex}
-.theme-panel{background:var(--w);border-radius:16px;padding:20px;
-  width:calc(100% - 40px);max-width:320px;box-shadow:0 8px 32px rgba(0,0,0,0.2);
-  animation:slideUp 0.3s ease;transition:background 0.3s}
-.theme-panel h3{transition:color 0.3s}
-[data-theme="dark"] h3{color:#e8ecf2}
-h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;
-  margin-bottom:16px;color:var(--navy);transition:color 0.3s}
-[data-theme="dark"] .theme-panel h3{transition:color 0.3s}
-[data-theme="dark"] h3{color:#e8ecf2}
-h3{color:#e8ecf2}
-.theme-options{display:flex;flex-direction:column;gap:8px}
-.theme-option{background:transparent;border:2px solid var(--g100);
-  border-radius:12px;padding:14px 16px;cursor:pointer;
-  display:flex;align-items:center;gap:12px;transition:all 0.2s;
-  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;
-  color:var(--navy)}
-[data-theme="dark"] .theme-option{color:#e8ecf2;border-color:var(--g100)}
-.theme-option:hover{background:var(--g100)}
-.theme-option.active{border-color:var(--accent);background:var(--ag)}
-.theme-option svg{width:22px;height:22px;fill:var(--g600);flex-shrink:0;transition:fill 0.2s}
-[data-theme="dark"] .theme-option svg{fill:var(--g400)}
-.theme-option.active svg{fill:var(--accent)}
-.theme-option-text{flex:1}
-.theme-option-label{display:block;font-weight:600;margin-bottom:2px}
-.theme-option-desc{display:block;font-size:12px;color:var(--g400);font-weight:400;transition:color 0.3s}
-.theme-close{background:var(--g100);border:none;border-radius:10px;
-  padding:12px 24px;margin-top:16px;width:100%;cursor:pointer;
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;
-  color:var(--navy);transition:all 0.2s}
-[data-theme="dark"] .theme-close{color:#e8ecf2}
-.theme-close:hover{background:var(--g200)}
-
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-
-
 /* ── TOP BAR ── */
 .topbar{background:var(--w);padding:calc(12px + var(--safe-t)) 16px 12px;
   display:flex;align-items:center;justify-content:space-between;
   border-bottom:1px solid var(--g100);flex-shrink:0;
-  box-shadow:0 1px 8px rgba(27,39,53,.05);gap:8px;transition:background 0.3s, border-color 0.3s, box-shadow 0.3s}
-[data-theme="dark"] .topbar{box-shadow:0 1px 8px rgba(0,0,0,.2)}
+  box-shadow:0 1px 8px rgba(27,39,53,.05);gap:8px}
 .tb-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
 .tb-right{display:flex;align-items:center;gap:4px;flex-shrink:0}
 .tb-logo{width:32px;height:32px;background:var(--navy);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .tb-logo svg{width:17px;height:17px;fill:#fff}
-.topbar h2{transition:color 0.3s}
-[data-theme="dark"] h2{color:#e8ecf2}
-h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.2px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color 0.3s}
-[data-theme="dark"] .topbar h2{transition:color 0.3s}
-[data-theme="dark"] h2{color:#e8ecf2}
-h2{color:#e8ecf2}
-.topbar-right{font-size:13px;color:var(--g400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;transition:color 0.3s}
+.topbar h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-right{font-size:13px;color:var(--g400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
 
 /* ── TAB BAR ── */
 .tabbar{display:flex;background:var(--w);border-top:1px solid var(--g100);
-  padding:6px 8px calc(6px + var(--safe-b));gap:2px;flex-shrink:0;transition:background 0.3s, border-color 0.3s}
+  padding:6px 8px calc(6px + var(--safe-b));gap:2px;flex-shrink:0}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
   padding:8px 4px;border:none;background:transparent;border-radius:var(--rsm);
   cursor:pointer;color:var(--g400);font-family:'DM Sans',sans-serif;
@@ -201,7 +79,6 @@ h2{color:#e8ecf2}
   transition:color .18s,background .18s;line-height:1}
 .tab svg{width:19px;height:19px;fill:currentColor;flex-shrink:0}
 .tab.active{color:var(--navy);background:var(--g100)}
-[data-theme="dark"] .tab.active{color:#e8ecf2}
 
 /* ── AUTH / ONBOARDING ── */
 #scr-onboard{background:var(--navy);overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -239,7 +116,7 @@ h2{color:#e8ecf2}
 .auth-err{background:rgba(232,69,60,.15);border:1px solid rgba(232,69,60,.3);border-radius:8px;
   padding:10px 14px;color:#ff7b75;font-size:13px;font-weight:500;display:none;text-align:center}
 .auth-err.show{display:block}
-.flbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);transition:color 0.3s;margin-bottom:6px;display:block}
+.flbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:6px;display:block}
 .inp-dark{width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);
   border-radius:var(--rsm);padding:14px 16px;color:#fff;
   font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;outline:none;
@@ -261,12 +138,16 @@ h2{color:#e8ecf2}
 @keyframes loadPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.93);opacity:.7}}
 .loading-txt{color:rgba(255,255,255,.4);font-size:13px;font-weight:600}
 /* Sync indicator */
-/* Sync indicator - hidden */
-.sync-dot{display:none}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--g200);
+  position:fixed;bottom:calc(var(--safe-b) + 80px);right:16px;z-index:600;
+  transition:background .3s,transform .3s}
+.sync-dot.syncing{background:var(--gold);animation:syncSpin .8s linear infinite}
+.sync-dot.synced{background:var(--green);animation:syncPop .4s ease}
+@keyframes syncSpin{to{transform:rotate(360deg)}}
+@keyframes syncPop{0%{transform:scale(1.6)}100%{transform:scale(1)}}
 
 /* ── SECTION LABEL ── */
 .slbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:10px;display:block}
-[data-theme="dark"] .slbl{color:var(--g400)}
 
 /* ── GREETING CARD ── */
 .greet-card{background:var(--navy);border-radius:var(--r);padding:18px 20px;margin-bottom:16px;
@@ -279,7 +160,7 @@ h2{color:#e8ecf2}
 .prog-card{background:var(--w);border-radius:var(--rcard);padding:15px 16px;
   display:flex;align-items:center;gap:12px;
   border:2px solid transparent;box-shadow:var(--sh);
-  cursor:pointer;transition:all 0.3s;transition:border-color .15s,box-shadow .15s,transform .1s;user-select:none}
+  cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .1s;user-select:none}
 .prog-card:active{transform:scale(.98)}
 .prog-card.sel{border-color:var(--accent);box-shadow:0 0 0 4px var(--ag),var(--sh)}
 .prog-card.custom-prog{border-color:var(--g200);border-style:dashed}
@@ -289,8 +170,7 @@ h2{color:#e8ecf2}
 .prog-info{flex:1;min-width:0}
 .prog-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.prog-meta{font-size:12px;color:var(--g400);transition:color 0.3s}
-[data-theme="dark"] .prog-name{color:#e8ecf2;margin-top:2px}
+.prog-meta{font-size:12px;color:var(--g400);margin-top:2px}
 .prog-actions{display:flex;align-items:center;gap:0;flex-shrink:0}
 .icon-btn{background:none;border:none;padding:7px;cursor:pointer;border-radius:8px;
   color:var(--g400);transition:color .15s,background .15s;display:flex;align-items:center}
@@ -331,7 +211,7 @@ h2{color:#e8ecf2}
 
 /* ── EXERCISE CARD ── */
 .ex-card{background:var(--w);border-radius:var(--rcard);overflow:hidden;
-  box-shadow:var(--sh);transition:background 0.3s, box-shadow 0.3s;margin-bottom:10px;transition:opacity .3s}
+  box-shadow:var(--sh);margin-bottom:10px;transition:opacity .3s}
 .ex-card.all-done{opacity:.5}
 .ex-head{padding:13px 14px 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .ex-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;line-height:1.2}
@@ -344,7 +224,7 @@ h2{color:#e8ecf2}
 /* ── SET ROWS ── */
 .set-rows{padding:0 14px 8px;display:flex;flex-direction:column;gap:6px}
 .set-row{display:flex;align-items:center;gap:6px}
-.set-num{font-size:11px;font-weight:700;color:var(--g400);transition:color 0.3s;font-family:'DM Mono',monospace;
+.set-num{font-size:11px;font-weight:700;color:var(--g400);font-family:'DM Mono',monospace;
   width:22px;text-align:center;flex-shrink:0}
 
 /* ── SET DROPDOWNS ── */
@@ -353,12 +233,10 @@ h2{color:#e8ecf2}
   transition:border-color .15s,background .15s;min-width:0}
 .set-dd-wrap.active-field{border-color:var(--accent);background:var(--ag)}
 .set-dd{width:100%;background:transparent;border:none;outline:none;
-  font-family:'DM Mono',monospace;font-size:16px;font-weight:500;color:var(--navy);transition:color 0.3s}
-[data-theme="dark"] .set-dd{color:#e8ecf2;
+  font-family:'DM Mono',monospace;font-size:16px;font-weight:500;color:var(--navy);
   text-align:center;cursor:pointer;padding:4px 0;appearance:none;-webkit-appearance:none}
-.set-dd option{background:var(--w);color:var(--navy);transition:background 0.3s, color 0.3s}
-[data-theme="dark"] .set-dd option{background:var(--w);color:#e8ecf2;font-size:14px}
-.set-dd-unit{font-size:10px;font-weight:700;color:var(--g400);transition:color 0.3s;letter-spacing:.06em;text-transform:uppercase;pointer-events:none}
+.set-dd option{background:var(--w);color:var(--navy);font-size:14px}
+.set-dd-unit{font-size:10px;font-weight:700;color:var(--g400);letter-spacing:.06em;text-transform:uppercase;pointer-events:none}
 
 /* ── REST TIMER ── */
 .rest-timer{position:fixed;bottom:calc(70px + var(--safe-b) + 10px);left:50%;
@@ -376,9 +254,8 @@ h2{color:#e8ecf2}
 .wk-stats{display:flex;gap:8px;margin-bottom:12px}
 .wk-stat{flex:1;background:var(--w);border-radius:var(--rcard);padding:12px 10px;
   text-align:center;box-shadow:var(--sh)}
-.wk-stat-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--navy);transition:color 0.3s}
-[data-theme="dark"] .wk-stat-val{color:#e8ecf2}
-.wk-stat-lbl{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--g400);transition:color 0.3s;margin-top:2px}
+.wk-stat-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--navy)}
+.wk-stat-lbl{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--g400);margin-top:2px}
 
 /* ── HOLD-TO-CHANGE indicator (kept for compat) ── */
 .step-btn.holding{background:rgba(74,144,217,.15)}
@@ -430,7 +307,7 @@ h2{color:#e8ecf2}
 .hist-card{background:var(--w);border-radius:var(--rcard);padding:16px;box-shadow:var(--sh);margin-bottom:10px}
 .hist-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .hist-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
-.hist-date{font-size:11px;color:var(--g400);transition:color 0.3s;font-family:'DM Mono',monospace}
+.hist-date{font-size:11px;color:var(--g400);font-family:'DM Mono',monospace}
 .hist-items{display:flex;flex-direction:column;gap:6px}
 .hist-item{display:flex;align-items:center;justify-content:space-between;
   padding:8px 11px;background:var(--g100);border-radius:8px}
@@ -443,9 +320,7 @@ h2{color:#e8ecf2}
 
 /* ── EDITOR ── */
 .editor-block{background:var(--w);border-radius:var(--rcard);padding:16px;box-shadow:var(--sh);margin-bottom:12px}
-.editor-block h3{transition:color 0.3s}
-[data-theme="dark"] h3{color:#e8ecf2}
-h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px}
+.editor-block h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px}
 .inp-light{width:100%;background:var(--g100);border:1.5px solid transparent;border-radius:9px;
   padding:12px 14px;color:var(--navy);font-family:'DM Sans',sans-serif;
   font-size:15px;font-weight:500;outline:none;transition:border-color .15s,background .15s}
@@ -575,234 +450,7 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   transform:translateY(100%);transition:transform .32s cubic-bezier(.22,.68,0,1.1)}
 .modal-overlay.open .modal-sheet{transform:translateY(0)}
 .modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.modal-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--navy);transition:color 0.3s}
-[data-theme="dark"] .modal-title{color:#e8ecf2}
-
-/* === COMPREHENSIVE DARK MODE TEXT OVERRIDES === */
-[data-theme="dark"] .theme-panel h3 {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .theme-option {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .theme-close {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .tab.active {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .set-dd {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .set-dd option {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .wk-stat-val {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .prev-rec b {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .add-ex-title {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .add-ex-btn {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .ex-build-num {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .ex-build-name {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .btn-modal-sec {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .tb-edit:hover {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .settings-title {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .sett-row-label {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .timer-val {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .legal-link:active {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .info-title {
-  color: #e8ecf2 !important;
-}
-[data-theme="dark"] .share-sheet-title {
-  color: #e8ecf2 !important;
-}
-
-
-/* Additional readability improvements for dark mode */
-
-/* Ensure all input placeholders are visible */
-[data-theme="dark"] input::placeholder,
-[data-theme="dark"] textarea::placeholder {
-  color: rgba(255, 255, 255, 0.4) !important;
-}
-
-/* Ensure all labels are visible */
-[data-theme="dark"] label,
-[data-theme="dark"] .label {
-  color: #b4b9c8 !important;
-}
-
-/* Meta text should be lighter but still readable */
-[data-theme="dark"] .prog-meta,
-[data-theme="dark"] .ex-det,
-[data-theme="dark"] .ex-sub,
-[data-theme="dark"] .hist-date,
-[data-theme="dark"] .hist-ex,
-[data-theme="dark"] .pr-val,
-[data-theme="dark"] .pr-date,
-[data-theme="dark"] .set-desc,
-[data-theme="dark"] .aw-ex-det,
-[data-theme="dark"] .aw-set-lbl,
-[data-theme="dark"] .wk-stat-lbl,
-[data-theme="dark"] .set-dd-unit,
-[data-theme="dark"] .set-num,
-[data-theme="dark"] .topbar-right,
-[data-theme="dark"] .sett-row-desc,
-[data-theme="dark"] .ob-sub {
-  color: #8b92a8 !important;
-}
-
-/* Empty state text */
-[data-theme="dark"] .empty-txt,
-[data-theme="dark"] .empty-hint {
-  color: #8b92a8 !important;
-}
-
-/* Section labels */
-[data-theme="dark"] .slbl {
-  color: #8b92a8 !important;
-}
-
-/* Modal input labels */
-[data-theme="dark"] .minp-lbl {
-  color: #b4b9c8 !important;
-}
-
-/* Ensure chevrons are visible */
-[data-theme="dark"] .prog-chevron,
-[data-theme="dark"] .set-chevron {
-  fill: #8b92a8 !important;
-}
-/* Inline styled elements */
-[data-theme="dark"] [style*="color:var(--navy)"] {
-  color: #e8ecf2 !important;
-}
-
-/* Tab bar active state in dark mode */
-[data-theme="dark"] .tab.active {
-  color: #e8ecf2 !important;
-}
-
-/* All buttons with navy text */
-[data-theme="dark"] button {
-  color: inherit;
-}
-
-[data-theme="dark"] .btn-modal-sec {
-  color: #e8ecf2 !important;
-}
-
-/* Settings and legal text */
-[data-theme="dark"] .settings-title,
-[data-theme="dark"] .sett-row-label,
-[data-theme="dark"] .info-title,
-[data-theme="dark"] .legal-link,
-[data-theme="dark"] .share-sheet-title {
-  color: #e8ecf2 !important;
-}
-
-
-/* Additional readability improvements for dark mode */
-
-/* Ensure all input placeholders are visible */
-[data-theme="dark"] input::placeholder,
-[data-theme="dark"] textarea::placeholder {
-  color: rgba(255, 255, 255, 0.4) !important;
-}
-
-/* Ensure all labels are visible */
-[data-theme="dark"] label,
-[data-theme="dark"] .label {
-  color: #b4b9c8 !important;
-}
-
-/* Meta text should be lighter but still readable */
-[data-theme="dark"] .prog-meta,
-[data-theme="dark"] .ex-det,
-[data-theme="dark"] .ex-sub,
-[data-theme="dark"] .hist-date,
-[data-theme="dark"] .hist-ex,
-[data-theme="dark"] .pr-val,
-[data-theme="dark"] .pr-date,
-[data-theme="dark"] .set-desc,
-[data-theme="dark"] .aw-ex-det,
-[data-theme="dark"] .aw-set-lbl,
-[data-theme="dark"] .wk-stat-lbl,
-[data-theme="dark"] .set-dd-unit,
-[data-theme="dark"] .set-num,
-[data-theme="dark"] .topbar-right,
-[data-theme="dark"] .sett-row-desc,
-[data-theme="dark"] .ob-sub {
-  color: #8b92a8 !important;
-}
-
-/* Empty state text */
-[data-theme="dark"] .empty-txt,
-[data-theme="dark"] .empty-hint {
-  color: #8b92a8 !important;
-}
-
-/* Section labels */
-[data-theme="dark"] .slbl {
-  color: #8b92a8 !important;
-}
-
-/* Modal input labels */
-[data-theme="dark"] .minp-lbl {
-  color: #b4b9c8 !important;
-}
-
-/* Ensure chevrons are visible */
-[data-theme="dark"] .prog-chevron,
-[data-theme="dark"] .set-chevron {
-  fill: #8b92a8 !important;
-}
-/* Exercise builder elements */
-[data-theme="dark"] .add-ex-title,
-[data-theme="dark"] .add-ex-btn,
-[data-theme="dark"] .ex-build-num,
-[data-theme="dark"] .ex-build-name {
-  color: #e8ecf2 !important;
-}
-
-/* Previous record text */
-[data-theme="dark"] .prev-rec b {
-  color: #e8ecf2 !important;
-}
-
-/* Timer elements */
-[data-theme="dark"] .timer-val {
-  color: #e8ecf2 !important;
-}
-
-/* Make sure selected timer pills keep their styling */
-[data-theme="dark"] .timer-pill.sel {
-  background: var(--navy);
-  color: #fff !important;
-}
+.modal-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--navy)}
 .modal-close{background:var(--g100);border:none;width:32px;height:32px;border-radius:50%;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
   color:var(--g600);font-size:16px;transition:background .15s}
@@ -1030,6 +678,153 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   border-top-color:#4A90D9;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   COMPREHENSIVE DARK MODE FIXES - ALL TEXT AND BUTTONS
+══════════════════════════════════════════════════════════════════════════════ */
+
+[data-theme="dark"] {
+  color: #e8ecf2;
+}
+
+/* All button text should be white in dark mode */
+[data-theme="dark"] button {
+  color: #e8ecf2;
+}
+
+/* Except buttons that have explicit background colors */
+[data-theme="dark"] .btn-start,
+[data-theme="dark"] .btn-primary,
+[data-theme="dark"] .btn-share-dl,
+[data-theme="dark"] .btn-share-native,
+[data-theme="dark"] .btn-share-ig,
+[data-theme="dark"] .mbtn-confirm,
+[data-theme="dark"] .mbtn-danger,
+[data-theme="dark"] .aw-btn-next,
+[data-theme="dark"] .aw-btn-finish {
+  color: #fff !important;
+}
+
+/* ALL headings white in dark mode */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] .topbar h2,
+[data-theme="dark"] .modal-title,
+[data-theme="dark"] .share-sheet-title {
+  color: #e8ecf2 !important;
+}
+
+/* All card titles and names */
+[data-theme="dark"] .prog-name,
+[data-theme="dark"] .wk-day,
+[data-theme="dark"] .ex-name,
+[data-theme="dark"] .hist-name,
+[data-theme="dark"] .hist-iname,
+[data-theme="dark"] .hist-d-name,
+[data-theme="dark"] .pr-ex,
+[data-theme="dark"] .set-name,
+[data-theme="dark"] .aw-ex-name,
+[data-theme="dark"] .greet-name,
+[data-theme="dark"] .settings-title,
+[data-theme="dark"] .add-ex-title,
+[data-theme="dark"] .info-title {
+  color: #e8ecf2 !important;
+}
+
+/* All input fields */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select,
+[data-theme="dark"] .minp,
+[data-theme="dark"] .inp-dark,
+[data-theme="dark"] .aw-inp,
+[data-theme="dark"] .set-dd {
+  color: #e8ecf2 !important;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* All labels */
+[data-theme="dark"] label,
+[data-theme="dark"] .flbl,
+[data-theme="dark"] .minp-lbl,
+[data-theme="dark"] .slbl,
+[data-theme="dark"] .share-bg-label {
+  color: #b4b9c8 !important;
+}
+
+/* Stats and numbers */
+[data-theme="dark"] .wk-stat-val,
+[data-theme="dark"] .element-value,
+[data-theme="dark"] .ex-num {
+  color: #e8ecf2 !important;
+}
+
+/* Secondary text - should be lighter but readable */
+[data-theme="dark"] .prog-meta,
+[data-theme="dark"] .ex-det,
+[data-theme="dark"] .ex-sub,
+[data-theme="dark"] .hist-date,
+[data-theme="dark"] .hist-ex,
+[data-theme="dark"] .hist-isets,
+[data-theme="dark"] .pr-val,
+[data-theme="dark"] .pr-date,
+[data-theme="dark"] .set-desc,
+[data-theme="dark"] .aw-ex-det,
+[data-theme="dark"] .aw-set-lbl,
+[data-theme="dark"] .wk-stat-lbl,
+[data-theme="dark"] .set-dd-unit,
+[data-theme="dark"] .set-num,
+[data-theme="dark"] .topbar-right,
+[data-theme="dark"] .sett-row-desc,
+[data-theme="dark"] .ob-sub,
+[data-theme="dark"] .empty-txt,
+[data-theme="dark"] .empty-hint,
+[data-theme="dark"] .prev-rec {
+  color: #8b92a8 !important;
+}
+
+/* Cancel buttons and secondary buttons */
+[data-theme="dark"] .mbtn-cancel,
+[data-theme="dark"] .aw-btn-prev {
+  color: #e8ecf2 !important;
+}
+
+/* Links */
+[data-theme="dark"] a,
+[data-theme="dark"] .legal-link {
+  color: var(--accent) !important;
+}
+
+/* Setting row labels */
+[data-theme="dark"] .sett-row-label {
+  color: #e8ecf2 !important;
+}
+
+/* All dropdown options */
+[data-theme="dark"] option {
+  background: var(--w);
+  color: #e8ecf2;
+}
+
+/* Tab bar */
+[data-theme="dark"] .tab.active {
+  color: #e8ecf2 !important;
+}
+
+/* Any remaining navy text */
+[data-theme="dark"] [style*="color:var(--navy)"],
+[data-theme="dark"] [style*="color:#1B2735"] {
+  color: #e8ecf2 !important;
+}
+
+
+
 /* ══════════════════════════════════════════════════════════════════════════════
    INSTAGRAM-STYLE SHARE EDITOR
 ══════════════════════════════════════════════════════════════════════════════ */
@@ -1056,7 +851,6 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   margin: 0 auto;
 }
 
-/* Top Bar */
 .share-editor-topbar {
   display: flex;
   align-items: center;
@@ -1068,7 +862,7 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
 .share-editor-topbar button {
   background: transparent;
   border: none;
-  color: #fff;
+  color: #fff !important;
   font-family: 'DM Sans', sans-serif;
   font-size: 15px;
   font-weight: 600;
@@ -1082,10 +876,9 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   font-family: 'Syne', sans-serif;
   font-size: 16px;
   font-weight: 700;
-  color: #fff;
+  color: #fff !important;
 }
 
-/* Canvas Area */
 .share-editor-canvas-area {
   flex: 1;
   display: flex;
@@ -1107,7 +900,6 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
-/* Background Image */
 .share-canvas-bg {
   position: absolute;
   inset: 0;
@@ -1116,7 +908,6 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   transition: opacity 0.3s;
 }
 
-/* Draggable Elements */
 .draggable-element {
   position: absolute;
   cursor: move;
@@ -1128,6 +919,7 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   min-width: 120px;
   transition: transform 0.1s, box-shadow 0.2s;
+  color: #1B2735;
 }
 
 .draggable-element.dragging {
@@ -1140,10 +932,22 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   box-shadow: 0 0 0 3px var(--accent), 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Background variants */
 .draggable-element.bg-none {
   background: transparent;
   box-shadow: none;
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+}
+
+.draggable-element.bg-none .element-label {
+  color: rgba(255,255,255,0.9) !important;
+  opacity: 0.8;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.draggable-element.bg-none .element-text {
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
 }
 
 .draggable-element.bg-semi {
@@ -1167,29 +971,12 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   opacity: 0.7;
 }
 
-/* Font Styles */
-.font-syne {
-  font-family: 'Syne', sans-serif !important;
-}
+.font-syne { font-family: 'Syne', sans-serif !important; }
+.font-dm-sans { font-family: 'DM Sans', sans-serif !important; }
+.font-dm-mono { font-family: 'DM Mono', monospace !important; }
+.font-impact { font-family: Impact, 'Arial Black', sans-serif !important; letter-spacing: 0.02em; }
+.font-cursive { font-family: 'Brush Script MT', 'Comic Sans MS', cursive !important; }
 
-.font-dm-sans {
-  font-family: 'DM Sans', sans-serif !important;
-}
-
-.font-dm-mono {
-  font-family: 'DM Mono', monospace !important;
-}
-
-.font-impact {
-  font-family: Impact, 'Arial Black', sans-serif !important;
-  letter-spacing: 0.02em;
-}
-
-.font-cursive {
-  font-family: 'Brush Script MT', 'Comic Sans MS', cursive !important;
-}
-
-/* Element content */
 .element-label {
   font-size: 11px;
   font-weight: 700;
@@ -1212,7 +999,6 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   margin-right: 6px;
 }
 
-/* Bottom Toolbar */
 .share-editor-toolbar {
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(20px);
@@ -1235,7 +1021,7 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 .toolbar-options {
@@ -1256,7 +1042,7 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   border: 1.5px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   padding: 8px 14px;
-  color: #fff;
+  color: #fff !important;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -1274,29 +1060,11 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   border-color: var(--accent);
 }
 
-.toolbar-btn.disabled {
-  opacity: 0.3;
-  pointer-events: none;
-}
+.font-preview-syne { font-family: 'Syne', sans-serif; }
+.font-preview-mono { font-family: 'DM Mono', monospace; }
+.font-preview-impact { font-family: Impact, sans-serif; }
+.font-preview-cursive { font-family: cursive; }
 
-/* Font preview in buttons */
-.font-preview-syne {
-  font-family: 'Syne', sans-serif;
-}
-
-.font-preview-mono {
-  font-family: 'DM Mono', monospace;
-}
-
-.font-preview-impact {
-  font-family: Impact, sans-serif;
-}
-
-.font-preview-cursive {
-  font-family: cursive;
-}
-
-/* Action Buttons */
 .editor-actions {
   display: flex;
   gap: 8px;
@@ -1308,7 +1076,7 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   border: none;
   border-radius: 12px;
   padding: 14px;
-  color: #fff;
+  color: #fff !important;
   font-family: 'DM Sans', sans-serif;
   font-size: 15px;
   font-weight: 700;
@@ -1334,7 +1102,6 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* Toggle buttons for elements */
 .elements-toggle {
   display: flex;
   gap: 6px;
@@ -1346,27 +1113,23 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   border: 1.5px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   padding: 6px 12px;
-  color: #fff;
+  color: #fff !important;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 4px;
 }
 
 .element-toggle-btn.active {
   background: rgba(39, 196, 122, 0.3);
   border-color: var(--green);
-  color: var(--green);
+  color: var(--green) !important;
 }
 
 .element-toggle-btn:active {
   transform: scale(0.95);
 }
 
-/* Loading state */
 .editor-loading {
   position: absolute;
   inset: 0;
@@ -1393,59 +1156,330 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
+
+
+
+/* Visual click indicator for cycling */
+.draggable-element::after {
+  content: '🎨';
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.draggable-element:hover::after {
+  opacity: 0.4;
+}
+
+.draggable-element.selected::after {
+  opacity: 0.7;
+}
+
+/* Visibility toggle at top of canvas */
+.canvas-element-toggles {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  z-index: 10;
+}
+
+.canvas-toggle-btn {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 6px 12px;
+  color: #fff !important;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.canvas-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.canvas-toggle-btn.active {
+  background: rgba(74, 144, 217, 0.8);
+  border-color: var(--accent);
+}
+
+.canvas-toggle-btn .toggle-icon {
+  font-size: 12px;
+}
+
+/* Cycle indicator on element */
+.element-bg-indicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 10px;
+  opacity: 0.5;
+  pointer-events: none;
+  font-weight: 700;
+  background: rgba(0,0,0,0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+
+
+/* Photo positioning controls */
+.photo-controls {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  gap: 8px;
+  z-index: 20;
+  align-items: center;
+}
+
+.photo-controls.show {
+  display: flex;
+}
+
+.photo-control-btn {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  color: #fff !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-size: 20px;
+}
+
+.photo-control-btn:active {
+  transform: scale(0.9);
+}
+
+.photo-control-btn.zoom {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Camera button floating */
+.camera-btn-floating {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 15;
+}
+
+.camera-btn-floating:active {
+  transform: translateX(-50%) scale(0.9);
+}
+
+.camera-btn-floating svg {
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+}
+
+.camera-btn-floating.has-image {
+  background: rgba(74, 144, 217, 0.8);
+  border-color: var(--accent);
+}
+
+/* Make background image draggable */
+.share-canvas-bg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 0.3s;
+  cursor: move;
+  user-select: none;
+}
+
+.share-canvas-bg.dragging {
+  cursor: grabbing;
+}
+
+/* Transparent action buttons */
+.editor-action-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 14px;
+  color: #fff !important;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.editor-action-btn:active {
+  transform: scale(0.97);
+}
+
+.editor-action-btn.secondary {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.editor-action-btn.primary {
+  background: rgba(74, 144, 217, 0.8) !important;
+  border-color: var(--accent);
+}
+
+/* Remove old background section styling */
+.toolbar-section:has(.toolbar-label:contains("Achtergrond")) {
+  display: none !important;
+}
+
+/* Update toolbar styling */
+.share-editor-toolbar {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(30px);
+  padding: 12px 16px calc(12px + var(--safe-b));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 45vh;
+  overflow-y: auto;
+}
+
+/* More transparent toolbar buttons */
+.toolbar-btn {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  padding: 8px 14px;
+  color: #fff !important;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.toolbar-btn.active {
+  background: rgba(74, 144, 217, 0.7);
+  border-color: rgba(74, 144, 217, 0.9);
+}
+
+/* Canvas toggle buttons more transparent */
+.canvas-toggle-btn {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(15px);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 6px 12px;
+  color: #fff !important;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.canvas-toggle-btn.active {
+  background: rgba(74, 144, 217, 0.7);
+  border-color: rgba(74, 144, 217, 0.9);
+}
+
+/* Instructions more transparent */
+.canvas-instructions {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  padding: 8px;
+  border-radius: 8px;
+}
+
 </style>
 </head>
 <body>
 <div id="app">
 
-<!-- THEME MODAL -->
-<div class="theme-modal" id="theme-modal">
-  <div class="theme-panel">
-    <h3>Thema selecteren</h3>
-    <div class="theme-options">
-      <button class="theme-option" data-theme="auto" onclick="selectTheme('auto')">
-        <svg viewBox="0 0 24 24"><path d="M12 2a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm9-4a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zM6 13a1 1 0 1 1 0-2H5a1 1 0 1 1 0 2h1zm-.2-7.8a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0zm14.1 1.4a1 1 0 0 1-1.4 0l-.7-.7a1 1 0 0 1 1.4-1.4l.7.7a1 1 0 0 1 0 1.4zM12 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zm7.1-1.9a1 1 0 0 1 0 1.4l-.7.7a1 1 0 1 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0zM6.6 17.4a1 1 0 0 1-1.4 0l-.7-.7a1 1 0 0 1 1.4-1.4l.7.7a1 1 0 0 1 0 1.4z"/></svg>
-        <div class="theme-option-text">
-          <span class="theme-option-label">Automatisch</span>
-          <span class="theme-option-desc">Volgt systeeminstelling</span>
-        </div>
-      </button>
-      <button class="theme-option" data-theme="light" onclick="selectTheme('light')">
-        <svg viewBox="0 0 24 24"><path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-13a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1zm8 8a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zM6 12a1 1 0 1 1 0-2H5a1 1 0 1 1 0 2h1zm-.2-6.8a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0zm14.1 1.4a1 1 0 0 1-1.4 0l-.7-.7a1 1 0 0 1 1.4-1.4l.7.7a1 1 0 0 1 0 1.4zM12 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zm7.1-1.9a1 1 0 0 1 0 1.4l-.7.7a1 1 0 1 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0zM6.6 17.4a1 1 0 0 1-1.4 0l-.7-.7a1 1 0 0 1 1.4-1.4l.7.7a1 1 0 0 1 0 1.4z"/></svg>
-        <div class="theme-option-text">
-          <span class="theme-option-label">Licht</span>
-          <span class="theme-option-desc">Altijd lichte modus</span>
-        </div>
-      </button>
-      <button class="theme-option" data-theme="dark" onclick="selectTheme('dark')">
-        <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
-        <div class="theme-option-text">
-          <span class="theme-option-label">Donker</span>
-          <span class="theme-option-desc">Altijd donkere modus</span>
-        </div>
-      </button>
-    </div>
-    <button class="theme-close" onclick="closeThemeModal()">Sluiten</button>
-  </div>
-</div>
 
 <!-- SHARE EDITOR -->
 <div class="share-editor-overlay" id="share-editor">
   <div class="share-editor-container">
-    <!-- Top Bar -->
     <div class="share-editor-topbar">
       <button onclick="closeShareEditor()">Annuleren</button>
       <div class="share-editor-title">Story Editor</div>
-      <button onclick="saveShareImage()">Opslaan</button>
+      <button onclick="downloadShareImage()">Download</button>
     </div>
 
-    <!-- Canvas Area -->
     <div class="share-editor-canvas-area">
       <div class="share-canvas-container" id="share-canvas">
-        <!-- Background Image -->
+        <div class="canvas-element-toggles">
+          <button class="canvas-toggle-btn active" data-element="workout" onclick="toggleElementVisibility('workout')">
+            <span class="toggle-icon">💪</span> Workout
+          </button>
+          <button class="canvas-toggle-btn active" data-element="duration" onclick="toggleElementVisibility('duration')">
+            <span class="toggle-icon">⏱️</span> Duur
+          </button>
+          <button class="canvas-toggle-btn active" data-element="exercises" onclick="toggleElementVisibility('exercises')">
+            <span class="toggle-icon">🏋️</span> Oefeningen
+          </button>
+          <button class="canvas-toggle-btn active" data-element="pr" onclick="toggleElementVisibility('pr')">
+            <span class="toggle-icon">🔥</span> PR
+          </button>
+        </div>
+
         <img class="share-canvas-bg" id="share-bg-img" src="" alt="" style="display:none">
         
-        <!-- Draggable Stats Elements -->
         <div class="draggable-element" id="elem-workout" data-stat="workout" style="top: 60px; left: 20px;">
           <div class="element-content">
             <div class="element-label">Workout</div>
@@ -1486,27 +1520,40 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
           </div>
         </div>
 
-        <!-- Loading overlay -->
+        
+        <!-- Camera Button (Floating) -->
+        <button class="camera-btn-floating" id="camera-btn" onclick="openBgImagePicker()" title="Achtergrond foto">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 15.2c1.79 0 3.2-1.41 3.2-3.2s-1.41-3.2-3.2-3.2-3.2 1.41-3.2 3.2 1.41 3.2 3.2 3.2zm0-5.2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/>
+            <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm11 14c0 .55-.45 1-1 1H5c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h3.5l1.83-2h3.34l1.83 2H20c.55 0 1 .45 1 1v9z"/>
+          </svg>
+        </button>
+
+        <!-- Photo Position Controls -->
+        <div class="photo-controls" id="photo-controls">
+          <button class="photo-control-btn" onclick="movePhoto('left')" title="Links">←</button>
+          <button class="photo-control-btn" onclick="movePhoto('up')" title="Omhoog">↑</button>
+          <button class="photo-control-btn" onclick="movePhoto('down')" title="Omlaag">↓</button>
+          <button class="photo-control-btn" onclick="movePhoto('right')" title="Rechts">→</button>
+          <button class="photo-control-btn zoom" onclick="zoomPhoto('in')" title="Zoom in">+</button>
+          <button class="photo-control-btn zoom" onclick="zoomPhoto('out')" title="Zoom uit">−</button>
+          <button class="photo-control-btn" onclick="resetPhoto()" title="Reset" style="background:rgba(232,69,60,0.8)">↺</button>
+        </div>
+
+        <!-- Instructions -->
+        <div class="canvas-instructions" id="canvas-instructions">
+          KLIK OP ELEMENT OM ACHTERGROND TE WIJZIGEN • SLEEP OM TE VERPLAATSEN • DUBBELKLIK VOOR MEER OPTIES
+        </div>
+
         <div class="editor-loading" id="editor-loading">
           <div class="editor-spinner"></div>
         </div>
       </div>
     </div>
 
-    <!-- Toolbar -->
     <div class="share-editor-toolbar">
-      <!-- Element Visibility Toggles -->
-      <div class="toolbar-section">
-        <div class="toolbar-label">Elementen</div>
-        <div class="elements-toggle">
-          <button class="element-toggle-btn active" data-element="workout" onclick="toggleElement('workout')">Workout</button>
-          <button class="element-toggle-btn active" data-element="duration" onclick="toggleElement('duration')">Duur</button>
-          <button class="element-toggle-btn active" data-element="exercises" onclick="toggleElement('exercises')">Oefeningen</button>
-          <button class="element-toggle-btn active" data-element="pr" onclick="toggleElement('pr')">PR</button>
-        </div>
-      </div>
+      
 
-      <!-- Font Selection -->
       <div class="toolbar-section" id="font-section" style="display:none">
         <div class="toolbar-label">Lettertype</div>
         <div class="toolbar-options">
@@ -1518,19 +1565,8 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
         </div>
       </div>
 
-      <!-- Background Style -->
-      <div class="toolbar-section" id="bg-section" style="display:none">
-        <div class="toolbar-label">Achtergrond Element</div>
-        <div class="toolbar-options">
-          <button class="toolbar-btn active" onclick="setElementBg('solid')">Vol</button>
-          <button class="toolbar-btn" onclick="setElementBg('semi')">Semi</button>
-          <button class="toolbar-btn" onclick="setElementBg('none')">Geen</button>
-          <button class="toolbar-btn" onclick="setElementBg('dark')">Donker</button>
-          <button class="toolbar-btn" onclick="setElementBg('dark-semi')">Donker Semi</button>
-        </div>
-      </div>
+      
 
-      <!-- Emoji Toggle -->
       <div class="toolbar-section" id="emoji-section" style="display:none">
         <div class="toolbar-label">Emoji</div>
         <div class="toolbar-options">
@@ -1540,26 +1576,15 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
         </div>
       </div>
 
-      <!-- Background Image -->
-      <div class="toolbar-section">
-        <div class="toolbar-label">Achtergrond</div>
-        <div class="toolbar-options">
-          <button class="toolbar-btn active" onclick="setBgType('gradient')">Gradient</button>
-          <button class="toolbar-btn" onclick="openBgImagePicker()">
-            <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;margin-right:4px"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-            Afbeelding
-          </button>
-          <input type="file" id="bg-image-input" accept="image/*" style="display:none" onchange="handleBgImage(event)">
-        </div>
-      </div>
+      <!-- Hidden file input -->
+      <input type="file" id="bg-image-input" accept="image/*" style="display:none" onchange="handleBgImage(event)">
 
-      <!-- Action Buttons -->
       <div class="editor-actions">
         <button class="editor-action-btn secondary" onclick="resetLayout()">
           <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
           Reset
         </button>
-        <button class="editor-action-btn" onclick="downloadShareImage()">
+        <button class="editor-action-btn primary" onclick="downloadShareImage()">
           <svg viewBox="0 0 24 24"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z"/></svg>
           Download
         </button>
@@ -1639,12 +1664,7 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
       <h2>Basis Fit</h2>
     </div>
     <div class="tb-right">
-      <div class="topbar-right" id="home-greet"></div>      <button class="theme-toggle" onclick="openThemeModal()" aria-label="Thema wijzigen">
-        <svg viewBox="0 0 24 24" id="theme-icon">
-          <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
-        </svg>
-      </button>
-
+      <div class="topbar-right" id="home-greet"></div>
       <button class="tb-gear" onclick="openSettings()" title="Instellingen" aria-label="Instellingen">
         <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
       </button>
@@ -1674,7 +1694,7 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
 
 <!-- HISTORY -->
 <div id="scr-history" class="screen">
-  <div class="topbar"><div class="tb-left"><div class="tb-logo"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg></div><h2>Sessies</h2></div><div class="tb-right"><button class="theme-toggle" onclick="openThemeModal()" aria-label="Thema wijzigen"><svg viewBox="0 0 24 24" id="theme-icon"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg></button></div></div>
+  <div class="topbar"><div class="tb-left"><div class="tb-logo"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg></div><h2>Sessies</h2></div></div>
   <div class="scroll-body"><div class="pad" id="hist-body"></div></div>
   <div class="tabbar">
     <button class="tab" data-tab="home" onclick="goTab('home')"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</button>
@@ -1685,7 +1705,7 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
 
 <!-- EDITOR -->
 <div id="scr-editor" class="screen">
-  <div class="topbar"><div class="tb-left"><div class="tb-logo"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><h2>Schema's</h2></div><div class="tb-right"><button class="theme-toggle" onclick="openThemeModal()" aria-label="Thema wijzigen"><svg viewBox="0 0 24 24" id="theme-icon"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg></button></div></div>
+  <div class="topbar"><div class="tb-left"><div class="tb-logo"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><h2>Schema's</h2></div></div>
   <div class="scroll-body"><div class="pad" id="editor-body"></div></div>
   <div class="tabbar">
     <button class="tab" data-tab="home" onclick="goTab('home')"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</button>
@@ -4060,103 +4080,6 @@ window.setSyncState = (state) => {
   }
 };
 
-/* ══════════════════════════════════════════════════════════════════════════════
-   THEME MANAGEMENT
-══════════════════════════════════════════════════════════════════════════════ */
-
-// Initialize theme on page load
-function initTheme() {
-  const savedTheme = localStorage.getItem('bf_theme') || 'auto';
-  applyTheme(savedTheme);
-  updateThemeUI(savedTheme);
-}
-
-// Apply theme based on preference
-function applyTheme(preference) {
-  const root = document.documentElement;
-  const themeMeta = document.getElementById('theme-color-meta');
-  
-  if (preference === 'auto') {
-    // Use system preference
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    root.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    if (themeMeta) themeMeta.setAttribute('content', isDark ? '#0f1419' : '#1B2735');
-  } else {
-    root.setAttribute('data-theme', preference);
-    if (themeMeta) themeMeta.setAttribute('content', preference === 'dark' ? '#0f1419' : '#1B2735');
-  }
-  
-  updateThemeIcon();
-}
-
-// Update theme icon based on current theme
-function updateThemeIcon() {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const icons = document.querySelectorAll('#theme-icon');
-  
-  icons.forEach(icon => {
-    if (currentTheme === 'dark') {
-      // Moon icon for dark mode
-      icon.innerHTML = '<path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>';
-    } else {
-      // Sun icon for light mode
-      icon.innerHTML = '<path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-13a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1zm8 8a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zM6 12a1 1 0 1 1 0-2H5a1 1 0 1 1 0 2h1zm-.2-6.8a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0zm14.1 1.4a1 1 0 0 1-1.4 0l-.7-.7a1 1 0 0 1 1.4-1.4l.7.7a1 1 0 0 1 0 1.4zM12 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zm7.1-1.9a1 1 0 0 1 0 1.4l-.7.7a1 1 0 1 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0zM6.6 17.4a1 1 0 0 1-1.4 0l-.7-.7a1 1 0 0 1 1.4-1.4l.7.7a1 1 0 0 1 0 1.4z"/>';
-    }
-  });
-}
-
-// Update theme modal UI
-function updateThemeUI(preference) {
-  const options = document.querySelectorAll('.theme-option');
-  options.forEach(opt => {
-    if (opt.getAttribute('data-theme') === preference) {
-      opt.classList.add('active');
-    } else {
-      opt.classList.remove('active');
-    }
-  });
-}
-
-// Open theme modal
-window.openThemeModal = function() {
-  const modal = document.getElementById('theme-modal');
-  if (modal) modal.classList.add('show');
-};
-
-// Close theme modal
-window.closeThemeModal = function() {
-  const modal = document.getElementById('theme-modal');
-  if (modal) modal.classList.remove('show');
-};
-
-// Select theme
-window.selectTheme = function(theme) {
-  localStorage.setItem('bf_theme', theme);
-  applyTheme(theme);
-  updateThemeUI(theme);
-  closeThemeModal();
-  
-  // Sync to Firestore if logged in
-  if (window._fbUid) {
-    const settings = JSON.parse(localStorage.getItem('bf_settings') || '{}');
-    settings.theme = theme;
-    localStorage.setItem('bf_settings', JSON.stringify(settings));
-    saveAppData();
-  }
-};
-
-// Listen for system theme changes when in auto mode
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-  const savedTheme = localStorage.getItem('bf_theme') || 'auto';
-  if (savedTheme === 'auto') {
-    applyTheme('auto');
-  }
-});
-
-// Initialize theme immediately
-initTheme();
-
-
 /* ── onAuthStateChanged — central app entry point ── */
 onAuthStateChanged(fbAuth, async (user) => {
   if (user) {
@@ -4172,13 +4095,6 @@ onAuthStateChanged(fbAuth, async (user) => {
       if (remote.history)       { localStorage.setItem('bf_hist', JSON.stringify(remote.history)); }
       if (remote.programs)      { localStorage.setItem('bf_progs', JSON.stringify(remote.programs)); }
       if (remote.customMachines){ localStorage.setItem('bf_cm', JSON.stringify(remote.customMachines)); }
-      
-      // Load theme preference
-      if (remote.settings && remote.settings.theme) {
-        localStorage.setItem('bf_theme', remote.settings.theme);
-        applyTheme(remote.settings.theme);
-        updateThemeUI(remote.settings.theme);
-      }
     } else {
       // First login: push displayName from Google/registration
       const displayName = user.displayName;
@@ -4200,12 +4116,26 @@ onAuthStateChanged(fbAuth, async (user) => {
 });
 </script>
 
-<!-- HTML2Canvas Library for capturing the canvas -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- Test button for Share Editor (temporary) -->
+<button onclick="testShareEditor()" style="position:fixed;bottom:calc(var(--safe-b) + 90px);right:80px;z-index:500;background:var(--accent);color:#fff;border:none;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(74,144,217,.4);cursor:pointer;font-size:24px;">
+  🎨
+</button>
+
+<script>
+function testShareEditor() {
+  openShareEditor({
+    workout: 'Push Day',
+    duration: '52 min',
+    exercises: '8',
+    pr: '120kg'
+  });
+}
+</script>
+
 
 <script>
 // ══════════════════════════════════════════════════════════════════════════════
-// SHARE EDITOR - Instagram Style
+// SHARE EDITOR - Instagram Style (Native Canvas, No Dependencies)
 // ══════════════════════════════════════════════════════════════════════════════
 
 let shareEditorState = {
@@ -4222,53 +4152,100 @@ let shareEditorState = {
     exercises: { font: 'syne', bg: 'solid', emoji: false, visible: true },
     pr: { font: 'syne', bg: 'solid', emoji: false, visible: true }
   },
-  bgImage: null
+  bgImage: null,
+  dragInitialized: false
 };
 
-// Open Share Editor
 window.openShareEditor = function(workoutData) {
-  // Update workout data if provided
+  // Reset photo state
+  photoState = { x: 0, y: 0, scale: 1, isDragging: false };
+  
   if (workoutData) {
     shareEditorState.workoutData = { ...shareEditorState.workoutData, ...workoutData };
     
-    // Update element text
     if (workoutData.workout) document.querySelector('#elem-workout .element-text').textContent = workoutData.workout;
     if (workoutData.duration) document.querySelector('#elem-duration .element-text').textContent = workoutData.duration;
     if (workoutData.exercises) document.querySelector('#elem-exercises .element-text').textContent = workoutData.exercises;
     if (workoutData.pr) document.querySelector('#elem-pr .element-text').textContent = workoutData.pr;
   }
   
-  // Show editor
   const editor = document.getElementById('share-editor');
   editor.classList.add('open');
   
-  // Initialize drag for all elements
-  initializeDraggable();
+  if (!shareEditorState.dragInitialized) {
+    initializeDraggable();
+    shareEditorState.dragInitialized = true;
+  }
   
-  // Deselect all
   deselectAllElements();
 };
 
-// Close Share Editor
 window.closeShareEditor = function() {
-  const editor = document.getElementById('share-editor');
-  editor.classList.remove('open');
+  document.getElementById('share-editor').classList.remove('open');
   deselectAllElements();
 };
 
-// Initialize Draggable Elements
+
+// Cycle through backgrounds on click
+const bgCycleOrder = ['solid', 'semi', 'none', 'dark', 'dark-semi'];
+
+function cycleElementBackground(elem) {
+  const currentSettings = shareEditorState.elementSettings[elem.dataset.stat];
+  const currentBgIndex = bgCycleOrder.indexOf(currentSettings.bg);
+  const nextBgIndex = (currentBgIndex + 1) % bgCycleOrder.length;
+  const nextBg = bgCycleOrder[nextBgIndex];
+  
+  // Remove all bg classes
+  elem.classList.remove('bg-none', 'bg-semi', 'bg-dark', 'bg-dark-semi');
+  
+  // Add new bg class (solid is default, no class needed)
+  if (nextBg !== 'solid') {
+    elem.classList.add(`bg-${nextBg}`);
+  }
+  
+  // Update state
+  currentSettings.bg = nextBg;
+  
+  // Show quick toast
+  const bgNames = {
+    'solid': 'Vol',
+    'semi': 'Semi-transparant',
+    'none': 'Transparant',
+    'dark': 'Donker',
+    'dark-semi': 'Donker Semi'
+  };
+  
+  // Create temporary indicator
+  showBgIndicator(elem, bgNames[nextBg]);
+}
+
+function showBgIndicator(elem, text) {
+  const existing = elem.querySelector('.element-bg-indicator');
+  if (existing) existing.remove();
+  
+  const indicator = document.createElement('div');
+  indicator.className = 'element-bg-indicator';
+  indicator.textContent = text;
+  elem.appendChild(indicator);
+  
+  setTimeout(() => {
+    indicator.style.opacity = '0';
+    setTimeout(() => indicator.remove(), 300);
+  }, 1500);
+}
+
 function initializeDraggable() {
   const elements = document.querySelectorAll('.draggable-element');
   
   elements.forEach(elem => {
     let isDragging = false;
+    let hasMoved = false;
     let startX, startY, initialX, initialY;
+    let clickTimer = null;
     
     const onStart = (e) => {
-      // Select this element
-      selectElement(elem);
-      
       isDragging = true;
+      hasMoved = false;
       elem.classList.add('dragging');
       
       const touch = e.type.includes('touch') ? e.touches[0] : e;
@@ -4279,6 +4256,13 @@ function initializeDraggable() {
       const parent = elem.parentElement.getBoundingClientRect();
       initialX = rect.left - parent.left;
       initialY = rect.top - parent.top;
+      
+      // Set timer to detect if this is a click or drag
+      clickTimer = setTimeout(() => {
+        clickTimer = null;
+      }, 200);
+      
+      e.preventDefault();
     };
     
     const onMove = (e) => {
@@ -4289,105 +4273,130 @@ function initializeDraggable() {
       const deltaX = touch.clientX - startX;
       const deltaY = touch.clientY - startY;
       
-      const newX = initialX + deltaX;
-      const newY = initialY + deltaY;
+      // Check if moved more than 5px
+      if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+        hasMoved = true;
+        if (clickTimer) {
+          clearTimeout(clickTimer);
+          clickTimer = null;
+        }
+      }
       
-      // Constrain to canvas
-      const parent = elem.parentElement.getBoundingClientRect();
-      const elemRect = elem.getBoundingClientRect();
-      
-      const maxX = parent.width - elemRect.width;
-      const maxY = parent.height - elemRect.height;
-      
-      const clampedX = Math.max(0, Math.min(newX, maxX));
-      const clampedY = Math.max(0, Math.min(newY, maxY));
-      
-      elem.style.left = clampedX + 'px';
-      elem.style.top = clampedY + 'px';
+      if (hasMoved) {
+        const newX = initialX + deltaX;
+        const newY = initialY + deltaY;
+        
+        const parent = elem.parentElement.getBoundingClientRect();
+        const elemRect = elem.getBoundingClientRect();
+        
+        const maxX = parent.width - elemRect.width;
+        const maxY = parent.height - elemRect.height;
+        
+        const clampedX = Math.max(0, Math.min(newX, maxX));
+        const clampedY = Math.max(0, Math.min(newY, maxY));
+        
+        elem.style.left = clampedX + 'px';
+        elem.style.top = clampedY + 'px';
+      }
     };
     
     const onEnd = () => {
       isDragging = false;
       elem.classList.remove('dragging');
+      
+      // If didn't move and timer still active, it's a click!
+      if (!hasMoved && clickTimer) {
+        clearTimeout(clickTimer);
+        cycleElementBackground(elem);
+      }
+      
+      clickTimer = null;
     };
     
-    // Mouse events
     elem.addEventListener('mousedown', onStart);
     document.addEventListener('mousemove', onMove);
     document.addEventListener('mouseup', onEnd);
     
-    // Touch events
     elem.addEventListener('touchstart', onStart, { passive: false });
     document.addEventListener('touchmove', onMove, { passive: false });
     document.addEventListener('touchend', onEnd);
   });
 }
 
-// Select Element
+// New function for canvas visibility toggles
+window.toggleElementVisibility = function(elemName) {
+  const elem = document.getElementById(`elem-${elemName}`);
+  const btn = document.querySelector(`.canvas-toggle-btn[data-element="${elemName}"]`);
+  
+  shareEditorState.elementSettings[elemName].visible = !shareEditorState.elementSettings[elemName].visible;
+  
+  if (shareEditorState.elementSettings[elemName].visible) {
+    elem.style.display = 'block';
+    btn.classList.add('active');
+  } else {
+    elem.style.display = 'none';
+    btn.classList.remove('active');
+    if (shareEditorState.selectedElement === elemName) {
+      deselectAllElements();
+    }
+  }
+};
+
+// Update setElementBg to support the cycling
+window.setElementBg = function(bgType) {
+  if (!shareEditorState.selectedElement) return;
+  const elem = document.getElementById(`elem-${shareEditorState.selectedElement}`);
+  elem.classList.remove('bg-none', 'bg-semi', 'bg-dark', 'bg-dark-semi');
+  if (bgType !== 'solid') elem.classList.add(`bg-${bgType}`);
+  shareEditorState.elementSettings[shareEditorState.selectedElement].bg = bgType;
+  updateToolbarState();
+};
+
+
+
 function selectElement(elem) {
   deselectAllElements();
-  
   elem.classList.add('selected');
   shareEditorState.selectedElement = elem.dataset.stat;
   
-  // Show relevant toolbars
   document.getElementById('font-section').style.display = 'flex';
-  document.getElementById('bg-section').style.display = 'flex';
   document.getElementById('emoji-section').style.display = 'flex';
   
-  // Update toolbar to reflect current settings
   updateToolbarState();
 }
 
-// Deselect All Elements
+// Double click to select for font/emoji editing
+document.addEventListener('dblclick', (e) => {
+  const elem = e.target.closest('.draggable-element');
+  if (elem && document.getElementById('share-editor').classList.contains('open')) {
+    selectElement(elem);
+    e.preventDefault();
+  }
+});
+
+
 function deselectAllElements() {
-  document.querySelectorAll('.draggable-element').forEach(el => {
-    el.classList.remove('selected');
-  });
-  
+  document.querySelectorAll('.draggable-element').forEach(el => el.classList.remove('selected'));
   shareEditorState.selectedElement = null;
-  
-  // Hide element-specific toolbars
   document.getElementById('font-section').style.display = 'none';
   document.getElementById('bg-section').style.display = 'none';
   document.getElementById('emoji-section').style.display = 'none';
 }
 
-// Update Toolbar State
 function updateToolbarState() {
   if (!shareEditorState.selectedElement) return;
   
   const settings = shareEditorState.elementSettings[shareEditorState.selectedElement];
   
-  // Update font buttons
-  document.querySelectorAll('#font-section .toolbar-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  const fontBtns = {
-    'syne': 0, 'dm-sans': 1, 'dm-mono': 2, 'impact': 3, 'cursive': 4
-  };
-  const fontBtnIndex = fontBtns[settings.font];
-  if (fontBtnIndex !== undefined) {
-    document.querySelectorAll('#font-section .toolbar-btn')[fontBtnIndex]?.classList.add('active');
-  }
+  document.querySelectorAll('#font-section .toolbar-btn').forEach(btn => btn.classList.remove('active'));
+  const fonts = ['syne', 'dm-sans', 'dm-mono', 'impact', 'cursive'];
+  const fontIdx = fonts.indexOf(settings.font);
+  if (fontIdx !== -1) document.querySelectorAll('#font-section .toolbar-btn')[fontIdx]?.classList.add('active');
   
-  // Update bg buttons
-  document.querySelectorAll('#bg-section .toolbar-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  const bgBtns = {
-    'solid': 0, 'semi': 1, 'none': 2, 'dark': 3, 'dark-semi': 4
-  };
-  const bgBtnIndex = bgBtns[settings.bg];
-  if (bgBtnIndex !== undefined) {
-    document.querySelectorAll('#bg-section .toolbar-btn')[bgBtnIndex]?.classList.add('active');
-  }
-  
-  // Update emoji button text
+    // Background cycling is now done by clicking elements
   document.getElementById('emoji-btn-text').textContent = settings.emoji ? 'Emoji verbergen' : 'Emoji toevoegen';
 }
 
-// Toggle Element Visibility
 window.toggleElement = function(elemName) {
   const elem = document.getElementById(`elem-${elemName}`);
   const btn = document.querySelector(`.element-toggle-btn[data-element="${elemName}"]`);
@@ -4400,58 +4409,30 @@ window.toggleElement = function(elemName) {
   } else {
     elem.style.display = 'none';
     btn.classList.remove('active');
-    
-    // Deselect if this was selected
-    if (shareEditorState.selectedElement === elemName) {
-      deselectAllElements();
-    }
+    if (shareEditorState.selectedElement === elemName) deselectAllElements();
   }
 };
 
-// Set Font for Selected Element
 window.setElementFont = function(font) {
   if (!shareEditorState.selectedElement) return;
-  
   const elem = document.getElementById(`elem-${shareEditorState.selectedElement}`);
-  
-  // Remove all font classes
   elem.classList.remove('font-syne', 'font-dm-sans', 'font-dm-mono', 'font-impact', 'font-cursive');
-  
-  // Add new font class
   elem.classList.add(`font-${font}`);
-  
-  // Update state
   shareEditorState.elementSettings[shareEditorState.selectedElement].font = font;
-  
-  // Update toolbar
   updateToolbarState();
 };
 
-// Set Background for Selected Element
 window.setElementBg = function(bgType) {
   if (!shareEditorState.selectedElement) return;
-  
   const elem = document.getElementById(`elem-${shareEditorState.selectedElement}`);
-  
-  // Remove all bg classes
   elem.classList.remove('bg-none', 'bg-semi', 'bg-dark', 'bg-dark-semi');
-  
-  // Add new bg class (solid is default, no class needed)
-  if (bgType !== 'solid') {
-    elem.classList.add(`bg-${bgType}`);
-  }
-  
-  // Update state
+  if (bgType !== 'solid') elem.classList.add(`bg-${bgType}`);
   shareEditorState.elementSettings[shareEditorState.selectedElement].bg = bgType;
-  
-  // Update toolbar
   updateToolbarState();
 };
 
-// Toggle Emoji
 window.toggleEmoji = function() {
   if (!shareEditorState.selectedElement) return;
-  
   const elem = document.getElementById(`elem-${shareEditorState.selectedElement}`);
   const emojiSpan = elem.querySelector('.element-emoji');
   
@@ -4460,21 +4441,14 @@ window.toggleEmoji = function() {
   
   if (shareEditorState.elementSettings[shareEditorState.selectedElement].emoji) {
     emojiSpan.style.display = 'inline';
-    
-    // Set default emojis if not set
     const emojis = { workout: '💪', duration: '⏱️', exercises: '🏋️', pr: '🔥' };
-    if (!emojiSpan.textContent) {
-      emojiSpan.textContent = emojis[shareEditorState.selectedElement];
-    }
+    if (!emojiSpan.textContent) emojiSpan.textContent = emojis[shareEditorState.selectedElement];
   } else {
     emojiSpan.style.display = 'none';
   }
-  
-  // Update toolbar
   updateToolbarState();
 };
 
-// Background Image
 window.openBgImagePicker = function() {
   document.getElementById('bg-image-input').click();
 };
@@ -4490,14 +4464,11 @@ window.handleBgImage = function(e) {
     img.style.display = 'block';
     shareEditorState.bgImage = event.target.result;
     
-    // Update button state
     document.querySelectorAll('.toolbar-section').forEach(section => {
       if (section.querySelector('.toolbar-label')?.textContent === 'Achtergrond') {
         section.querySelectorAll('.toolbar-btn').forEach(btn => {
           btn.classList.remove('active');
-          if (btn.textContent.includes('Afbeelding')) {
-            btn.classList.add('active');
-          }
+          if (btn.textContent.includes('Afbeelding')) btn.classList.add('active');
         });
       }
     });
@@ -4507,13 +4478,11 @@ window.handleBgImage = function(e) {
 
 window.setBgType = function(type) {
   const img = document.getElementById('share-bg-img');
-  
   if (type === 'gradient') {
     img.style.display = 'none';
     shareEditorState.bgImage = null;
   }
   
-  // Update button states
   document.querySelectorAll('.toolbar-section').forEach(section => {
     if (section.querySelector('.toolbar-label')?.textContent === 'Achtergrond') {
       section.querySelectorAll('.toolbar-btn').forEach(btn => {
@@ -4527,61 +4496,298 @@ window.setBgType = function(type) {
   });
 };
 
-// Reset Layout
+
 window.resetLayout = function() {
-  // Reset positions
-  document.getElementById('elem-workout').style.top = '60px';
-  document.getElementById('elem-workout').style.left = '20px';
-  document.getElementById('elem-duration').style.top = '180px';
-  document.getElementById('elem-duration').style.left = '20px';
-  document.getElementById('elem-exercises').style.top = '300px';
-  document.getElementById('elem-exercises').style.left = '20px';
-  document.getElementById('elem-pr').style.top = '420px';
-  document.getElementById('elem-pr').style.left = '20px';
+  document.getElementById('elem-workout').style.cssText = 'top:60px;left:20px;display:block';
+  document.getElementById('elem-duration').style.cssText = 'top:180px;left:20px;display:block';
+  document.getElementById('elem-exercises').style.cssText = 'top:300px;left:20px;display:block';
+  document.getElementById('elem-pr').style.cssText = 'top:420px;left:20px;display:block';
   
-  // Reset all settings
   Object.keys(shareEditorState.elementSettings).forEach(key => {
     shareEditorState.elementSettings[key] = { font: 'syne', bg: 'solid', emoji: false, visible: true };
-    
     const elem = document.getElementById(`elem-${key}`);
     elem.classList.remove('font-dm-sans', 'font-dm-mono', 'font-impact', 'font-cursive', 
                            'bg-none', 'bg-semi', 'bg-dark', 'bg-dark-semi');
     elem.classList.add('font-syne');
-    elem.style.display = 'block';
     elem.querySelector('.element-emoji').style.display = 'none';
     
-    document.querySelector(`.element-toggle-btn[data-element="${key}"]`)?.classList.add('active');
+    // Reset canvas toggles
+    const canvasBtn = document.querySelector(`.canvas-toggle-btn[data-element="${key}"]`);
+    if (canvasBtn) canvasBtn.classList.add('active');
   });
   
   deselectAllElements();
   showToast('Layout gereset!');
 };
 
-// Download Share Image
+
+
+
+// Photo positioning state
+let photoState = {
+  x: 0,
+  y: 0,
+  scale: 1,
+  isDragging: false
+};
+
+window.openBgImagePicker = function() {
+  document.getElementById('bg-image-input').click();
+};
+
+window.handleBgImage = function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    const img = document.getElementById('share-bg-img');
+    img.src = event.target.result;
+    img.style.display = 'block';
+    shareEditorState.bgImage = event.target.result;
+    
+    // Reset photo state
+    photoState = { x: 0, y: 0, scale: 1, isDragging: false };
+    updatePhotoTransform();
+    
+    // Show camera button as active
+    document.getElementById('camera-btn').classList.add('has-image');
+    
+    // Show photo controls
+    document.getElementById('photo-controls').classList.add('show');
+    
+    // Hide instructions when photo is added
+    document.getElementById(\'canvas-instructions\').style.display = \'block\';
+    updateInstructions();
+    
+    // Initialize photo dragging
+    initializePhotoDrag();
+  };
+  reader.readAsDataURL(file);
+};
+
+function initializePhotoDrag() {
+  const img = document.getElementById('share-bg-img');
+  let startX, startY, initialX, initialY;
+  
+  const onStart = (e) => {
+    photoState.isDragging = true;
+    img.classList.add('dragging');
+    
+    const touch = e.type.includes('touch') ? e.touches[0] : e;
+    startX = touch.clientX;
+    startY = touch.clientY;
+    initialX = photoState.x;
+    initialY = photoState.y;
+    
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  
+  const onMove = (e) => {
+    if (!photoState.isDragging) return;
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const touch = e.type.includes('touch') ? e.touches[0] : e;
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+    
+    photoState.x = initialX + deltaX;
+    photoState.y = initialY + deltaY;
+    
+    updatePhotoTransform();
+  };
+  
+  const onEnd = () => {
+    photoState.isDragging = false;
+    img.classList.remove('dragging');
+  };
+  
+  img.addEventListener('mousedown', onStart);
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onEnd);
+  
+  img.addEventListener('touchstart', onStart, { passive: false });
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('touchend', onEnd);
+}
+
+function updatePhotoTransform() {
+  const img = document.getElementById('share-bg-img');
+  img.style.transform = `translate(${photoState.x}px, ${photoState.y}px) scale(${photoState.scale})`;
+}
+
+window.movePhoto = function(direction) {
+  const step = 20;
+  
+  switch(direction) {
+    case 'left':
+      photoState.x -= step;
+      break;
+    case 'right':
+      photoState.x += step;
+      break;
+    case 'up':
+      photoState.y -= step;
+      break;
+    case 'down':
+      photoState.y += step;
+      break;
+  }
+  
+  updatePhotoTransform();
+};
+
+window.zoomPhoto = function(direction) {
+  const step = 0.1;
+  
+  if (direction === 'in') {
+    photoState.scale = Math.min(photoState.scale + step, 3);
+  } else {
+    photoState.scale = Math.max(photoState.scale - step, 0.5);
+  }
+  
+  updatePhotoTransform();
+};
+
+window.resetPhoto = function() {
+  photoState = { x: 0, y: 0, scale: 1, isDragging: false };
+  updatePhotoTransform();
+};
+
+// Update setBgType to remove photo when gradient is selected
+window.setBgType = function(type) {
+  const img = document.getElementById('share-bg-img');
+  
+  if (type === 'gradient') {
+    img.style.display = 'none';
+    shareEditorState.bgImage = null;
+    
+    // Hide camera active state and photo controls
+    document.getElementById('camera-btn').classList.remove('has-image');
+    document.getElementById('photo-controls').classList.remove('show');
+    
+    // Show instructions again
+    document.getElementById('canvas-instructions').style.display = 'block';
+    updateInstructions();
+  }
+};
+
+
+// Update instructions based on state
+function updateInstructions() {
+  const instructions = document.getElementById('canvas-instructions');
+  const hasPhoto = shareEditorState.bgImage;
+  
+  if (hasPhoto) {
+    instructions.textContent = 'SLEEP ACHTERGROND OM TE VERPLAATSEN • GEBRUIK PIJLEN VOOR PRECISIE';
+  } else {
+    instructions.textContent = 'KLIK OP ELEMENT OM ACHTERGROND TE WIJZIGEN • SLEEP OM TE VERPLAATSEN • DUBBELKLIK VOOR MEER OPTIES';
+  }
+}
+
 window.downloadShareImage = async function() {
   const loading = document.getElementById('editor-loading');
   loading.classList.add('show');
   
   try {
-    const canvas = await html2canvas(document.getElementById('share-canvas'), {
-      backgroundColor: null,
-      scale: 2,
-      logging: false,
-      useCORS: true,
-      allowTaint: true
+    const container = document.getElementById('share-canvas');
+    const canvas = document.createElement('canvas');
+    const scale = 2;
+    
+    canvas.width = container.offsetWidth * scale;
+    canvas.height = container.offsetHeight * scale;
+    
+    const ctx = canvas.getContext('2d');
+    ctx.scale(scale, scale);
+    
+    // Draw background
+    if (shareEditorState.bgImage) {
+      const bgImg = document.getElementById('share-bg-img');
+      
+      ctx.save();
+      
+      // Apply transforms
+      const centerX = container.offsetWidth / 2;
+      const centerY = container.offsetHeight / 2;
+      
+      ctx.translate(centerX, centerY);
+      ctx.translate(photoState.x, photoState.y);
+      ctx.scale(photoState.scale, photoState.scale);
+      ctx.translate(-centerX, -centerY);
+      
+      ctx.drawImage(bgImg, 0, 0, container.offsetWidth, container.offsetHeight);
+      ctx.restore();
+    } else {
+      const gradient = ctx.createLinearGradient(0, 0, container.offsetWidth, container.offsetHeight);
+      gradient.addColorStop(0, '#1B2735');
+      gradient.addColorStop(1, '#23395B');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, container.offsetWidth, container.offsetHeight);
+    }
+    
+    // Draw elements
+    const elements = container.querySelectorAll('.draggable-element');
+    elements.forEach(elem => {
+      if (elem.style.display === 'none') return;
+      
+      const rect = elem.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      const x = rect.left - containerRect.left;
+      const y = rect.top - containerRect.top;
+      
+      const bg = elem.classList.contains('bg-dark') || elem.classList.contains('bg-dark-semi');
+      
+      // Draw background
+      ctx.save();
+      if (!elem.classList.contains('bg-none')) {
+        if (elem.classList.contains('bg-semi')) {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        } else if (elem.classList.contains('bg-dark')) {
+          ctx.fillStyle = 'rgba(27, 39, 53, 0.9)';
+        } else if (elem.classList.contains('bg-dark-semi')) {
+          ctx.fillStyle = 'rgba(27, 39, 53, 0.6)';
+        } else {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        }
+        ctx.beginPath();
+        ctx.roundRect(x, y, elem.offsetWidth, elem.offsetHeight, 12);
+        ctx.fill();
+      }
+      
+      // Draw text
+      const label = elem.querySelector('.element-label');
+      const value = elem.querySelector('.element-text');
+      const emoji = elem.querySelector('.element-emoji');
+      
+      ctx.fillStyle = bg ? 'rgba(255,255,255,0.7)' : 'rgba(27,39,53,0.6)';
+      ctx.font = '700 11px DM Sans';
+      ctx.fillText(label.textContent, x + 16, y + 24);
+      
+      ctx.fillStyle = bg ? '#fff' : '#1B2735';
+      ctx.font = '800 24px Syne';
+      let textX = x + 16;
+      
+      if (emoji.style.display !== 'none') {
+        ctx.fillText(emoji.textContent, textX, y + 50);
+        textX += 28;
+      }
+      
+      ctx.fillText(value.textContent, textX, y + 50);
+      ctx.restore();
     });
     
-    // Convert to blob and download
     canvas.toBlob(blob => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `basis-fit-workout-${Date.now()}.png`;
+      a.download = `basis-fit-story-${Date.now()}.png`;
       a.click();
       URL.revokeObjectURL(url);
       
       loading.classList.remove('show');
-      showToast('✓ Afbeelding gedownload!');
+      showToast('✓ Story gedownload!');
     }, 'image/png');
   } catch(err) {
     console.error('Download error:', err);
@@ -4590,37 +4796,6 @@ window.downloadShareImage = async function() {
   }
 };
 
-// Save and return to share sheet
-window.saveShareImage = async function() {
-  const loading = document.getElementById('editor-loading');
-  loading.classList.add('show');
-  
-  try {
-    const canvas = await html2canvas(document.getElementById('share-canvas'), {
-      backgroundColor: null,
-      scale: 2,
-      logging: false,
-      useCORS: true,
-      allowTaint: true
-    });
-    
-    // Store in state for sharing
-    window.shareImageData = canvas.toDataURL('image/png');
-    
-    loading.classList.remove('show');
-    closeShareEditor();
-    
-    // Open regular share sheet with the created image
-    showToast('✓ Story opgeslagen!');
-    
-  } catch(err) {
-    console.error('Save error:', err);
-    loading.classList.remove('show');
-    showToast('Opslaan mislukt');
-  }
-};
-
-// Click canvas area to deselect
 document.addEventListener('click', (e) => {
   if (e.target.closest('.share-canvas-container') && 
       !e.target.closest('.draggable-element') &&
@@ -4629,5 +4804,6 @@ document.addEventListener('click', (e) => {
   }
 });
 </script>
+
 </body>
 </html>
