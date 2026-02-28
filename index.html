@@ -56,9 +56,6 @@
 }
 
 /* Global dark mode text fixes */
-[data-theme="dark"] {
-  /* Ensure all main text elements are readable */
-}
 [data-theme="dark"] input::placeholder {
   color:rgba(255,255,255,0.3);
 }
@@ -139,13 +136,9 @@ html,body{height:100%;background:var(--off);color:var(--navy);font-family:'DM Sa
 .theme-panel{background:var(--w);border-radius:16px;padding:20px;
   width:calc(100% - 40px);max-width:320px;box-shadow:0 8px 32px rgba(0,0,0,0.2);
   animation:slideUp 0.3s ease;transition:background 0.3s}
-.theme-panel h3{transition:color 0.3s}
-[data-theme="dark"] h3{color:#e8ecf2}
 h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;
   margin-bottom:16px;color:var(--navy);transition:color 0.3s}
-[data-theme="dark"] .theme-panel h3{transition:color 0.3s}
 [data-theme="dark"] h3{color:#e8ecf2}
-h3{color:#e8ecf2}
 .theme-options{display:flex;flex-direction:column;gap:8px}
 .theme-option{background:transparent;border:2px solid var(--g100);
   border-radius:12px;padding:14px 16px;cursor:pointer;
@@ -182,13 +175,9 @@ h3{color:#e8ecf2}
 .tb-right{display:flex;align-items:center;gap:4px;flex-shrink:0}
 .tb-logo{width:32px;height:32px;background:var(--navy);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .tb-logo svg{width:17px;height:17px;fill:#fff}
-.topbar h2{transition:color 0.3s}
-[data-theme="dark"] h2{color:#e8ecf2}
 h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.2px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color 0.3s}
-[data-theme="dark"] .topbar h2{transition:color 0.3s}
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--navy);transition:color 0.3s}
 [data-theme="dark"] h2{color:#e8ecf2}
-h2{color:#e8ecf2}
 .topbar-right{font-size:13px;color:var(--g400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;transition:color 0.3s}
 
 /* ── TAB BAR ── */
@@ -269,7 +258,7 @@ h2{color:#e8ecf2}
 [data-theme="dark"] .slbl{color:var(--g400)}
 
 /* ── GREETING CARD ── */
-.greet-card{background:var(--navy);border-radius:var(--r);padding:18px 20px;margin-bottom:16px;
+.greet-card{border-radius:var(--r);padding:18px 20px;margin-bottom:16px;
   background:linear-gradient(135deg,var(--navy) 60%,var(--navy2))}
 .greet-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:-.3px}
 .greet-sub-old{display:none}
@@ -279,7 +268,7 @@ h2{color:#e8ecf2}
 .prog-card{background:var(--w);border-radius:var(--rcard);padding:15px 16px;
   display:flex;align-items:center;gap:12px;
   border:2px solid transparent;box-shadow:var(--sh);
-  cursor:pointer;transition:all 0.3s;transition:border-color .15s,box-shadow .15s,transform .1s;user-select:none}
+  cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .1s;user-select:none}
 .prog-card:active{transform:scale(.98)}
 .prog-card.sel{border-color:var(--accent);box-shadow:0 0 0 4px var(--ag),var(--sh)}
 .prog-card.custom-prog{border-color:var(--g200);border-style:dashed}
@@ -315,7 +304,7 @@ h2{color:#e8ecf2}
 .btn-start svg{width:20px;height:20px;fill:#fff}
 
 /* ── WORKOUT HEADER ── */
-.wk-hd{background:var(--navy);border-radius:var(--r);padding:16px 18px;
+.wk-hd{border-radius:var(--r);padding:16px 18px;
   display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;
   background:linear-gradient(135deg,var(--navy) 60%,var(--navy2))}
 .wk-left{flex:1;min-width:0}
@@ -331,7 +320,7 @@ h2{color:#e8ecf2}
 
 /* ── EXERCISE CARD ── */
 .ex-card{background:var(--w);border-radius:var(--rcard);overflow:hidden;
-  box-shadow:var(--sh);transition:background 0.3s, box-shadow 0.3s;margin-bottom:10px;transition:opacity .3s}
+  box-shadow:var(--sh);margin-bottom:10px;transition:background 0.3s,box-shadow 0.3s,opacity .3s}
 .ex-card.all-done{opacity:.5}
 .ex-head{padding:13px 14px 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .ex-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;line-height:1.2}
@@ -443,9 +432,7 @@ h2{color:#e8ecf2}
 
 /* ── EDITOR ── */
 .editor-block{background:var(--w);border-radius:var(--rcard);padding:16px;box-shadow:var(--sh);margin-bottom:12px}
-.editor-block h3{transition:color 0.3s}
-[data-theme="dark"] h3{color:#e8ecf2}
-h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px}
+.editor-block h3{font-size:14px;margin-bottom:12px}
 .inp-light{width:100%;background:var(--g100);border:1.5px solid transparent;border-radius:9px;
   padding:12px 14px;color:var(--navy);font-family:'DM Sans',sans-serif;
   font-size:15px;font-weight:500;outline:none;transition:border-color .15s,background .15s}
@@ -557,8 +544,6 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
 .screen-in{animation:screenSlideIn .28s cubic-bezier(.34,1.2,.64,1) forwards}
 .stat-pop{animation:statPop .3s cubic-bezier(.34,1.5,.64,1)}
 
-/* ── HOLD-TO-CHANGE indicator ── */
-.step-btn.holding{background:rgba(74,144,217,.15)}
 
 /* ── QUOTE TRANSITIONS ── */
 .greet-sub{font-size:13px;color:rgba(255,255,255,.5);margin-top:6px;min-height:20px;transition:opacity .3s}
@@ -700,109 +685,10 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
 [data-theme="dark"] [style*="color:var(--navy)"] {
   color: #e8ecf2 !important;
 }
-
-/* Tab bar active state in dark mode */
-[data-theme="dark"] .tab.active {
-  color: #e8ecf2 !important;
-}
-
-/* All buttons with navy text */
-[data-theme="dark"] button {
-  color: inherit;
-}
-
-[data-theme="dark"] .btn-modal-sec {
-  color: #e8ecf2 !important;
-}
-
-/* Settings and legal text */
-[data-theme="dark"] .settings-title,
-[data-theme="dark"] .sett-row-label,
-[data-theme="dark"] .info-title,
-[data-theme="dark"] .legal-link,
-[data-theme="dark"] .share-sheet-title {
-  color: #e8ecf2 !important;
-}
-
-
-/* Additional readability improvements for dark mode */
-
-/* Ensure all input placeholders are visible */
-[data-theme="dark"] input::placeholder,
-[data-theme="dark"] textarea::placeholder {
-  color: rgba(255, 255, 255, 0.4) !important;
-}
-
-/* Ensure all labels are visible */
-[data-theme="dark"] label,
-[data-theme="dark"] .label {
-  color: #b4b9c8 !important;
-}
-
-/* Meta text should be lighter but still readable */
-[data-theme="dark"] .prog-meta,
-[data-theme="dark"] .ex-det,
-[data-theme="dark"] .ex-sub,
-[data-theme="dark"] .hist-date,
-[data-theme="dark"] .hist-ex,
-[data-theme="dark"] .pr-val,
-[data-theme="dark"] .pr-date,
-[data-theme="dark"] .set-desc,
-[data-theme="dark"] .aw-ex-det,
-[data-theme="dark"] .aw-set-lbl,
-[data-theme="dark"] .wk-stat-lbl,
-[data-theme="dark"] .set-dd-unit,
-[data-theme="dark"] .set-num,
-[data-theme="dark"] .topbar-right,
-[data-theme="dark"] .sett-row-desc,
-[data-theme="dark"] .ob-sub {
-  color: #8b92a8 !important;
-}
-
-/* Empty state text */
-[data-theme="dark"] .empty-txt,
-[data-theme="dark"] .empty-hint {
-  color: #8b92a8 !important;
-}
-
-/* Section labels */
-[data-theme="dark"] .slbl {
-  color: #8b92a8 !important;
-}
-
-/* Modal input labels */
-[data-theme="dark"] .minp-lbl {
-  color: #b4b9c8 !important;
-}
-
-/* Ensure chevrons are visible */
-[data-theme="dark"] .prog-chevron,
-[data-theme="dark"] .set-chevron {
-  fill: #8b92a8 !important;
-}
-/* Exercise builder elements */
-[data-theme="dark"] .add-ex-title,
-[data-theme="dark"] .add-ex-btn,
-[data-theme="dark"] .ex-build-num,
-[data-theme="dark"] .ex-build-name {
-  color: #e8ecf2 !important;
-}
-
-/* Previous record text */
-[data-theme="dark"] .prev-rec b {
-  color: #e8ecf2 !important;
-}
-
-/* Timer elements */
-[data-theme="dark"] .timer-val {
-  color: #e8ecf2 !important;
-}
-
-/* Make sure selected timer pills keep their styling */
-[data-theme="dark"] .timer-pill.sel {
-  background: var(--navy);
-  color: #fff !important;
-}
+/* Buttons erven de body-kleur in dark mode */
+[data-theme="dark"] button { color: inherit; }
+/* Timer pill selected */
+[data-theme="dark"] .timer-pill.sel { background:var(--navy); color:#fff !important; }
 .modal-close{background:var(--g100);border:none;width:32px;height:32px;border-radius:50%;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
   color:var(--g600);font-size:16px;transition:background .15s}
@@ -2073,7 +1959,7 @@ h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12
 
     <!-- Canvas preview -->
     <div class="share-canvas-wrap" id="share-canvas-wrap">
-      <canvas id="share-canvas" width="1080" height="1920"></canvas>
+      <canvas id="share-canvas-cv" width="1080" height="1920"></canvas>
       <div class="canvas-loading" id="canvas-loading"><div class="canvas-spinner"></div></div>
     </div>
 
@@ -2312,7 +2198,7 @@ function handleBgFile(input) {
 // ── Instagram sharing ──
 async function shareToInstagram() {
   showCanvasLoading(true);
-  const cv = document.getElementById('share-canvas');
+  const cv = document.getElementById('share-canvas-cv');
   cv.toBlob(async (blob) => {
     showCanvasLoading(false);
     const file = new File([blob], 'basis-fit-workout.png', { type: 'image/png' });
@@ -2354,7 +2240,7 @@ function showCanvasLoading(on) {
 }
 
 function generateShareCard(session) {
-  const cv = document.getElementById('share-canvas');
+  const cv = document.getElementById('share-canvas-cv');
   const cx = cv.getContext('2d');
   const W = 1080, H = 1920;
   cx.clearRect(0, 0, W, H);
@@ -2400,7 +2286,6 @@ function generateShareCard(session) {
     cx.restore();
   }
 
-  const SCALE = 2; // Canvas is 2× for high DPI but we draw at 540×960 scale
 
   // ── BRANDING HEADER ──
   const hdrY = 88;
@@ -2565,7 +2450,7 @@ function drawDumbbell(cx, x, y, size, color) {
 
 function downloadShare() {
   showCanvasLoading(true);
-  const cv = document.getElementById('share-canvas');
+  const cv = document.getElementById('share-canvas-cv');
   cv.toBlob((blob) => {
     showCanvasLoading(false);
     const link = document.createElement('a');
@@ -2578,7 +2463,7 @@ function downloadShare() {
 
 async function nativeShare() {
   showCanvasLoading(true);
-  const cv = document.getElementById('share-canvas');
+  const cv = document.getElementById('share-canvas-cv');
   cv.toBlob(async (blob) => {
     showCanvasLoading(false);
     const file = new File([blob], 'basis-fit-workout.png', { type: 'image/png' });
