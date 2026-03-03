@@ -4471,12 +4471,10 @@ try { getAnalytics(fbApp); } catch(_) {}
 
 /* ── Verwerk redirect-resultaat (na Google login via redirect) ── */
 getRedirectResult(fbAuth).then(result => {
-  if (result?.user) {
-    // onAuthStateChanged handelt de rest af
-  }
+  console.log('[Auth] Redirect result:', result ? 'user found' : 'no pending redirect');
 }).catch(e => {
+  console.warn('[Auth] Redirect error:', e.code, e.message);
   if (e.code && e.code !== 'auth/no-auth-event') {
-    console.warn('Redirect result error:', e.code);
     showAuthErr('login', authErrMsg(e.code));
   }
   const btn = document.querySelector('.btn-google');
@@ -4743,46 +4741,52 @@ initTheme();
 
 
 /* ── onAuthStateChanged — central app entry point ── */
+let _authResolved = false;
 onAuthStateChanged(fbAuth, async (user) => {
+  _authResolved = true;
+  console.log('[Auth] State changed:', user ? user.email || user.uid : 'null');
   if (user) {
     // Show loading while we fetch Firestore data
     showScr('loading');
-    // Load remote data and merge with localStorage cache
-    const remote = await window._fbLoadUserData(user.uid);
-    if (remote) {
-      // Merge remote into localStorage (remote wins)
-      if (remote.name)          { localStorage.setItem('bf_user', remote.name); }
-      if (remote.settings)      { localStorage.setItem('bf_settings', JSON.stringify(remote.settings)); }
-      if (remote.prs)           { localStorage.setItem('bf_prs', JSON.stringify(remote.prs)); }
-      if (remote.history)       { localStorage.setItem('bf_hist', JSON.stringify(remote.history)); }
-      if (remote.programs)      { localStorage.setItem('bf_progs', JSON.stringify(remote.programs)); }
-      if (remote.customMachines){ localStorage.setItem('bf_cm', JSON.stringify(remote.customMachines)); }
-      
-      // Load theme preference
-      if (remote.settings && remote.settings.theme) {
-        localStorage.setItem('bf_theme', remote.settings.theme);
-        applyTheme(remote.settings.theme);
-        updateThemeUI(remote.settings.theme);
+    try {
+      const remote = await window._fbLoadUserData(user.uid);
+      if (remote) {
+        if (remote.name)          { localStorage.setItem('bf_user', remote.name); }
+        if (remote.settings)      { localStorage.setItem('bf_settings', JSON.stringify(remote.settings)); }
+        if (remote.prs)           { localStorage.setItem('bf_prs', JSON.stringify(remote.prs)); }
+        if (remote.history)       { localStorage.setItem('bf_hist', JSON.stringify(remote.history)); }
+        if (remote.programs)      { localStorage.setItem('bf_progs', JSON.stringify(remote.programs)); }
+        if (remote.customMachines){ localStorage.setItem('bf_cm', JSON.stringify(remote.customMachines)); }
+        if (remote.settings && remote.settings.theme) {
+          localStorage.setItem('bf_theme', remote.settings.theme);
+          applyTheme(remote.settings.theme);
+          updateThemeUI(remote.settings.theme);
+        }
+      } else {
+        const displayName = user.displayName;
+        if (displayName && !localStorage.getItem('bf_user')) {
+          localStorage.setItem('bf_user', displayName);
+        }
       }
-    } else {
-      // First login: push displayName from Google/registration
-      const displayName = user.displayName;
-      if (displayName && !localStorage.getItem('bf_user')) {
-        localStorage.setItem('bf_user', displayName);
-      }
+    } catch(e) {
+      console.warn('[Auth] Firestore load failed, continuing:', e);
     }
-    // Store UID for sync
     window._fbUid = user.uid;
-    // Boot the app
     appInit();
   } else {
-    // Logged out
     window._fbUid = null;
-    // Clear cached data
     ['bf_user','bf_prs','bf_hist','bf_progs','bf_cm','bf_settings'].forEach(k => localStorage.removeItem(k));
     showScr('onboard');
   }
 });
+
+// Safety: if auth hasn't resolved in 10s, show login screen
+setTimeout(() => {
+  if (!_authResolved) {
+    console.warn('[Auth] Timeout — no auth state after 10s, showing login');
+    showScr('onboard');
+  }
+}, 10000);
 </script>
 
 <!-- HTML2Canvas Library for capturing the canvas -->
