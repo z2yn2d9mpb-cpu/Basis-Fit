@@ -4444,7 +4444,7 @@ import { initializeApp }             from 'https://www.gstatic.com/firebasejs/10
 import { getAnalytics }              from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js';
 import {
   getAuth, onAuthStateChanged,
-  GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult,
+  GoogleAuthProvider, signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile, signOut
@@ -4456,7 +4456,7 @@ import {
 /* ── Config ── */
 const firebaseConfig = {
   apiKey:            'AIzaSyBp5hSusZ4LMPnMYkyTntmoJEJbwrBBrmo',
-  authDomain:        'basis-fit.vercel.app',
+  authDomain:        'basis-fit.firebaseapp.com',
   projectId:         'basis-fit',
   storageBucket:     'basis-fit.firebasestorage.app',
   messagingSenderId: '480699904434',
@@ -4469,17 +4469,7 @@ const fbAuth = getAuth(fbApp);
 const fbDb   = getFirestore(fbApp);
 try { getAnalytics(fbApp); } catch(_) {}
 
-/* ── Verwerk redirect-resultaat (na Google login via redirect) ── */
-getRedirectResult(fbAuth).then(result => {
-  console.log('[Auth] Redirect result:', result ? 'user found' : 'no pending redirect');
-}).catch(e => {
-  console.warn('[Auth] Redirect error:', e.code, e.message);
-  if (e.code && e.code !== 'auth/no-auth-event') {
-    showAuthErr('login', authErrMsg(e.code));
-  }
-  const btn = document.querySelector('.btn-google');
-  if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
-});
+/* ── Redirect niet meer nodig (popup-only) ──  */
 
 /* ── Expose to global scope (app uses these) ── */
 window._fbAuth = fbAuth;
@@ -4514,26 +4504,14 @@ window.signInGoogle = async () => {
   try {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
-    // PWA/Safari blokkeert popups — gebruik redirect als fallback
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-      || window.navigator.standalone === true;
-    if (isStandalone) {
-      await signInWithRedirect(fbAuth, provider);
-    } else {
-      await signInWithPopup(fbAuth, provider);
-    }
+    await signInWithPopup(fbAuth, provider);
+    // onAuthStateChanged handelt de rest af
   } catch(e) {
     if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
-    if (e.code === 'auth/popup-blocked' || e.code === 'auth/popup-closed-by-user') {
-      try {
-        const provider = new GoogleAuthProvider();
-        provider.setCustomParameters({ prompt: 'select_account' });
-        await signInWithRedirect(fbAuth, provider);
-      } catch(e2) {
-        showAuthErr('login', authErrMsg(e2.code));
-      }
-    } else if (e.code === 'auth/cancelled-popup-request') {
-      // Ignore — user triggered multiple popups
+    if (e.code === 'auth/cancelled-popup-request' || e.code === 'auth/popup-closed-by-user') {
+      // User sloot popup of triggerde meerdere
+    } else if (e.code === 'auth/popup-blocked') {
+      showAuthErr('login', 'Pop-up geblokkeerd door je browser. Sta pop-ups toe voor deze site en probeer opnieuw.');
     } else {
       showAuthErr('login', authErrMsg(e.code));
     }
